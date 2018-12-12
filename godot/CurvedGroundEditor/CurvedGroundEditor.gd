@@ -4,7 +4,7 @@ extends Path
 
 export (bool) onready var showDebugRays  = false setget toggleVisibleDebugRays
 export (bool) onready var enableUpVector = true setget toggleUpVector
-export (Mesh) onready var mainMesh = PlaneMesh.new() setget updateMesh
+export (Mesh) var mainMesh = PlaneMesh.new() setget updateMesh
 export (int) var meshRepetitonsNumber = 1 setget updateRepetitonsNumber
 export (float) var curvedMeshStartingOffset = 0.0 setget changeStartingOffset
 export (bool) var createTrimeshStaticBody = false setget generateCollision
@@ -216,6 +216,9 @@ func curveMainMesh(guidingCurve : Curve3D, startingOffset : float = 0.0, updateF
 		var test = ArrayMesh.new()
 		curvedMeshMdt.commit_to_surface(test)
 		$CurvedMesh.set_mesh(test)
+		for i in $CurvedMesh.get_children():
+			if i is StaticBody:
+				i.queue_free()
 		
 func curvePointIdToOffset(idx : int, targetCurve : Curve3D):
 	if idx == INF:
@@ -287,38 +290,8 @@ func getUpFromOffset(offset):
 func getNormalFromOffset(offset):
 	return getNormalFromUpAndTangent(getUpFromOffset(offset), getTangentFromOffset(offset))
 	
-func getNormalFromUpAndTangent(up, tangent):
-
-	var x = up.x
-	var y = up.y
-	var z = up.z
-	var t = tangent.x
-	var u = tangent.y
-	var v = tangent.z
-
-	var ret = Vector3()
-
-	if (y*t-u*up.x != 0):
-		var c = sign(y*t-u*up.x)
-		var b = c*(v*x-z*t)/(y*t-u*up.x)
-		var a = c*(z*u-y*v)/(y*t-u*up.x)
-		ret = Vector3(a,b,c).normalized()
-	else:
-		if (t != 0):
-			var b = t
-			var a = -b * u / t
-
-			ret = Vector3(a,b,0.0).normalized()
-		else:
-			if (x != 0):
-				var b = x
-				var a = -b * y / x
-
-				ret = Vector3(a,b,0.0).normalized()
-			else:
-				ret = Vector3(1.0,0.0,0.0)
-
-	return ret
+func getNormalFromUpAndTangent(up, tang):
+	return Vector3(up.y*tang.x-tang.y*up.x,tang.z*up.x-up.z*tang.x,tang.y*up.z-tang.z*up.y).normalized()
 	
 #We recalculate the RayCasts. They are only used for visual debug and have no other purpose !
 func recalculateDebugRayCasts():
