@@ -13,17 +13,40 @@
 #include <gen/ArrayMesh.hpp>
 #include <gen/MeshDataTool.hpp>
 #include <gen/MeshInstance.hpp>
+#include <gen/Node.hpp>
 
 namespace godot{
 
-class MeshCurver : public godot::Node {
-	GODOT_CLASS(MeshCurver, Node);
+class MeshCurver : public godot::Path {
+	GODOT_CLASS(MeshCurver, Path);
 
 	private:
-		float epsilon;
-		godot::Ref<godot::MeshDataTool> mainMdt;
-		godot::Ref<godot::MeshDataTool> meshInstanceMdt;
-		float minDist, maxDist;
+
+		bool showDebugRays = false;
+		bool enableUpVector = true;
+		godot::Ref<godot::ArrayMesh> mainMesh;
+		int meshRepetitonsNumber = 1;
+		float curvedMeshStartingOffset = 0.0f;
+		bool createTrimeshStaticBody = false;
+		godot::Vector3 xyzScale = Vector3(1,1,1);
+
+		float epsilon = 0.2f;
+		float debugRaysInterval = 2.0f;
+		float minDist = 0.0f;
+		float maxDist = 0.0f;
+		float mainMeshDist = 0.0f;
+
+		godot::Vector3 guidingVectorOrigin = Vector3(0,0,0);
+		godot::Vector3 guidingVector = Vector3(1,0,0);
+
+		godot::Ref<godot::MeshDataTool> mainMeshMdt;
+		godot::Ref<godot::MeshDataTool> beforeCurveMdt;
+		godot::Ref<godot::MeshDataTool> curvedMeshMdt;
+
+		godot::Ref<godot::Curve3D> prevCurve;
+		int updateLowerBound = -1;
+		float updateFrequency = 0.5f;
+		float deltaSum = 0.0f;
 
 	public:
 		static void _register_methods();
@@ -31,19 +54,36 @@ class MeshCurver : public godot::Node {
 		void _init();
 		void _process(float delta);
 
-		//Those functions are mainly used for calculations and operations on vectors along the curve
-		float pointDist(godot::Vector3 planeNormal, godot::Vector3 normalOrigin, godot::Vector3 point) const;
-		godot::Vector3 getTangentFromOffset(godot::Ref<Curve3D> curve, float offset, bool cubic = false) const;
-		godot::Vector3 getUpFromOffset(godot::Ref<Curve3D> curve, float offset) const;
-		godot::Vector3 getNormalFromOffset(godot::Ref<Curve3D> curve, float offset) const;
-		godot::Vector3 getNormalFromUpAndTangent(godot::Vector3 up, godot::Vector3 tangent) const;
+		//Setters and getters
+		void setDebugRaysVisibility(bool newValue) {showDebugRays = newValue;};
+		bool getDebugRaysVisibility() const {return showDebugRays;};
+		void setEnableUpVector(bool newValue) {enableUpVector = newValue;};
+		bool getEnableUpVector() const {return enableUpVector;};
 
-		void updateMainMesh(godot::Ref<godot::ArrayMesh> mainMesh);
-		void curverFromMesh(godot::Ref<godot::Curve3D> targetCurve, godot::Ref<godot::ArrayMesh> meshToPlace, float startingOffset);
-		void meshInstanceCurver(godot::Ref<godot::Curve3D> targetCurve, godot::Ref<godot::ArrayMesh> meshToPlace, int repetitionsNumber, float startingOffset);
+		void updateMesh(godot::Ref<godot::ArrayMesh> newMesh);
+		godot::Ref<godot::ArrayMesh> getMainMesh() const {return mainMesh;};
 
-		float currentMeshLength() const;
-};
+		void setMeshRepetitions(int newValue) {meshRepetitonsNumber = newValue;};
+		int getMeshRepetitions() const {return meshRepetitonsNumber;};
+		void setMeshOffset(float newOffset) {curvedMeshStartingOffset = newOffset;};
+		float getMeshOffset() const {return curvedMeshStartingOffset;};
+		void generateBoundingBox(bool newValue) {};
+		bool getNothing() const {return false;};
+		void setXYZScale(godot::Vector3 newScale) {xyzScale = newScale; curveMainMesh(get_curve(), curvedMeshStartingOffset, updateLowerBound);};
+		godot::Vector3 getXYZSCale() const {return xyzScale;};
+
+		void curveMainMesh(godot::Ref<godot::Curve3D> guidingCurve, float startingOffset = 0.0f, int updateFromVertexOfId = 0) {};
+
+		void recalculateDebugRayCasts() {};
+
+		float curvePointIdToOffset(int idx, godot::Ref<godot::Curve3D> targetCurve);
+
+		float pointDist(godot::Vector3 planeNormal, godot::Vector3 normalOrigin, godot::Vector3 point);
+		godot::Vector3 getTangentFromOffset(float offset);
+		godot::Vector3 getUpFromOffset(float offset);
+		godot::Vector3 getNormalFromOffset(float offset);
+		godot::Vector3 getNormalFromUpAndTangent(godot::Vector3 up, godot::Vector3 tangent);
+}; 
 
 }
 
