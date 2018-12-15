@@ -13,6 +13,7 @@
 #include <gen/ArrayMesh.hpp>
 #include <gen/MeshDataTool.hpp>
 #include <gen/MeshInstance.hpp>
+#include <gen/SurfaceTool.hpp>
 #include <gen/Node.hpp>
 
 namespace godot{
@@ -48,6 +49,8 @@ class MeshCurver : public godot::Path {
 		float updateFrequency = 0.5f;
 		float deltaSum = 0.0f;
 
+		godot::MeshInstance* curvedMesh;
+
 	public:
 		static void _register_methods();
 
@@ -55,7 +58,7 @@ class MeshCurver : public godot::Path {
 		void _process(float delta);
 
 		//Setters and getters
-		void setDebugRaysVisibility(bool newValue) {showDebugRays = newValue;};
+		void setDebugRaysVisibility(bool newValue);
 		bool getDebugRaysVisibility() const {return showDebugRays;};
 		void setEnableUpVector(bool newValue) {enableUpVector = newValue;};
 		bool getEnableUpVector() const {return enableUpVector;};
@@ -72,7 +75,10 @@ class MeshCurver : public godot::Path {
 		void setXYZScale(godot::Vector3 newScale) {xyzScale = newScale; curveMainMesh(get_curve(), curvedMeshStartingOffset, updateLowerBound);};
 		godot::Vector3 getXYZSCale() const {return xyzScale;};
 
-		void curveMainMesh(godot::Ref<godot::Curve3D> guidingCurve, float startingOffset = 0.0f, int updateFromVertexOfId = 0) {};
+
+		void updateCurve();
+		void curveMainMesh(godot::Ref<godot::Curve3D> guidingCurve, float startingOffset = 0.0f, int updateFromVertexOfId = 0);
+		void repeatMeshFromMdtToMeshIns(godot::Ref<godot::MeshDataTool> sourceMdt, godot::MeshInstance* targetMeshInstance, int repetitions, float meshSize, godot::Ref<godot::MeshDataTool> meshInstanceMdt);
 
 		void recalculateDebugRayCasts() {};
 
