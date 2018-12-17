@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include <algorithm>
+#include <locale>
+#include <string>
 
 #include <core/Godot.hpp>
 #include <gen/Spatial.hpp>
@@ -14,7 +16,8 @@
 #include <gen/MeshDataTool.hpp>
 #include <gen/MeshInstance.hpp>
 #include <gen/SurfaceTool.hpp>
-#include <gen/Node.hpp>
+#include <gen/Script.hpp>
+#include <gen/File.hpp>
 
 namespace godot{
 
@@ -23,7 +26,6 @@ class MeshCurver : public godot::Path {
 
 	private:
 
-		bool showDebugRays = false;
 		bool enableUpVector = true;
 		godot::Ref<godot::ArrayMesh> mainMesh;
 		int meshRepetitonsNumber = 1;
@@ -50,6 +52,9 @@ class MeshCurver : public godot::Path {
 		float deltaSum = 0.0f;
 
 		godot::MeshInstance* curvedMesh;
+		godot::Node* utilities;
+
+		godot::Ref<godot::SurfaceTool> targetSt;
 
 	public:
 		static void _register_methods();
@@ -58,23 +63,20 @@ class MeshCurver : public godot::Path {
 		void _process(float delta);
 
 		//Setters and getters
-		void setDebugRaysVisibility(bool newValue);
-		bool getDebugRaysVisibility() const {return showDebugRays;};
 		void setEnableUpVector(bool newValue) {enableUpVector = newValue;};
 		bool getEnableUpVector() const {return enableUpVector;};
 
 		void updateMesh(godot::Ref<godot::ArrayMesh> newMesh);
 		godot::Ref<godot::ArrayMesh> getMainMesh() const {return mainMesh;};
 
-		void setMeshRepetitions(int newValue) {meshRepetitonsNumber = newValue;};
+		void setMeshRepetitions(int newValue);
 		int getMeshRepetitions() const {return meshRepetitonsNumber;};
 		void setMeshOffset(float newOffset) {curvedMeshStartingOffset = newOffset;};
 		float getMeshOffset() const {return curvedMeshStartingOffset;};
-		void generateBoundingBox(bool newValue) {};
+		void generateBoundingBox(bool newValue);
 		bool getNothing() const {return false;};
 		void setXYZScale(godot::Vector3 newScale) {xyzScale = newScale; curveMainMesh(get_curve(), curvedMeshStartingOffset, updateLowerBound);};
 		godot::Vector3 getXYZSCale() const {return xyzScale;};
-
 
 		void updateCurve();
 		void curveMainMesh(godot::Ref<godot::Curve3D> guidingCurve, float startingOffset = 0.0f, int updateFromVertexOfId = 0);

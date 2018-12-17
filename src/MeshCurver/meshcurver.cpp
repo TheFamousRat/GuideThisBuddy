@@ -5,7 +5,6 @@ using namespace godot;
 
 void MeshCurver::_register_methods() 
 {
-	godot::register_property("showDebugRays", &MeshCurver::setDebugRaysVisibility, &MeshCurver::getDebugRaysVisibility, false);
 	godot::register_property("enableUpVector", &MeshCurver::setEnableUpVector, &MeshCurver::getEnableUpVector, true);
 	godot::register_property("meshRepetitonsNumber", &MeshCurver::setMeshRepetitions, &MeshCurver::getMeshRepetitions, 1);
 	godot::register_property("curvedMeshStartingOffset", &MeshCurver::setMeshOffset, &MeshCurver::getMeshOffset, 0.0f);
@@ -19,7 +18,6 @@ void MeshCurver::_register_methods()
 	godot::register_method("_init", &MeshCurver::_init);
 	godot::register_method("_process", &MeshCurver::_process);
 	godot::register_method("updateCurve", &MeshCurver::updateCurve);
-
 }
 
 void MeshCurver::_process(float delta)
@@ -32,8 +30,6 @@ void MeshCurver::_process(float delta)
 		if (updateLowerBound != -1 && get_curve()->get_point_count() != 0)
 		{
 			std::cout << updateLowerBound;
-			if (showDebugRays)
-				recalculateDebugRayCasts();
 
 			curveMainMesh(get_curve(), curvedMeshStartingOffset, updateLowerBound);
 			updateLowerBound = -1;
@@ -53,6 +49,10 @@ void MeshCurver::_init()
 
 	prevCurve.instance();
 	prevCurve = get_curve()->duplicate();
+
+	targetSt.instance();
+
+	godot::Ref<godot::Script> test;
 
 	if (!has_node("curvedMesh"))
 	{  
@@ -183,17 +183,42 @@ void MeshCurver::updateCurve()
 
 void MeshCurver::curveMainMesh(godot::Ref<godot::Curve3D> guidingCurve, float startingOffset, int updateFromVertexOfId)
 {
+	if (has_node("curvedMesh") && beforeCurveMdt->get_vertex_count() != 0 && get_curve()->get_point_count() != 0)
+	{
+		float alpha = 0.0f;
+		float beta = 0.0;
+		godot::Vector3 originalVertex  = godot::Vector3(0,0,0);
+		float vertexCurveOffset = 0.0f;
+		float minOffset = curvePointIdToOffset(updateFromVertexOfId, guidingCurve);
+			
+		for (int vertexIndex(0) ;  vertexIndex < beforeCurveMdt->get_vertex_count() ; vertexIndex++)
+		{
+			originalVertex = beforeCurveMdt->get_vertex(vertexIndex);
+			//The offset of the vertex on the curve
+			vertexCurveOffset = xyzScale.x * std::min(static_cast<float>(guidingCurve->get_baked_length()/xyzScale.x), startingOffset + pointDist(guidingVector, guidingVectorOrigin, originalVertex) - minDist);
+			
+			if (vertexCurveOffset >= minOffset)
+			{
+				alpha = xyzScale.y * originalVertex.y;
+				beta = xyzScale.z * originalVertex.z;
+				curvedMeshMdt->set_vertex(vertexIndex, guidingCurve->interpolate_baked(vertexCurveOffset) + alpha * getUpFromOffset(vertexCurveOffset) + beta * getNormalFromOffset(vertexCurveOffset));
+			}
+		}
 
+		godot::Ref<godot::ArrayMesh> test;
+		test.instance();
+		curvedMeshMdt->commit_to_surface(test);
+		curvedMesh->set_mesh(test);
+		curvedMesh->get_children().empty();
+	}
 }
 
 void MeshCurver::repeatMeshFromMdtToMeshIns(godot::Ref<godot::MeshDataTool> sourceMdt, godot::MeshInstance* targetMeshInstance, int repetitions, float meshSize, godot::Ref<godot::MeshDataTool> meshInstanceMdt)
 {
-	if (has_node("curvedMesh"))
-	{
-		godot::Ref<godot::SurfaceTool> targetSt;
-		targetSt.instance();
+	if (has_node("curvedMesh") && has_node("Utilities"))
+	{	
 		
-		targetSt->begin(godot::Mesh::PRIMITIVE_TRIANGLES);
+		/*targetSt->begin(godot::Mesh::PRIMITIVE_TRIANGLES);
 		
 		int currentVertexId = 0;
 		
@@ -214,9 +239,9 @@ void MeshCurver::repeatMeshFromMdtToMeshIns(godot::Ref<godot::MeshDataTool> sour
 			}
 		}
 
-		targetSt->commit();//This is where the program crashes
+		targetSt->commit();
 
-		/*meshInstanceMdt->create_from_surface(targetMeshInstance->get_mesh(), 0);
+		meshInstanceMdt->create_from_surface(targetMeshInstance->get_mesh(), 0);
 		beforeCurveMdt->create_from_surface(targetMeshInstance->get_mesh(), 0);*/
 	}
 }
@@ -231,22 +256,27 @@ float MeshCurver::curvePointIdToOffset(int idx, godot::Ref<godot::Curve3D> targe
 		return(targetCurve->get_closest_offset(targetCurve->get_point_position(idx)));	
 }
 
-void MeshCurver::setDebugRaysVisibility(bool newValue)
+void MeshCurver::setMeshRepetitions(int newValue)
 {
-	showDebugRays = newValue;
-
-	/*if (!newValue)
+	if (has_node("curvedMesh"))
 	{
-		if (has_node("AllRaycasts/NormVecs") && has_node("AllRaycasts/TangentVecs") && has_node("AllRaycasts/UpVecs"))
+		if (newValue >= 1)
 		{
-			for i in $AllRaycasts/NormVecs.get_children():
-				i.queue_free()
-			for i in $AllRaycasts/TangentVecs.get_children():
-				i.queue_free()
-			for i in $AllRaycasts/UpVecs.get_children():
-				i.queue_free()
+			meshRepetitonsNumber = newValue;
+			repeatMeshFromMdtToMeshIns(mainMeshMdt, curvedMesh, meshRepetitonsNumber, mainMeshDist, curvedMeshMdt);
+			curveMainMesh(get_curve(), curvedMeshStartingOffset);
 		}
-	}*/
+	}
+}
+
+void MeshCurver::generateBoundingBox(bool newValue)
+{
+	if (has_node("curvedMesh"))
+	{
+		curvedMesh->get_children().empty();
+
+		curvedMesh->create_trimesh_collision();
+	}
 }
 
 float MeshCurver::pointDist(godot::Vector3 planeNormal, godot::Vector3 normalOrigin, godot::Vector3 point)
@@ -318,3 +348,4 @@ godot::Vector3 MeshCurver::getNormalFromUpAndTangent(godot::Vector3 up, godot::V
 
 	return ret;
 }
+	
