@@ -18,6 +18,17 @@ void MeshCurver::_register_methods()
 	godot::register_method("_init", &MeshCurver::_init);
 	godot::register_method("_process", &MeshCurver::_process);
 	godot::register_method("updateCurve", &MeshCurver::updateCurve);
+
+
+	godot::Dictionary dic;
+	godot::register_signal<MeshCurver>(godot::String("repeatMeshMdt"), 
+	"sourceMdt", GODOT_VARIANT_TYPE_OBJECT,
+	"repetitions", GODOT_VARIANT_TYPE_INT,
+	"meshSize", GODOT_VARIANT_TYPE_REAL,
+	"guidingVector", GODOT_VARIANT_TYPE_VECTOR3,
+	"meshInstanceMdt", GODOT_VARIANT_TYPE_OBJECT,
+	"beforeCurveMdt", GODOT_VARIANT_TYPE_OBJECT);
+	//(sourceMdt : MeshDataTool, repetitions : int, meshSize : float, guidingVector, meshInstanceMdt, beforeCurveMdt)
 }
 
 void MeshCurver::_process(float delta)
@@ -68,7 +79,7 @@ void MeshCurver::updateMesh(godot::Ref<godot::ArrayMesh> newMesh)
 {
 	if (newMesh.is_valid() && newMesh.is_null() == false)
 	{
-		if (newMesh->surface_get_arrays(0).size())
+		if (newMesh->get_surface_count() > 0)
 		{
 			//We convert the mesh input from any mesh type to an ArrayMesh
 			mainMesh.instance();
@@ -89,7 +100,7 @@ void MeshCurver::updateMesh(godot::Ref<godot::ArrayMesh> newMesh)
 
 			mainMeshDist = maxDist - minDist;
 
-			repeatMeshFromMdtToMeshIns(mainMeshMdt, curvedMesh, meshRepetitonsNumber, mainMeshDist, curvedMeshMdt);
+			emit_signal("repeatMeshMdt", mainMeshMdt, meshRepetitonsNumber, mainMeshDist, guidingVector, curvedMeshMdt, beforeCurveMdt);
 			curveMainMesh(get_curve(), curvedMeshStartingOffset);
 		}
 	}
@@ -169,11 +180,13 @@ void MeshCurver::updateCurve()
 				|| prevCurve->get_point_out(i) != curve->get_point_out(i) 
 				|| prevCurve->get_point_position(i) != curve->get_point_position(i) 
 				|| prevCurve->get_point_tilt(i) != curve->get_point_tilt(i))
+				{
 					if (updateLowerBound == -1)
 						updateLowerBound = std::max(0,i-1);
 					else
 						updateLowerBound = std::min(updateLowerBound,i);
 					break;
+				}
 			}
 		}
 	}
@@ -213,39 +226,6 @@ void MeshCurver::curveMainMesh(godot::Ref<godot::Curve3D> guidingCurve, float st
 	}
 }
 
-void MeshCurver::repeatMeshFromMdtToMeshIns(godot::Ref<godot::MeshDataTool> sourceMdt, godot::MeshInstance* targetMeshInstance, int repetitions, float meshSize, godot::Ref<godot::MeshDataTool> meshInstanceMdt)
-{
-	if (has_node("curvedMesh") && has_node("Utilities"))
-	{	
-		
-		/*targetSt->begin(godot::Mesh::PRIMITIVE_TRIANGLES);
-		
-		int currentVertexId = 0;
-		
-		for (int meshNumber(0) ; meshNumber < repetitions ; meshNumber++)
-		{
-			for (int faceNumber(0) ; faceNumber < sourceMdt->get_face_count() ; faceNumber++)
-			{
-				for (int faceVertexNumber(0) ; faceVertexNumber < 3 ; faceVertexNumber++)
-				{
-					//We go through every face, and then every 3 vertices in those faces
-					currentVertexId = sourceMdt->get_face_vertex(faceNumber, faceVertexNumber);
-
-					targetSt->add_color(sourceMdt->get_vertex_color(currentVertexId));
-					targetSt->add_normal(sourceMdt->get_vertex_normal(currentVertexId));
-					targetSt->add_uv(sourceMdt->get_vertex_uv(currentVertexId));
-					targetSt->add_vertex(guidingVector*meshNumber*meshSize + sourceMdt->get_vertex(currentVertexId));
-				}
-			}
-		}
-
-		targetSt->commit();
-
-		meshInstanceMdt->create_from_surface(targetMeshInstance->get_mesh(), 0);
-		beforeCurveMdt->create_from_surface(targetMeshInstance->get_mesh(), 0);*/
-	}
-}
-
 float MeshCurver::curvePointIdToOffset(int idx, godot::Ref<godot::Curve3D> targetCurve)
 {
 	if (idx == INFINITY)
@@ -263,7 +243,7 @@ void MeshCurver::setMeshRepetitions(int newValue)
 		if (newValue >= 1)
 		{
 			meshRepetitonsNumber = newValue;
-			repeatMeshFromMdtToMeshIns(mainMeshMdt, curvedMesh, meshRepetitonsNumber, mainMeshDist, curvedMeshMdt);
+			emit_signal("repeatMeshMdt", mainMeshMdt, meshRepetitonsNumber, mainMeshDist, guidingVector, curvedMeshMdt, beforeCurveMdt);
 			curveMainMesh(get_curve(), curvedMeshStartingOffset);
 		}
 	}

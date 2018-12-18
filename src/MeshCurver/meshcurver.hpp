@@ -48,7 +48,7 @@ class MeshCurver : public godot::Path {
 
 		godot::Ref<godot::Curve3D> prevCurve;
 		int updateLowerBound = -1;
-		float updateFrequency = 0.5f;
+		float updateFrequency = 0.001f;
 		float deltaSum = 0.0f;
 
 		godot::MeshInstance* curvedMesh;
@@ -80,7 +80,6 @@ class MeshCurver : public godot::Path {
 
 		void updateCurve();
 		void curveMainMesh(godot::Ref<godot::Curve3D> guidingCurve, float startingOffset = 0.0f, int updateFromVertexOfId = 0);
-		void repeatMeshFromMdtToMeshIns(godot::Ref<godot::MeshDataTool> sourceMdt, godot::MeshInstance* targetMeshInstance, int repetitions, float meshSize, godot::Ref<godot::MeshDataTool> meshInstanceMdt);
 
 		void recalculateDebugRayCasts() {};
 

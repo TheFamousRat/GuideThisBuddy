@@ -5,13 +5,13 @@
 [ext_resource path="res://Platforms/Sucker/Sucker.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Platforms/Bumper/Bumper.tscn" type="PackedScene" id=4]
 
-[sub_resource type="SphereShape" id=6]
+[sub_resource type="SphereShape" id=1]
 
 
-[sub_resource type="CubeMesh" id=3]
+[sub_resource type="CubeMesh" id=2]
 
 
-[sub_resource type="BoxShape" id=4]
+[sub_resource type="BoxShape" id=3]
 
 
 [node name="Main" type="Spatial"]
@@ -31,31 +31,18 @@ material/0 = null
 linear_stiffness = 0.0
 
 [node name="CollisionShape2" type="CollisionShape" parent="RigidBody2"]
-shape = SubResource( 6 )
-
-[node name="RigidBody3" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.24612, 12.6992, 9.1491 )
-collision_layer = 2
-sleeping = true
-
-[node name="CollisionShape" type="SoftBody" parent="RigidBody3"]
-mesh = ExtResource( 2 )
-material/0 = null
-linear_stiffness = 0.0
-
-[node name="CollisionShape2" type="CollisionShape" parent="RigidBody3"]
-shape = SubResource( 6 )
+shape = SubResource( 1 )
 
 [node name="StaticBody" type="StaticBody" parent="."]
 editor/display_folded = true
 transform = Transform( 14.1982, 0, 0, 0, 1, 0, 0, 0, 14.1982, 0, 10.8051, 11.1019 )
 
 [node name="MeshInstance" type="MeshInstance" parent="StaticBody"]
-mesh = SubResource( 3 )
+mesh = SubResource( 2 )
 material/0 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
-shape = SubResource( 4 )
+shape = SubResource( 3 )
 
 [node name="Sucker" parent="." instance=ExtResource( 3 )]
 transform = Transform( -0.999853, -0.0171197, 0, 0.0171197, -0.999853, 0, 0, 0, 1, -10.8016, 12.8022, 9.38288 )
