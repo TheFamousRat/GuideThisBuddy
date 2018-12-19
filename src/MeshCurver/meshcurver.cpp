@@ -18,6 +18,7 @@ void MeshCurver::_register_methods()
 	godot::register_method("_init", &MeshCurver::_init);
 	godot::register_method("_process", &MeshCurver::_process);
 	godot::register_method("updateCurve", &MeshCurver::updateCurve);
+	godot::register_method("setMeshInstancePointer", &MeshCurver::setMeshInstancePointer);
 
 
 	godot::Dictionary dic;
@@ -40,8 +41,6 @@ void MeshCurver::_process(float delta)
 		deltaSum = 0.0f;
 		if (updateLowerBound != -1 && get_curve()->get_point_count() != 0)
 		{
-			std::cout << updateLowerBound;
-
 			curveMainMesh(get_curve(), curvedMeshStartingOffset, updateLowerBound);
 			updateLowerBound = -1;
 		}
@@ -64,13 +63,6 @@ void MeshCurver::_init()
 	targetSt.instance();
 
 	godot::Ref<godot::Script> test;
-
-	if (!has_node("curvedMesh"))
-	{  
-		curvedMesh = godot::MeshInstance::_new();
-		curvedMesh->set_name(String("curvedMesh"));
-		this->add_child(curvedMesh);
-	}
 
 	this->connect(String("curve_changed"), this, String("updateCurve"));
 }
@@ -196,7 +188,7 @@ void MeshCurver::updateCurve()
 
 void MeshCurver::curveMainMesh(godot::Ref<godot::Curve3D> guidingCurve, float startingOffset, int updateFromVertexOfId)
 {
-	if (has_node("curvedMesh") && beforeCurveMdt->get_vertex_count() != 0 && get_curve()->get_point_count() != 0)
+	if (beforeCurveMdt->get_vertex_count() != 0 && get_curve()->get_point_count() != 0)
 	{
 		float alpha = 0.0f;
 		float beta = 0.0;
@@ -238,25 +230,24 @@ float MeshCurver::curvePointIdToOffset(int idx, godot::Ref<godot::Curve3D> targe
 
 void MeshCurver::setMeshRepetitions(int newValue)
 {
-	if (has_node("curvedMesh"))
+	if (newValue >= 1)
 	{
-		if (newValue >= 1)
-		{
-			meshRepetitonsNumber = newValue;
-			emit_signal("repeatMeshMdt", mainMeshMdt, meshRepetitonsNumber, mainMeshDist, guidingVector, curvedMeshMdt, beforeCurveMdt);
-			curveMainMesh(get_curve(), curvedMeshStartingOffset);
-		}
+		meshRepetitonsNumber = newValue;
+		emit_signal("repeatMeshMdt", mainMeshMdt, meshRepetitonsNumber, mainMeshDist, guidingVector, curvedMeshMdt, beforeCurveMdt);
+		curveMainMesh(get_curve(), curvedMeshStartingOffset);
 	}
+}
+
+void MeshCurver::setMeshOffset(float newOffset) 
+{
+	curvedMeshStartingOffset = newOffset;
+	updateLowerBound = 0;
 }
 
 void MeshCurver::generateBoundingBox(bool newValue)
 {
-	if (has_node("curvedMesh"))
-	{
-		curvedMesh->get_children().empty();
-
-		curvedMesh->create_trimesh_collision();
-	}
+	curvedMesh->get_children().empty();
+	curvedMesh->create_trimesh_collision();
 }
 
 float MeshCurver::pointDist(godot::Vector3 planeNormal, godot::Vector3 normalOrigin, godot::Vector3 point)

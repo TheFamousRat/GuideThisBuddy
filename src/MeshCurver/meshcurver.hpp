@@ -48,11 +48,12 @@ class MeshCurver : public godot::Path {
 
 		godot::Ref<godot::Curve3D> prevCurve;
 		int updateLowerBound = -1;
-		float updateFrequency = 0.001f;
+		float updateFrequency = 0.1f;
 		float deltaSum = 0.0f;
 
 		godot::MeshInstance* curvedMesh;
 		godot::Node* utilities;
+		godot::ArrayMesh* currentSavedMesh;
 
 		godot::Ref<godot::SurfaceTool> targetSt;
 
@@ -71,11 +72,11 @@ class MeshCurver : public godot::Path {
 
 		void setMeshRepetitions(int newValue);
 		int getMeshRepetitions() const {return meshRepetitonsNumber;};
-		void setMeshOffset(float newOffset) {curvedMeshStartingOffset = newOffset;};
+		void setMeshOffset(float newOffset);
 		float getMeshOffset() const {return curvedMeshStartingOffset;};
 		void generateBoundingBox(bool newValue);
 		bool getNothing() const {return false;};
-		void setXYZScale(godot::Vector3 newScale) {xyzScale = newScale; curveMainMesh(get_curve(), curvedMeshStartingOffset, updateLowerBound);};
+		void setXYZScale(godot::Vector3 newScale) {xyzScale = newScale; updateLowerBound = 0;};
 		godot::Vector3 getXYZSCale() const {return xyzScale;};
 
 		void updateCurve();
@@ -90,6 +91,13 @@ class MeshCurver : public godot::Path {
 		godot::Vector3 getUpFromOffset(float offset);
 		godot::Vector3 getNormalFromOffset(float offset);
 		godot::Vector3 getNormalFromUpAndTangent(godot::Vector3 up, godot::Vector3 tangent);
+
+		void setMeshInstancePointer(godot::Object* newPtr) 
+		{
+			curvedMesh = cast_to<godot::MeshInstance>(newPtr);
+
+			updateMesh(mainMesh);
+		};
 }; 
 
 }

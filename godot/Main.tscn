@@ -7,6 +7,7 @@
 
 [sub_resource type="SphereShape" id=1]
 
+radius = 0.817546
 
 [sub_resource type="CubeMesh" id=2]
 
@@ -28,7 +29,7 @@ sleeping = true
 [node name="CollisionShape" type="SoftBody" parent="RigidBody2"]
 mesh = ExtResource( 2 )
 material/0 = null
-linear_stiffness = 0.0
+pressure_coefficient = 2.0
 
 [node name="CollisionShape2" type="CollisionShape" parent="RigidBody2"]
 shape = SubResource( 1 )
