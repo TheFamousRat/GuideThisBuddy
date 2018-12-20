@@ -34,7 +34,6 @@ class MeshCurver : public godot::Path {
 		godot::Vector3 xyzScale = Vector3(1,1,1);
 
 		float epsilon = 0.2f;
-		float debugRaysInterval = 2.0f;
 		float minDist = 0.0f;
 		float maxDist = 0.0f;
 		float mainMeshDist = 0.0f;
@@ -52,10 +51,6 @@ class MeshCurver : public godot::Path {
 		float deltaSum = 0.0f;
 
 		godot::MeshInstance* curvedMesh;
-		godot::Node* utilities;
-		godot::ArrayMesh* currentSavedMesh;
-
-		godot::Ref<godot::SurfaceTool> targetSt;
 
 	public:
 		static void _register_methods();
@@ -66,10 +61,8 @@ class MeshCurver : public godot::Path {
 		//Setters and getters
 		void setEnableUpVector(bool newValue) {enableUpVector = newValue;};
 		bool getEnableUpVector() const {return enableUpVector;};
-
 		void updateMesh(godot::Ref<godot::ArrayMesh> newMesh);
 		godot::Ref<godot::ArrayMesh> getMainMesh() const {return mainMesh;};
-
 		void setMeshRepetitions(int newValue);
 		int getMeshRepetitions() const {return meshRepetitonsNumber;};
 		void setMeshOffset(float newOffset);
@@ -78,9 +71,13 @@ class MeshCurver : public godot::Path {
 		bool getNothing() const {return false;};
 		void setXYZScale(godot::Vector3 newScale) {xyzScale = newScale; updateLowerBound = 0;};
 		godot::Vector3 getXYZSCale() const {return xyzScale;};
+		void setGuidingVector(godot::Vector3 newGuidingVec) {guidingVector = newGuidingVec.normalized(); updateMesh(mainMesh);};
+		godot::Vector3 getGuidingVector() const {return guidingVector;};
+		godot::MeshInstance* getCurvedMesh() {return curvedMesh;};
 
 		void updateCurve();
 		void curveMainMesh(godot::Ref<godot::Curve3D> guidingCurve, float startingOffset = 0.0f, int updateFromVertexOfId = 0);
+		void repeatMeshFromMdtToMeshIns();
 
 		void recalculateDebugRayCasts() {};
 
