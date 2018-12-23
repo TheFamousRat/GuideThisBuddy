@@ -22,32 +22,33 @@ script = ExtResource( 1 )
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 13.3906, 0 )
 
 [node name="RigidBody2" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.13793, 12.7697, 9.10959 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.13793, 15.9004, 9.0911 )
 collision_layer = 2
 sleeping = true
-
-[node name="CollisionShape" type="SoftBody" parent="RigidBody2"]
-mesh = ExtResource( 2 )
-material/0 = null
-pressure_coefficient = 2.0
 
 [node name="CollisionShape2" type="CollisionShape" parent="RigidBody2"]
 shape = SubResource( 1 )
 
-[node name="StaticBody" type="StaticBody" parent="."]
+[node name="CollisionShape" type="SoftBody" parent="RigidBody2"]
+mesh = ExtResource( 2 )
+material/0 = null
+pressure_coefficient = 30.0
+
+[node name="Platform" type="StaticBody" parent="."]
 editor/display_folded = true
 transform = Transform( 14.1982, 0, 0, 0, 1, 0, 0, 0, 14.1982, 0, 10.8051, 11.1019 )
 
-[node name="MeshInstance" type="MeshInstance" parent="StaticBody"]
+[node name="MeshInstance" type="MeshInstance" parent="Platform"]
 mesh = SubResource( 2 )
 material/0 = null
 
-[node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
+[node name="CollisionShape" type="CollisionShape" parent="Platform"]
 shape = SubResource( 3 )
 
 [node name="Sucker" parent="." instance=ExtResource( 3 )]
-transform = Transform( -0.999853, -0.0171197, 0, 0.0171197, -0.999853, 0, 0, 0, 1, -10.8016, 12.8022, 9.38288 )
+transform = Transform( -0.935106, -0.0160111, 0.354005, 0.0171197, -0.999853, 0, 0.353953, 0.00606046, 0.935243, -10.8016, 12.8022, 12.5001 )
 
 [node name="Bumper" parent="." instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.133859, 14.9798, -0.239255 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.05843, 12.5932, 8.83169 )
+pushForce = 50.0
 

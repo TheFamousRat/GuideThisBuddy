@@ -20,9 +20,9 @@ extents = Vector3( 0.775553, 0.23883, 0.869171 )
 
 [node name="Bumper" type="Spatial"]
 script = ExtResource( 1 )
+pushForce = 50.0
 
-[node name="Pusher" type="KinematicBody" parent="."]
-editor/display_folded = true
+[node name="Pusher" type="StaticBody" parent="."]
 collision_mask = 2
 
 [node name="CollisionShape" type="CollisionShape" parent="Pusher"]
@@ -33,7 +33,6 @@ mesh = SubResource( 2 )
 material/0 = null
 
 [node name="StaticBody" type="StaticBody" parent="."]
-editor/display_folded = true
 transform = Transform( 1.2, 0, 0, 0, 0.5, 0, 0, 0, 1.2, 0, -0.717585, 0 )
 collision_mask = 2
 
@@ -55,4 +54,7 @@ shape = SubResource( 5 )
 [node name="ExtendedTimer" type="Timer" parent="."]
 
 [node name="Tween" type="Tween" parent="."]
+
+[node name="Position3D" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 
