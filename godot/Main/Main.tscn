@@ -7,7 +7,7 @@
 
 [sub_resource type="SphereShape" id=1]
 
-radius = 0.817546
+radius = 0.922079
 
 [sub_resource type="CubeMesh" id=2]
 
@@ -22,7 +22,7 @@ script = ExtResource( 1 )
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 13.3906, 0 )
 
 [node name="RigidBody2" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.13793, 15.9004, 9.0911 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.323525, 15.9004, 8.80612 )
 collision_layer = 2
 sleeping = true
 
@@ -32,7 +32,6 @@ shape = SubResource( 1 )
 [node name="CollisionShape" type="SoftBody" parent="RigidBody2"]
 mesh = ExtResource( 2 )
 material/0 = null
-pressure_coefficient = 30.0
 
 [node name="Platform" type="StaticBody" parent="."]
 editor/display_folded = true
