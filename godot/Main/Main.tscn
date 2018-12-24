@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Main/Main.gd" type="Script" id=1]
 [ext_resource path="res://MeshCurver/untitled.obj" type="ArrayMesh" id=2]
 [ext_resource path="res://Platforms/Bumper/Bumper.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Platforms/Cannon/Cannon.tscn" type="PackedScene" id=4]
 
 [sub_resource type="SphereShape" id=1]
 
@@ -46,4 +47,7 @@ shape = SubResource( 3 )
 
 [node name="Bumper" parent="." instance=ExtResource( 3 )]
 transform = Transform( -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -4.41938, 13.0148, 8.83169 )
+
+[node name="Cannon" parent="." instance=ExtResource( 4 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 4.0542, 12.6205, 8.89889 )
 
