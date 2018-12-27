@@ -4,7 +4,6 @@
 
 [sub_resource type="SphereShape" id=1]
 
-radius = 0.663713
 
 [sub_resource type="SphereMesh" id=2]
 
