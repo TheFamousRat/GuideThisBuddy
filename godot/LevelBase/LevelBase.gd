@@ -47,7 +47,7 @@ func availablePlaterArrayChecker(newArray : Array):
 		for i in availablePlaters.size():
 			if i%2 == 0:
 				if availablePlaters[i] is PackedScene and availablePlaters[i] != null:
-					print(availablePlaters[i].instance().get_type())
+					print(availablePlaters[i].instance().get_class())
 				else:
 					availablePlaters[i] = PackedScene.new()
 			elif i%2 == 1 and !(availablePlaters[i] is int):
