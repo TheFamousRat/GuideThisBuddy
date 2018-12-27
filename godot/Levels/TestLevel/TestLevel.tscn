@@ -1,10 +1,68 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://LevelBase/LevelBase.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Levels/TestLevel/TestLevel.gd" type="Script" id=2]
+
+[sub_resource type="PackedScene" id=1]
+
+_bundled = {
+"conn_count": 0,
+"conns": PoolIntArray(  ),
+"editable_instances": [  ],
+"names": PoolStringArray(  ),
+"node_count": 0,
+"node_paths": [  ],
+"nodes": PoolIntArray(  ),
+"variants": [  ],
+"version": 2
+}
+
+[sub_resource type="PackedScene" id=2]
+
+_bundled = {
+"conn_count": 0,
+"conns": PoolIntArray(  ),
+"editable_instances": [  ],
+"names": PoolStringArray(  ),
+"node_count": 0,
+"node_paths": [  ],
+"nodes": PoolIntArray(  ),
+"variants": [  ],
+"version": 2
+}
+
+[sub_resource type="PackedScene" id=3]
+
+_bundled = {
+"conn_count": 0,
+"conns": PoolIntArray(  ),
+"editable_instances": [  ],
+"names": PoolStringArray(  ),
+"node_count": 0,
+"node_paths": [  ],
+"nodes": PoolIntArray(  ),
+"variants": [  ],
+"version": 2
+}
+
+[sub_resource type="PackedScene" id=4]
+
+_bundled = {
+"conn_count": 0,
+"conns": PoolIntArray(  ),
+"editable_instances": [  ],
+"names": PoolStringArray(  ),
+"node_count": 0,
+"node_paths": [  ],
+"nodes": PoolIntArray(  ),
+"variants": [  ],
+"version": 2
+}
 
 [node name="TestLevel" index="0" instance=ExtResource( 1 )]
-script = null
+script = ExtResource( 2 )
+availablePlaters = [ SubResource( 1 ), 0, SubResource( 2 ), 0, SubResource( 3 ), 0, SubResource( 4 ), 0 ]
 
 [node name="PlayerStart" parent="." index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6.86143 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.01364, -6.86143 )
 
