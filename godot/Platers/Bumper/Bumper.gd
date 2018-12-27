@@ -1,12 +1,14 @@
-extends Spatial
+tool
 
-export (float) var extensionSpeed = 50.0 #Time it takes the bumper to fully extend
+extends "res://Platers/PlaterBase/PlaterBase.gd"
+
+export (float) var extensionSpeed = 100.0 #Time it takes the bumper to fully extend
 export (float) var extendedStateDuration  = 0.5 #Time the bumper spends extended
 export (float) var pushForce = 20.0
 
 func _ready():
 	$ExtendedTimer.wait_time = extendedStateDuration
-
+	
 func _process(delta):
 	var bodies = $Area.get_overlapping_bodies()
 	for i in bodies:

@@ -1,4 +1,4 @@
-extends Spatial
+extends "res://Platers/PlaterBase/PlaterBase.gd"
 
 var suckForce : Vector3 = Vector3(0,0,0)
 var suckStrength : float = 1000.0

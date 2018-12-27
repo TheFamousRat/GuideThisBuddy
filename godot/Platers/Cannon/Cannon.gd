@@ -1,4 +1,6 @@
-extends Spatial
+tool
+
+extends "res://Platers/PlaterBase/PlaterBase.gd"
 
 export (float) var cannonForce = 2000.0
 
