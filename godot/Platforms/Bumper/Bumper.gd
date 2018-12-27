@@ -1,18 +1,19 @@
 extends Spatial
 
-export (float) var extensionTime = 0.01 #Time it takes the bumper to fully extend
-export (float) var extendedStateDuration  = 2.0 #Time the bumper spends extended
+export (float) var extensionSpeed = 50.0 #Time it takes the bumper to fully extend
+export (float) var extendedStateDuration  = 0.5 #Time the bumper spends extended
 export (float) var pushForce = 20.0
 
-var open : bool = false
-
 func _ready():
-	$Tween.interpolate_property($Pusher, "translation", $Pusher.translation, $Pusher.translation + Vector3(0,1,0), extensionTime, Tween.TRANS_LINEAR,Tween.EASE_OUT)
-
 	$ExtendedTimer.wait_time = extendedStateDuration
 
 func _process(delta):
 	var bodies = $Area.get_overlapping_bodies()
 	for i in bodies:
+		if i is RigidBody:
 			i.add_force(pushForce*(($Position3D.get_global_transform().origin - self.get_global_transform().origin).normalized()),Vector3(0,0,0))
-			$Tween.set_active(true)
+			$Model/AnimationPlayer.play("default", -1, extensionSpeed)
+			$ExtendedTimer.start()
+			
+func _on_ExtendedTimer_timeout():
+	$Model/AnimationPlayer.play_backwards("default")
