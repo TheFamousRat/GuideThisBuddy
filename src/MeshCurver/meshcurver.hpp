@@ -42,6 +42,7 @@ class MeshCurver : public godot::Path {
 
 		godot::Vector3 guidingVectorOrigin = Vector3(0,0,0);
 		godot::Vector3 guidingVector = Vector3(1,0,0);
+		godot::Vector3 guidingVectorVisual = Vector3(1,0,0);//The above one is just this one, but normalized
 
 		std::vector<godot::Ref<godot::MeshDataTool>> mainMeshMdt;
 		std::vector<godot::Ref<godot::MeshDataTool>> beforeCurveMdt;
@@ -73,8 +74,11 @@ class MeshCurver : public godot::Path {
 		bool getNothing() const {return false;};
 		void setXYZScale(godot::Vector3 newScale) {xyzScale = newScale; updateLowerBound = 0;};
 		godot::Vector3 getXYZSCale() const {return xyzScale;};
-		void setGuidingVector(godot::Vector3 newGuidingVec) {guidingVector = newGuidingVec.normalized(); updateMesh(mainMesh);};
-		godot::Vector3 getGuidingVector() const {return guidingVector;};
+		void setGuidingVector(godot::Vector3 newGuidingVec) 
+		{guidingVectorVisual = newGuidingVec;
+		guidingVector = newGuidingVec.normalized(); 
+		updateMesh(mainMesh);};
+		godot::Vector3 getGuidingVector() const {return guidingVectorVisual;};
 		godot::MeshInstance* getCurvedMesh() {return curvedMesh;};
 
 		void initMesh();

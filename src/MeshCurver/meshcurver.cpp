@@ -57,7 +57,6 @@ void MeshCurver::_init()
 	prevCurve = get_curve()->duplicate();
 
 	curvedMesh = godot::MeshInstance::_new();
-	curvedMesh->set_translation(godot::Vector3(1,1,1));
 	curvedMesh->set_name(godot::String("curvedMesh"));
 	add_child(curvedMesh);
 

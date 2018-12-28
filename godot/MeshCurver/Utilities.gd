@@ -18,3 +18,6 @@ func _on_MeshCurver_commitSurfaceTool(targetSt : SurfaceTool, curvedMeshMdt, bef
 	
 	curvedMeshMdt.create_from_surface(targetSt.commit(), 0)
 	beforeCurveMdt.create_from_surface(targetSt.commit(), 0)
+	
+	curvedMeshMdt.set_material(get_parent().mainMesh.surface_get_material(surfaceIndex))
+	beforeCurveMdt.set_material(get_parent().mainMesh.surface_get_material(surfaceIndex))
