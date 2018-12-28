@@ -32,7 +32,13 @@ void MeshCurver::_register_methods()
 void MeshCurver::_process(float delta)
 {
 	deltaSum += delta;
-	
+
+	for (int i(0) ; i < mainMesh->get_surface_count() ; i++)
+	{
+		if (!mainMesh->surface_get_material(i).is_null())
+			curvedMesh->set_surface_material(i, mainMesh->surface_get_material(i));
+	}
+
 	if (deltaSum >= updateFrequency)
 	{
 		deltaSum = 0.0f;
@@ -93,13 +99,6 @@ void MeshCurver::updateMesh(godot::Ref<godot::ArrayMesh> newMesh)
 				beforeCurveMdt.push_back(godot::Ref<godot::MeshDataTool>());
 				beforeCurveMdt[i].instance();
 				mainMeshMdt[i]->create_from_surface(mainMesh, i);
-
-				if (!mainMesh->surface_get_material(i).is_null())
-				{
-					mainMeshMdt[i]->set_material(mainMesh->surface_get_material(i));
-					curvedMeshMdt[i]->set_material(mainMesh->surface_get_material(i));
-					beforeCurveMdt[i]->set_material(mainMesh->surface_get_material(i));
-				}
 			}
 
 			//We then look for the mesh with the biggest distance
@@ -249,6 +248,8 @@ void MeshCurver::curveMainMesh(godot::Ref<godot::Curve3D> guidingCurve, float st
 			{
 				curvedMeshMdt[i]->commit_to_surface(curvedSurfaces[i]);
 				combinedCurvedSurfaces->add_surface_from_arrays(godot::Mesh::PRIMITIVE_TRIANGLES, curvedSurfaces[i]->surface_get_arrays(0));
+				if (!mainMesh->surface_get_material(i).is_null())
+					combinedCurvedSurfaces->surface_set_material(i, mainMesh->surface_get_material(i));
 			}
 		}
 		curvedMesh->set_mesh(combinedCurvedSurfaces);

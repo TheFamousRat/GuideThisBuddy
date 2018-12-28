@@ -1,16 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://MeshCurver/MeshCurver.gdns" type="Script" id=1]
 [ext_resource path="res://MeshCurver/Utilities.gd" type="Script" id=2]
 
-[sub_resource type="Curve3D" id=1]
-
-_data = {
-"points": PoolVector3Array( 5.60178, -12.0079, -8.05386, -5.60178, 12.0079, 8.05386, 28.9438, 22.1774, -5.80154, 1.85914, 24.2188, 4.97323, -1.85914, -24.2188, -4.97323, 9.12632, 11.3554, 24.1706, -14.2908, -16.0424, -4.19598, 14.2908, 16.0424, 4.19598, 5.50785, 9.3595, -21.9104 ),
-"tilts": PoolRealArray( 0, 0, 0 )
-}
-
-[sub_resource type="ArrayMesh" id=2]
+[sub_resource type="ArrayMesh" id=1]
 
 surfaces/0 = {
 "aabb": AABB( -1, -1, -1, 2, 2.00001, 2.00001 ),
@@ -26,13 +19,12 @@ surfaces/0 = {
 
 [node name="MeshCurver" type="Path"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.124308, -2.16634, 1.70145 )
-curve = SubResource( 1 )
 script = ExtResource( 1 )
-meshRepetitonsNumber = 12
-curvedMeshStartingOffset = 18.35
-mainMesh = SubResource( 2 )
+mainMesh = SubResource( 1 )
 
 [node name="Utilities" type="Node" parent="."]
 script = ExtResource( 2 )
+
+[node name="RessourceSaver" type="MeshInstance" parent="."]
 
 [connection signal="commitSurfaceTool" from="." to="Utilities" method="_on_MeshCurver_commitSurfaceTool"]

@@ -20,6 +20,8 @@
 #include <gen/Script.hpp>
 #include <gen/File.hpp>
 #include <gen/Material.hpp>
+#include <gen/SpatialMaterial.hpp>
+
 
 namespace godot{
 
@@ -64,21 +66,28 @@ class MeshCurver : public godot::Path {
 		//Setters and getters
 		void setEnableUpVector(bool newValue) {enableUpVector = newValue;};
 		bool getEnableUpVector() const {return enableUpVector;};
+		
 		void updateMesh(godot::Ref<godot::ArrayMesh> newMesh);
 		godot::Ref<godot::ArrayMesh> getMainMesh() const {return mainMesh;};
+		
 		void setMeshRepetitions(int newValue);
 		int getMeshRepetitions() const {return meshRepetitonsNumber;};
+		
 		void setMeshOffset(float newOffset);
 		float getMeshOffset() const {return curvedMeshStartingOffset;};
+		
 		void generateBoundingBox(bool newValue);
 		bool getNothing() const {return false;};
+		
 		void setXYZScale(godot::Vector3 newScale) {xyzScale = newScale; updateLowerBound = 0;};
 		godot::Vector3 getXYZSCale() const {return xyzScale;};
+		
 		void setGuidingVector(godot::Vector3 newGuidingVec) 
 		{guidingVectorVisual = newGuidingVec;
 		guidingVector = newGuidingVec.normalized(); 
 		updateMesh(mainMesh);};
 		godot::Vector3 getGuidingVector() const {return guidingVectorVisual;};
+		
 		godot::MeshInstance* getCurvedMesh() {return curvedMesh;};
 
 		void initMesh();
