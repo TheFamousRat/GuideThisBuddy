@@ -17,9 +17,9 @@ void MeshCurver::_register_methods()
 	godot::register_property<MeshCurver, godot::Ref<godot::ArrayMesh>>("mainMesh", &MeshCurver::updateMesh, &MeshCurver::getMainMesh, defaultMesh);
 
 	godot::register_method("_init", &MeshCurver::_init);
+	godot::register_method("initMesh", &MeshCurver::initMesh);
 	godot::register_method("_process", &MeshCurver::_process);
 	godot::register_method("updateCurve", &MeshCurver::updateCurve);
-	godot::register_method("setMeshInstancePointer", &MeshCurver::setMeshInstancePointer);
 	godot::register_method("getCurvedMesh", &MeshCurver::getCurvedMesh);
 
 	godot::register_signal<MeshCurver>(godot::String("commitSurfaceTool"), 
@@ -56,7 +56,18 @@ void MeshCurver::_init()
 	prevCurve.instance();
 	prevCurve = get_curve()->duplicate();
 
+	curvedMesh = godot::MeshInstance::_new();
+	curvedMesh->set_translation(godot::Vector3(1,1,1));
+	curvedMesh->set_name(godot::String("curvedMesh"));
+	add_child(curvedMesh);
+
 	this->connect(String("curve_changed"), this, String("updateCurve"));
+	this->connect(godot::String("ready"), this, godot::String("initMesh"));
+}
+
+void MeshCurver::initMesh()
+{
+	updateMesh(mainMesh);
 }
 
 void MeshCurver::updateMesh(godot::Ref<godot::ArrayMesh> newMesh)
@@ -83,6 +94,13 @@ void MeshCurver::updateMesh(godot::Ref<godot::ArrayMesh> newMesh)
 				beforeCurveMdt.push_back(godot::Ref<godot::MeshDataTool>());
 				beforeCurveMdt[i].instance();
 				mainMeshMdt[i]->create_from_surface(mainMesh, i);
+
+				if (!mainMesh->surface_get_material(i).is_null())
+				{
+					mainMeshMdt[i]->set_material(mainMesh->surface_get_material(i));
+					curvedMeshMdt[i]->set_material(mainMesh->surface_get_material(i));
+					beforeCurveMdt[i]->set_material(mainMesh->surface_get_material(i));
+				}
 			}
 
 			//We then look for the mesh with the biggest distance
@@ -227,9 +245,12 @@ void MeshCurver::curveMainMesh(godot::Ref<godot::Curve3D> guidingCurve, float st
 					curvedMeshMdt[i]->set_vertex(vertexIndex, guidingCurve->interpolate_baked(vertexCurveOffset) + alpha * getUpFromOffset(vertexCurveOffset) + beta * getNormalFromOffset(vertexCurveOffset));
 				}
 			}
-			/*Commit to mesh missing*/
-			curvedMeshMdt[i]->commit_to_surface(curvedSurfaces[i]);
-			combinedCurvedSurfaces->add_surface_from_arrays(godot::Mesh::PRIMITIVE_TRIANGLES, curvedSurfaces[i]->surface_get_arrays(0));
+			//Commit to mesh missing
+			if (curvedMeshMdt[i]->get_vertex_count())
+			{
+				curvedMeshMdt[i]->commit_to_surface(curvedSurfaces[i]);
+				combinedCurvedSurfaces->add_surface_from_arrays(godot::Mesh::PRIMITIVE_TRIANGLES, curvedSurfaces[i]->surface_get_arrays(0));
+			}
 		}
 		curvedMesh->set_mesh(combinedCurvedSurfaces);
 	}

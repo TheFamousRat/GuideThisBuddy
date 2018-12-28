@@ -77,6 +77,7 @@ class MeshCurver : public godot::Path {
 		godot::Vector3 getGuidingVector() const {return guidingVector;};
 		godot::MeshInstance* getCurvedMesh() {return curvedMesh;};
 
+		void initMesh();
 		void updateCurve();
 		void curveMainMesh(godot::Ref<godot::Curve3D> guidingCurve, float startingOffset = 0.0f, int updateFromVertexOfId = 0);
 		void repeatMeshFromMdtToMeshIns();
@@ -90,13 +91,6 @@ class MeshCurver : public godot::Path {
 		godot::Vector3 getUpFromOffset(float offset);
 		godot::Vector3 getNormalFromOffset(float offset);
 		godot::Vector3 getNormalFromUpAndTangent(godot::Vector3 up, godot::Vector3 tangent);
-
-		void setMeshInstancePointer(godot::Object* newPtr) 
-		{
-			curvedMesh = cast_to<godot::MeshInstance>(newPtr);
-
-			updateMesh(mainMesh);
-		};
 }; 
 
 }
