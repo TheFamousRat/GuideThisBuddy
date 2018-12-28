@@ -46,9 +46,6 @@ func availablePlaterArrayChecker(newArray : Array):
 		
 		for i in availablePlaters.size():
 			if i%2 == 0:
-				if availablePlaters[i] is PackedScene and availablePlaters[i] != null:
-					pass
-				else:
-					availablePlaters[i] = PackedScene.new()
+				pass
 			elif i%2 == 1 and !(availablePlaters[i] is int):
 				availablePlaters[i] = int(0)

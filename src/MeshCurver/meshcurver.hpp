@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <locale>
 #include <string>
+#include <vector>
 
 #include <core/Godot.hpp>
 #include <gen/Spatial.hpp>
@@ -18,6 +19,7 @@
 #include <gen/SurfaceTool.hpp>
 #include <gen/Script.hpp>
 #include <gen/File.hpp>
+#include <gen/Material.hpp>
 
 namespace godot{
 
@@ -41,9 +43,9 @@ class MeshCurver : public godot::Path {
 		godot::Vector3 guidingVectorOrigin = Vector3(0,0,0);
 		godot::Vector3 guidingVector = Vector3(1,0,0);
 
-		godot::Ref<godot::MeshDataTool> mainMeshMdt;
-		godot::Ref<godot::MeshDataTool> beforeCurveMdt;
-		godot::Ref<godot::MeshDataTool> curvedMeshMdt;
+		std::vector<godot::Ref<godot::MeshDataTool>> mainMeshMdt;
+		std::vector<godot::Ref<godot::MeshDataTool>> beforeCurveMdt;
+		std::vector<godot::Ref<godot::MeshDataTool>> curvedMeshMdt;
 
 		godot::Ref<godot::Curve3D> prevCurve;
 		int updateLowerBound = -1;
