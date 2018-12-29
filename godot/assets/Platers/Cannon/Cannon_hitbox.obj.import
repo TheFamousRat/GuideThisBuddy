@@ -1,0 +1,18 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/Cannon_hitbox.obj-a82583a3e04aa51b3dd8da31aafb473f.mesh"
+
+[deps]
+
+files=[ "res://.import/Cannon_hitbox.obj-a82583a3e04aa51b3dd8da31aafb473f.mesh" ]
+
+source_file="res://assets/Platers/Cannon/Cannon_hitbox.obj"
+dest_files=[ "res://.import/Cannon_hitbox.obj-a82583a3e04aa51b3dd8da31aafb473f.mesh", "res://.import/Cannon_hitbox.obj-a82583a3e04aa51b3dd8da31aafb473f.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+optimize_mesh=true
