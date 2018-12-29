@@ -56,6 +56,7 @@ class MeshCurver : public godot::Path {
 		float deltaSum = 0.0f;
 
 		godot::MeshInstance* curvedMesh;
+		godot::MeshInstance* savedMesh;
 
 	public:
 		static void _register_methods();
@@ -90,7 +91,7 @@ class MeshCurver : public godot::Path {
 		
 		godot::MeshInstance* getCurvedMesh() {return curvedMesh;};
 
-		void initMesh();
+		void initMesh(godot::Object* savedMesh);
 		void updateCurve();
 		void curveMainMesh(godot::Ref<godot::Curve3D> guidingCurve, float startingOffset = 0.0f, int updateFromVertexOfId = 0);
 		void repeatMeshFromMdtToMeshIns();

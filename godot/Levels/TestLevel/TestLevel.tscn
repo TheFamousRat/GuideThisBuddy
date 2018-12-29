@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://LevelBase/LevelBase.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Levels/TestLevel/TestLevel.gd" type="Script" id=2]
@@ -59,10 +59,21 @@ _bundled = {
 "version": 2
 }
 
+[sub_resource type="ProceduralSky" id=7]
+
+
+[sub_resource type="Environment" id=6]
+
+background_mode = 2
+background_sky = SubResource( 7 )
+
 [node name="TestLevel" index="0" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 availablePlaters = [ SubResource( 1 ), 0, SubResource( 2 ), 0, SubResource( 3 ), 0, SubResource( 4 ), 0 ]
 
 [node name="PlayerStart" parent="." index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.01364, -6.86143 )
+
+[node name="WorldEnvironment" parent="." index="2"]
+environment = SubResource( 6 )
 

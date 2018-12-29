@@ -36,7 +36,10 @@ void MeshCurver::_process(float delta)
 	for (int i(0) ; i < mainMesh->get_surface_count() ; i++)
 	{
 		if (!mainMesh->surface_get_material(i).is_null())
+		{
 			curvedMesh->set_surface_material(i, mainMesh->surface_get_material(i));
+			//savedMesh->set_surface_material(i, mainMesh->surface_get_material(i));
+		}
 	}
 
 	if (deltaSum >= updateFrequency)
@@ -67,24 +70,30 @@ void MeshCurver::_init()
 	add_child(curvedMesh);
 
 	this->connect(String("curve_changed"), this, String("updateCurve"));
-	this->connect(godot::String("ready"), this, godot::String("initMesh"));
 }
 
-void MeshCurver::initMesh()
+void MeshCurver::initMesh(godot::Object* savedMeshPtr)
 {
-	updateMesh(mainMesh);
+	savedMesh = cast_to<godot::MeshInstance>(savedMeshPtr);
+	savedMesh->hide();
+	updateMesh(savedMesh->get_mesh());
 }
 
 void MeshCurver::updateMesh(godot::Ref<godot::ArrayMesh> newMesh)
 {
 	if (newMesh.is_valid() && newMesh.is_null() == false)
 	{
-		if (newMesh->get_surface_count() > 0)
+		if (newMesh->get_surface_count() > 0 && savedMesh != nullptr)
 		{
 			//We convert the mesh input from any mesh type to an ArrayMesh
-			mainMesh.instance();
 			for (int i(0) ; i < newMesh->get_surface_count() ; i++)
+			{
 				mainMesh->add_surface_from_arrays(godot::Mesh::PRIMITIVE_TRIANGLES, newMesh->surface_get_arrays(i));
+				if (!newMesh->surface_get_material(i).is_null())
+					mainMesh->surface_set_material(i, newMesh->surface_get_material(i));
+			}
+
+			savedMesh->set_mesh(mainMesh);
 
 			//We then create a MeshDataTool, which we will use to get the vertices
 			mainMeshMdt.clear();
