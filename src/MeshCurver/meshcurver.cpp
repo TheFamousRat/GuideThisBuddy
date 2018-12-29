@@ -86,6 +86,7 @@ void MeshCurver::updateMesh(godot::Ref<godot::ArrayMesh> newMesh)
 		if (newMesh->get_surface_count() > 0 && savedMesh != nullptr)
 		{
 			//We convert the mesh input from any mesh type to an ArrayMesh
+			mainMesh.instance();
 			for (int i(0) ; i < newMesh->get_surface_count() ; i++)
 			{
 				mainMesh->add_surface_from_arrays(godot::Mesh::PRIMITIVE_TRIANGLES, newMesh->surface_get_arrays(i));
