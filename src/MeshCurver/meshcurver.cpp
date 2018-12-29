@@ -15,7 +15,7 @@ void MeshCurver::_register_methods()
 	godot::Ref<godot::ArrayMesh> defaultMesh;
 	defaultMesh.instance();
 	godot::register_property<MeshCurver, godot::Ref<godot::ArrayMesh>>("mainMesh", &MeshCurver::updateMesh, &MeshCurver::getMainMesh, defaultMesh);
-
+	
 	godot::register_method("_init", &MeshCurver::_init);
 	godot::register_method("initMesh", &MeshCurver::initMesh);
 	godot::register_method("_process", &MeshCurver::_process);

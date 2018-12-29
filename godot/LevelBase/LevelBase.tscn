@@ -39,3 +39,5 @@ availablePlaters = [ ExtResource( 2 ), 0, SubResource( 1 ), 0, SubResource( 2 ),
 
 [node name="PlayerArrival" type="Area" parent="."]
 
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+
