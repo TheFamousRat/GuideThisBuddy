@@ -31,11 +31,11 @@ class MeshCurver : public godot::Path {
 	private:
 
 		bool enableUpVector = true;
-		godot::Ref<godot::ArrayMesh> mainMesh;
+		godot::Ref<godot::ArrayMesh> mainMesh = godot::Ref<godot::ArrayMesh>();
 		int meshRepetitonsNumber = 1;
 		float curvedMeshStartingOffset = 0.0f;
-		bool createTrimeshStaticBody = false;
-		godot::Vector3 xyzScale = Vector3(1,1,1);
+		bool generateBoundingBox = false;
+		godot::Vector3 xyzScale = godot::Vector3(1.0f, 1.0f, 1.0f);
 
 		float epsilon = 0.2f;
 		float minDist = 0.0f;
@@ -50,7 +50,7 @@ class MeshCurver : public godot::Path {
 		std::vector<godot::Ref<godot::MeshDataTool>> beforeCurveMdt;
 		std::vector<godot::Ref<godot::MeshDataTool>> curvedMeshMdt;
 
-		godot::Ref<godot::Curve3D> prevCurve;
+		godot::Ref<godot::Curve3D> prevCurve = godot::Ref<godot::Curve3D>();
 		int updateLowerBound = -1;
 		float updateFrequency = 0.1f;
 		float deltaSum = 0.0f;
@@ -77,8 +77,8 @@ class MeshCurver : public godot::Path {
 		void setMeshOffset(float newOffset);
 		float getMeshOffset() const {return curvedMeshStartingOffset;};
 		
-		void generateBoundingBox(bool newValue);
-		bool getNothing() const {return false;};
+		void setGenerateBoundingBox(bool newValue) {generateBoundingBox = newValue;};
+		bool getGenerateBoundingBox() const {return generateBoundingBox;};
 		
 		void setXYZScale(godot::Vector3 newScale) {xyzScale = newScale; updateLowerBound = 0;};
 		godot::Vector3 getXYZSCale() const {return xyzScale;};

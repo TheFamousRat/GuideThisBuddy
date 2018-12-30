@@ -8,7 +8,7 @@ void MeshCurver::_register_methods()
 	godot::register_property("enableUpVector", &MeshCurver::setEnableUpVector, &MeshCurver::getEnableUpVector, true);
 	godot::register_property("meshRepetitonsNumber", &MeshCurver::setMeshRepetitions, &MeshCurver::getMeshRepetitions, 1);
 	godot::register_property("curvedMeshStartingOffset", &MeshCurver::setMeshOffset, &MeshCurver::getMeshOffset, 0.0f);
-	godot::register_property("createTrimeshStaticBody", &MeshCurver::generateBoundingBox, &MeshCurver::getNothing, false);
+	godot::register_property("generateBoundingBox", &MeshCurver::setGenerateBoundingBox, &MeshCurver::getGenerateBoundingBox, false);
 	godot::register_property("xyzScale", &MeshCurver::setXYZScale, &MeshCurver::getXYZSCale, Vector3(1,1,1));
 	godot::register_property("magicVector", &MeshCurver::setGuidingVector, &MeshCurver::getGuidingVector, Vector3(1,0,0));
 
@@ -136,6 +136,7 @@ void MeshCurver::updateMesh(godot::Ref<godot::ArrayMesh> newMesh)
 void MeshCurver::updateCurve()
 {
 	godot::Ref<godot::Curve3D> curve = this->get_curve();
+	std::cout << prevCurve->get_point_count() << '\n';
 
 	if (prevCurve->get_point_count() != 0 && curve->get_point_count() != 0)
 	{
@@ -263,6 +264,17 @@ void MeshCurver::curveMainMesh(godot::Ref<godot::Curve3D> guidingCurve, float st
 			}
 		}
 		curvedMesh->set_mesh(combinedCurvedSurfaces);
+		
+		if (generateBoundingBox)
+		{
+			curvedMesh->get_children().clear();
+			curvedMesh->create_trimesh_collision();
+			std::cout << curvedMesh->get_child_count() << '\n';
+		}
+	}
+	else
+	{
+		std::cout << "wtf " << get_curve()->get_point_count() << '\n';
 	}
 }
 
@@ -325,12 +337,6 @@ void MeshCurver::setMeshOffset(float newOffset)
 {
 	curvedMeshStartingOffset = newOffset;
 	updateLowerBound = 0;
-}
-
-void MeshCurver::generateBoundingBox(bool newValue)
-{
-	curvedMesh->get_children().empty();
-	curvedMesh->create_trimesh_collision();
 }
 
 float MeshCurver::pointDist(godot::Vector3 planeNormal, godot::Vector3 normalOrigin, godot::Vector3 point)
