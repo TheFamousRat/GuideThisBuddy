@@ -31,6 +31,17 @@ Needed variables :
 	Level layout
 """
 
+signal win
+
+func _ready():
+	set_process(get_tree().get_edited_scene_root() == null)
+	
+func _process(delta):
+	var bodies = $PlayerArrival.get_overlapping_bodies()
+	for body in bodies:
+		if body.is_in_group("player"):
+			emit_signal("win")
+
 func availablePlaterArrayChecker(newArray : Array):
 	var platersArray : Array
 
