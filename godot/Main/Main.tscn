@@ -8,9 +8,9 @@
 script = ExtResource( 1 )
 
 [node name="GameCamera" type="Camera" parent="."]
-transform = Transform( -0.472244, 0, -0.881468, 0, 1, 0, 0.881468, 0, -0.472244, 0, 0, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 script = ExtResource( 2 )
-distVect = Vector3( 0, 0, -1 )
+distVect = Vector3( 0, 0, 1 )
 targetDist = 5.0
 
 [node name="Slime" parent="." groups=[
