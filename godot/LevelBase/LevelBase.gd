@@ -1,9 +1,3 @@
-tool
-
-extends Node
-
-export (Array) var availablePlaters setget availablePlaterArrayChecker
-
 """
 To do a new level, one has to do the following :
 	1/Create new scene inherited from LevelBase
@@ -30,6 +24,12 @@ To do a new level, one has to do the following :
 Needed variables :
 	Level layout
 """
+
+tool
+
+extends Node
+
+export (Array) var availablePlaters setget availablePlaterArrayChecker
 
 signal won
 signal lost
@@ -58,6 +58,20 @@ func availablePlaterArrayChecker(newArray : Array):
 		
 		for i in availablePlaters.size():
 			if i%2 == 0:
-				pass
+				if availablePlaters[i] != null:
+					pass
+				else:
+					availablePlaters[i] = PackedScene.new()
 			elif i%2 == 1 and !(availablePlaters[i] is int):
 				availablePlaters[i] = int(0)
+				
+		var i : int = 0
+		platersArray.clear()
+		while i < availablePlaters.size():
+			if platersArray.has(availablePlaters[i]):
+				availablePlaters.remove(i+1)
+				availablePlaters.remove(i)
+				i-=2
+			else:
+				platersArray.append(availablePlaters[i])
+			i+=2

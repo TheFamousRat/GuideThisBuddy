@@ -1,82 +1,27 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://LevelBase/LevelBase.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Levels/TestLevel/TestLevel.gd" type="Script" id=2]
-[ext_resource path="res://MeshCurver/MeshCurver.gdns" type="Script" id=3]
-[ext_resource path="res://MeshCurver/RessourceSaver.gd" type="Script" id=4]
+[ext_resource path="res://Platers/Cannon/Cannon.tscn" type="PackedScene" id=3]
+[ext_resource path="res://MeshCurver/MeshCurver.gdns" type="Script" id=4]
+[ext_resource path="res://MeshCurver/RessourceSaver.gd" type="Script" id=5]
 
-[sub_resource type="PackedScene" id=1]
-
-_bundled = {
-"conn_count": 0,
-"conns": PoolIntArray(  ),
-"editable_instances": [  ],
-"names": PoolStringArray(  ),
-"node_count": 0,
-"node_paths": [  ],
-"nodes": PoolIntArray(  ),
-"variants": [  ],
-"version": 2
-}
-
-[sub_resource type="PackedScene" id=2]
-
-_bundled = {
-"conn_count": 0,
-"conns": PoolIntArray(  ),
-"editable_instances": [  ],
-"names": PoolStringArray(  ),
-"node_count": 0,
-"node_paths": [  ],
-"nodes": PoolIntArray(  ),
-"variants": [  ],
-"version": 2
-}
-
-[sub_resource type="PackedScene" id=3]
-
-_bundled = {
-"conn_count": 0,
-"conns": PoolIntArray(  ),
-"editable_instances": [  ],
-"names": PoolStringArray(  ),
-"node_count": 0,
-"node_paths": [  ],
-"nodes": PoolIntArray(  ),
-"variants": [  ],
-"version": 2
-}
-
-[sub_resource type="PackedScene" id=4]
-
-_bundled = {
-"conn_count": 0,
-"conns": PoolIntArray(  ),
-"editable_instances": [  ],
-"names": PoolStringArray(  ),
-"node_count": 0,
-"node_paths": [  ],
-"nodes": PoolIntArray(  ),
-"variants": [  ],
-"version": 2
-}
-
-[sub_resource type="ProceduralSky" id=5]
+[sub_resource type="ProceduralSky" id=2]
 
 
-[sub_resource type="Environment" id=6]
+[sub_resource type="Environment" id=3]
 
 background_mode = 2
-background_sky = SubResource( 5 )
+background_sky = SubResource( 2 )
 
-[sub_resource type="Curve3D" id=7]
+[sub_resource type="Curve3D" id=4]
 
 _data = {
 "points": PoolVector3Array( 0, 0, 0, 0, 0, 0, 0.228257, -0.616197, -8.30167, -2.0948, -0.298949, -0.764619, 2.0948, 0.298949, 0.764619, -0.109917, 0.462148, 5.90031, -2.96566, 1.16496, 4.83276, 2.96566, -1.16496, -4.83276, 6.709, -6.1743, 5.36142, 2.88281, 1.75034, 1.93591, -2.88281, -1.75034, -1.93591, 9.22866, -5.73879, -5.04174, 3.99536, -1.58636, -0.111778, -3.99536, 1.58636, 0.111778, 0.160007, -5.45009, -8.21491 ),
 "tilts": PoolRealArray( 0, 0, 0, 0, 0 )
 }
 
-[sub_resource type="ArrayMesh" id=8]
+[sub_resource type="ArrayMesh" id=5]
 
 surfaces/0 = {
 "aabb": AABB( -1, -1, -1, 2, 2.00001, 2.00001 ),
@@ -90,26 +35,26 @@ surfaces/0 = {
 "vertex_count": 24
 }
 
-[node name="TestLevel" instance=ExtResource( 1 )]
+[node name="TestLevel" index="0" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
-availablePlaters = [ SubResource( 1 ), 0, SubResource( 2 ), 0, SubResource( 3 ), 0, SubResource( 4 ), 0 ]
+availablePlaters = [ ExtResource( 3 ), 0, null, 0, null, 0, null, 0 ]
 
 [node name="PlayerStart" parent="." index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.01364, -6.86143 )
 
 [node name="WorldEnvironment" parent="." index="2"]
-environment = SubResource( 6 )
+environment = SubResource( 3 )
 
 [node name="MeshCurver" type="Path" parent="." index="3"]
-curve = SubResource( 7 )
-script = ExtResource( 3 )
+curve = SubResource( 4 )
+script = ExtResource( 4 )
 meshRepetitonsNumber = 23
 generateBoundingBox = true
-mainMesh = SubResource( 8 )
+mainMesh = SubResource( 5 )
 
 [node name="RessourceSaver" type="MeshInstance" parent="MeshCurver" index="1"]
 visible = false
-mesh = SubResource( 8 )
+mesh = SubResource( 5 )
 material/0 = null
-script = ExtResource( 4 )
+script = ExtResource( 5 )
 

@@ -1,41 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=2 format=2]
 
 [ext_resource path="res://LevelBase/LevelBase.gd" type="Script" id=1]
-[ext_resource path="res://Platers/Pusher/Pusher.tscn" type="PackedScene" id=2]
-
-
-
-[sub_resource type="PackedScene" id=1]
-
-_bundled = {
-"conn_count": 0,
-"conns": PoolIntArray(  ),
-"editable_instances": [  ],
-"names": PoolStringArray(  ),
-"node_count": 0,
-"node_paths": [  ],
-"nodes": PoolIntArray(  ),
-"variants": [  ],
-"version": 2
-}
-
-[sub_resource type="PackedScene" id=2]
-
-_bundled = {
-"conn_count": 0,
-"conns": PoolIntArray(  ),
-"editable_instances": [  ],
-"names": PoolStringArray(  ),
-"node_count": 0,
-"node_paths": [  ],
-"nodes": PoolIntArray(  ),
-"variants": [  ],
-"version": 2
-}
 
 [node name="LevelBase" type="Node"]
 script = ExtResource( 1 )
-availablePlaters = [ ExtResource( 2 ), 0, SubResource( 1 ), 0, SubResource( 2 ), 0 ]
+availablePlaters = [  ]
 
 [node name="PlayerStart" type="Position3D" parent="."]
 
