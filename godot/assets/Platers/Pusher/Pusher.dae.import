@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/Bumper.dae-9a09e4fb8d8740d2543cc887cb693f4a.scn"
+path="res://.import/Pusher.dae-9c2f8547244d23a429f3468249ef7ed1.scn"
 
 [deps]
 
-source_file="res://assets/Platers/Bumper/Bumper.dae"
-dest_files=[ "res://.import/Bumper.dae-9a09e4fb8d8740d2543cc887cb693f4a.scn" ]
+source_file="res://assets/Platers/Pusher/Pusher.dae"
+dest_files=[ "res://.import/Pusher.dae-9c2f8547244d23a429f3468249ef7ed1.scn" ]
 
 [params]
 
