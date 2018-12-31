@@ -65,7 +65,7 @@ class MeshCurver : public godot::Path {
 		void _process(float delta);
 
 		//Setters and getters
-		void setEnableUpVector(bool newValue) {enableUpVector = newValue;};
+		void setEnableUpVector(bool newValue) {enableUpVector = newValue; updateLowerBound = 0;};
 		bool getEnableUpVector() const {return enableUpVector;};
 		
 		void updateMesh(godot::Ref<godot::ArrayMesh> newMesh);
