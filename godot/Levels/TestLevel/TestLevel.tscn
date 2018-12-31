@@ -6,22 +6,22 @@
 [ext_resource path="res://MeshCurver/MeshCurver.gdns" type="Script" id=4]
 [ext_resource path="res://MeshCurver/RessourceSaver.gd" type="Script" id=5]
 
-[sub_resource type="ProceduralSky" id=2]
+[sub_resource type="ProceduralSky" id=1]
 
 
-[sub_resource type="Environment" id=3]
+[sub_resource type="Environment" id=2]
 
 background_mode = 2
-background_sky = SubResource( 2 )
+background_sky = SubResource( 1 )
 
-[sub_resource type="Curve3D" id=4]
+[sub_resource type="Curve3D" id=3]
 
 _data = {
 "points": PoolVector3Array( 0, 0, 0, 0, 0, 0, 0.228257, -0.616197, -8.30167, -2.0948, -0.298949, -0.764619, 2.0948, 0.298949, 0.764619, -0.109917, 0.462148, 5.90031, -2.96566, 1.16496, 4.83276, 2.96566, -1.16496, -4.83276, 6.709, -6.1743, 5.36142, 2.88281, 1.75034, 1.93591, -2.88281, -1.75034, -1.93591, 9.22866, -5.73879, -5.04174, 3.99536, -1.58636, -0.111778, -3.99536, 1.58636, 0.111778, 0.160007, -5.45009, -8.21491 ),
 "tilts": PoolRealArray( 0, 0, 0, 0, 0 )
 }
 
-[sub_resource type="ArrayMesh" id=5]
+[sub_resource type="ArrayMesh" id=4]
 
 surfaces/0 = {
 "aabb": AABB( -1, -1, -1, 2, 2.00001, 2.00001 ),
@@ -37,24 +37,25 @@ surfaces/0 = {
 
 [node name="TestLevel" index="0" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
-availablePlaters = [ ExtResource( 3 ), 0, null, 0, null, 0, null, 0 ]
+availablePlaters = [ ExtResource( 3 ), 0 ]
 
 [node name="PlayerStart" parent="." index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.01364, -6.86143 )
 
 [node name="WorldEnvironment" parent="." index="2"]
-environment = SubResource( 3 )
+environment = SubResource( 2 )
 
 [node name="MeshCurver" type="Path" parent="." index="3"]
-curve = SubResource( 4 )
+editor/display_folded = true
+curve = SubResource( 3 )
 script = ExtResource( 4 )
 meshRepetitonsNumber = 23
 generateBoundingBox = true
-mainMesh = SubResource( 5 )
+mainMesh = SubResource( 4 )
 
 [node name="RessourceSaver" type="MeshInstance" parent="MeshCurver" index="1"]
 visible = false
-mesh = SubResource( 5 )
+mesh = SubResource( 4 )
 material/0 = null
 script = ExtResource( 5 )
 
