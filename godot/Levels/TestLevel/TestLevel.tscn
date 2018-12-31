@@ -1,7 +1,9 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://LevelBase/LevelBase.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Levels/TestLevel/TestLevel.gd" type="Script" id=2]
+[ext_resource path="res://MeshCurver/MeshCurver.gdns" type="Script" id=3]
+[ext_resource path="res://MeshCurver/RessourceSaver.gd" type="Script" id=4]
 
 [sub_resource type="PackedScene" id=1]
 
@@ -59,15 +61,36 @@ _bundled = {
 "version": 2
 }
 
-[sub_resource type="ProceduralSky" id=7]
+[sub_resource type="ProceduralSky" id=5]
 
 
 [sub_resource type="Environment" id=6]
 
 background_mode = 2
-background_sky = SubResource( 7 )
+background_sky = SubResource( 5 )
 
-[node name="TestLevel" index="0" instance=ExtResource( 1 )]
+[sub_resource type="Curve3D" id=7]
+
+_data = {
+"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, 0.228257, -0.616197, -8.30167, -2.0948, -0.298949, -0.764619, 2.0948, 0.298949, 0.764619, -0.109917, 0.462148, 5.90031, -2.96566, 1.16496, 4.83276, 2.96566, -1.16496, -4.83276, 6.709, -6.1743, 5.36142, 2.88281, 1.75034, 1.93591, -2.88281, -1.75034, -1.93591, 9.22866, -5.73879, -5.04174, 3.99536, -1.58636, -0.111778, -3.99536, 1.58636, 0.111778, 0.160007, -5.45009, -8.21491 ),
+"tilts": PoolRealArray( 0, 0, 0, 0, 0 )
+}
+
+[sub_resource type="ArrayMesh" id=8]
+
+surfaces/0 = {
+"aabb": AABB( -1, -1, -1, 2, 2.00001, 2.00001 ),
+"array_data": PoolByteArray( 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 127, 0, 127, 0, 0, 129, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 191, 0, 0, 129, 0, 129, 0, 0, 129, 85, 57, 0, 0, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 127, 0, 127, 0, 0, 129, 85, 53, 0, 0, 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 128, 191, 0, 0, 129, 0, 129, 0, 0, 129, 0, 60, 0, 0, 0, 0, 128, 191, 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 127, 0, 127, 0, 0, 129, 0, 0, 0, 56, 0, 0, 128, 63, 0, 0, 128, 191, 0, 0, 128, 191, 0, 0, 129, 0, 129, 0, 0, 129, 85, 57, 0, 56, 0, 0, 128, 63, 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 127, 0, 127, 0, 0, 129, 85, 53, 0, 56, 0, 0, 128, 191, 0, 0, 128, 191, 0, 0, 128, 191, 0, 0, 129, 0, 129, 0, 0, 129, 0, 60, 0, 56, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 63, 127, 0, 0, 0, 0, 0, 129, 129, 85, 53, 0, 0, 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 128, 191, 129, 0, 0, 0, 0, 0, 127, 129, 0, 0, 0, 56, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 191, 127, 0, 0, 0, 0, 0, 129, 129, 85, 57, 0, 0, 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 128, 63, 129, 0, 0, 0, 0, 0, 127, 129, 85, 53, 0, 56, 0, 0, 128, 63, 0, 0, 128, 191, 0, 0, 128, 63, 127, 0, 0, 0, 0, 0, 129, 129, 85, 53, 0, 56, 0, 0, 128, 191, 0, 0, 128, 191, 0, 0, 128, 191, 129, 0, 0, 0, 0, 0, 127, 129, 0, 0, 0, 60, 0, 0, 128, 63, 0, 0, 128, 191, 0, 0, 128, 191, 127, 0, 0, 0, 0, 0, 129, 129, 85, 57, 0, 56, 0, 0, 128, 191, 0, 0, 128, 191, 0, 0, 128, 63, 129, 0, 0, 0, 0, 0, 127, 129, 85, 53, 0, 60, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 63, 0, 127, 0, 0, 129, 0, 0, 129, 85, 53, 0, 56, 0, 0, 128, 191, 0, 0, 128, 191, 0, 0, 128, 63, 0, 129, 0, 0, 127, 0, 0, 129, 85, 57, 0, 56, 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 128, 63, 0, 127, 0, 0, 129, 0, 0, 129, 85, 57, 0, 56, 0, 0, 128, 63, 0, 0, 128, 191, 0, 0, 128, 63, 0, 129, 0, 0, 127, 0, 0, 129, 0, 60, 0, 56, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 191, 0, 127, 0, 0, 129, 0, 0, 129, 85, 53, 0, 60, 0, 0, 128, 191, 0, 0, 128, 191, 0, 0, 128, 191, 0, 129, 0, 0, 127, 0, 0, 129, 85, 57, 0, 60, 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 128, 191, 0, 127, 0, 0, 129, 0, 0, 129, 85, 57, 0, 60, 0, 0, 128, 63, 0, 0, 128, 191, 0, 0, 128, 191, 0, 129, 0, 0, 127, 0, 0, 129, 0, 60, 0, 60 ),
+"array_index_data": PoolByteArray( 0, 0, 2, 0, 4, 0, 2, 0, 6, 0, 4, 0, 1, 0, 3, 0, 5, 0, 3, 0, 7, 0, 5, 0, 8, 0, 10, 0, 12, 0, 10, 0, 14, 0, 12, 0, 9, 0, 11, 0, 13, 0, 11, 0, 15, 0, 13, 0, 16, 0, 18, 0, 20, 0, 18, 0, 22, 0, 20, 0, 17, 0, 19, 0, 21, 0, 19, 0, 23, 0, 21, 0 ),
+"blend_shape_data": [  ],
+"format": 97559,
+"index_count": 36,
+"primitive": 4,
+"skeleton_aabb": [  ],
+"vertex_count": 24
+}
+
+[node name="TestLevel" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 availablePlaters = [ SubResource( 1 ), 0, SubResource( 2 ), 0, SubResource( 3 ), 0, SubResource( 4 ), 0 ]
 
@@ -76,4 +99,17 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.01364, -6.86143 )
 
 [node name="WorldEnvironment" parent="." index="2"]
 environment = SubResource( 6 )
+
+[node name="MeshCurver" type="Path" parent="." index="3"]
+curve = SubResource( 7 )
+script = ExtResource( 3 )
+meshRepetitonsNumber = 23
+generateBoundingBox = true
+mainMesh = SubResource( 8 )
+
+[node name="RessourceSaver" type="MeshInstance" parent="MeshCurver" index="1"]
+visible = false
+mesh = SubResource( 8 )
+material/0 = null
+script = ExtResource( 4 )
 

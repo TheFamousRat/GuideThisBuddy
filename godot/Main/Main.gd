@@ -2,6 +2,7 @@ extends Spatial
 
 func _ready():
 	loadLevel("res://Levels/TestLevel/TestLevel.tscn")
+	$GameCamera.setTarget($Slime)
 
 func loadLevel(levelPath : String):
 	#Unloading the previous level
