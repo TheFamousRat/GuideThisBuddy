@@ -7,7 +7,7 @@ func _ready():
 	suckForce = (self.get_global_transform().origin - $Position3D.get_global_transform().origin).normalized()
 
 func _process(delta):
-	var bodies = $Area.get_overlapping_bodies()
+	var bodies = $BodyDetector.get_overlapping_bodies()
 	for i in bodies:
 		if i is RigidBody:
 			i.add_force(suckForce * delta * suckStrength, Vector3(0,0,0))

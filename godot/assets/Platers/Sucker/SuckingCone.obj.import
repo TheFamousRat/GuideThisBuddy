@@ -1,0 +1,18 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/SuckingCone.obj-42fd13dadcba391839b337d69706cf7f.mesh"
+
+[deps]
+
+files=[ "res://.import/SuckingCone.obj-42fd13dadcba391839b337d69706cf7f.mesh" ]
+
+source_file="res://assets/Platers/Sucker/SuckingCone.obj"
+dest_files=[ "res://.import/SuckingCone.obj-42fd13dadcba391839b337d69706cf7f.mesh", "res://.import/SuckingCone.obj-42fd13dadcba391839b337d69706cf7f.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+optimize_mesh=true
