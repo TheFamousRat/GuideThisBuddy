@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://LevelBase/LevelBase.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Levels/TestLevel/TestLevel.gd" type="Script" id=2]
 [ext_resource path="res://Platers/Cannon/Cannon.tscn" type="PackedScene" id=3]
 [ext_resource path="res://MeshCurver/MeshCurver.gdns" type="Script" id=4]
 [ext_resource path="res://MeshCurver/RessourceSaver.gd" type="Script" id=5]
+[ext_resource path="res://Platers/Sucker/Sucker.tscn" type="PackedScene" id=6]
 
 [sub_resource type="ProceduralSky" id=1]
 
@@ -17,8 +18,8 @@ background_sky = SubResource( 1 )
 [sub_resource type="Curve3D" id=3]
 
 _data = {
-"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, 0.228257, -0.616197, -8.30167, -2.0948, -0.298949, -0.764619, 2.0948, 0.298949, 0.764619, -0.109917, 0.462148, 5.90031, -2.96566, 1.16496, 4.83276, 2.96566, -1.16496, -4.83276, 6.709, -6.1743, 5.36142, 2.88281, 1.75034, 1.93591, -2.88281, -1.75034, -1.93591, 9.22866, -5.73879, -5.04174, 3.99536, -1.58636, -0.111778, -3.99536, 1.58636, 0.111778, 0.160007, -5.45009, -8.21491 ),
-"tilts": PoolRealArray( 0, 0, 0, 0, 0 )
+"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, -0.00146484, 1.48944, 8.23243, 0, 0, 0, 0, 0, 0, -0.000488281, -2.25705, 7.83102, -0.00732422, 2.67606, 5.35212, 0.00732422, -2.67606, -5.35212, 0, -8.27818, 3.28171, 0, 0, 0, 0, 0, 0, 0.000976563, -5.86973, -5.14788, 0, 0, 0, 0, 0, 0, 0.00244141, -5.33452, -13.9789, 0, 0, 0, 0, 0, 0, 0.00292969, -6.00353, -18.3944 ),
+"tilts": PoolRealArray( 0, 0, 0, 0, 0, 0 )
 }
 
 [sub_resource type="ArrayMesh" id=4]
@@ -40,16 +41,15 @@ script = ExtResource( 2 )
 availablePlaters = [ ExtResource( 3 ), 0 ]
 
 [node name="PlayerStart" parent="." index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.01364, -6.86143 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.47888, -7.89438 )
 
 [node name="WorldEnvironment" parent="." index="2"]
 environment = SubResource( 2 )
 
 [node name="MeshCurver" type="Path" parent="." index="3"]
-editor/display_folded = true
 curve = SubResource( 3 )
 script = ExtResource( 4 )
-meshRepetitonsNumber = 23
+meshRepetitonsNumber = 14
 generateBoundingBox = true
 mainMesh = SubResource( 4 )
 
@@ -58,4 +58,7 @@ visible = false
 mesh = SubResource( 4 )
 material/0 = null
 script = ExtResource( 5 )
+
+[node name="Sucker" parent="." index="4" instance=ExtResource( 6 )]
+transform = Transform( -4.37114e-08, 0, -1, -0.244338, 0.96969, 1.06803e-08, 0.96969, 0.244338, -4.23865e-08, 0, -5.11851, -1.7081 )
 
