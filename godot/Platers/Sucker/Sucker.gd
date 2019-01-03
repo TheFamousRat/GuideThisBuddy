@@ -9,5 +9,5 @@ func _ready():
 func _process(delta):
 	var bodies = $BodyDetector.get_overlapping_bodies()
 	for i in bodies:
-		if i is RigidBody:
+		if i.is_in_group("player"):
 			i.add_force(suckForce * delta * suckStrength, Vector3(0,0,0))
