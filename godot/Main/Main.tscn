@@ -16,9 +16,7 @@ script = ExtResource( 2 )
 distVect = Vector3( -1, 0, 0 )
 targetDist = 5.0
 
-[node name="Slime" parent="." groups=[
-"player",
-] instance=ExtResource( 3 )]
+[node name="Slime" parent="." instance=ExtResource( 3 )]
 
 [node name="Control" type="Control" parent="."]
 margin_right = 40.0

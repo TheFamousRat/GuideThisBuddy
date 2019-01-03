@@ -8,7 +8,9 @@
 [sub_resource type="SphereMesh" id=2]
 
 
-[node name="Slime" type="RigidBody"]
+[node name="Slime" type="RigidBody" groups=[
+"player",
+]]
 script = ExtResource( 1 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
