@@ -12,3 +12,5 @@ availablePlaters = [  ]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 
+[node name="BoundariesDelimiter" type="StaticBody" parent="."]
+

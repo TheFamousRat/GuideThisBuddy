@@ -30,4 +30,5 @@ gdscript/completion/autocomplete_setters_and_getters=true
 
 [rendering]
 
+quality/filters/msaa=4
 environment/default_environment="res://default_env.tres"
