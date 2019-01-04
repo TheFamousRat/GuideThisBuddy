@@ -72,5 +72,8 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.02283, -3.49829, -1.44436 )
 shape = SubResource( 5 )
 
 [node name="Bumper2" parent="." index="5" instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4 )
+transform = Transform( 1, 0, 0, 0, 0.955092, 0.296309, 0, -0.296309, 0.955092, 0, 0, 4 )
+
+[node name="Bumper3" parent="." index="6" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 0.941539, -0.336903, 0, 0.336903, 0.941539, 0, -0.737279, -1.03604 )
 
