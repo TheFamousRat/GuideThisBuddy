@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://nodes/Platers/PlaterBase/PlaterBase.tscn" type="PackedScene" id=1]
+[ext_resource path="res://nodes/Platers/Sucker/Sucker.gd" type="Script" id=2]
+
+
+[sub_resource type="ConcavePolygonShape" id=1]
+
+data = PoolVector3Array( -1, 1, 2.5, 1, 1, 2.5, -1, -1, 2.5, 1, 1, 2.5, 1, -1, 2.5, -1, -1, 2.5, 1, 1, -2.5, -1, 1, -2.5, 1, -1, -2.5, -1, 1, -2.5, -1, -1, -2.5, 1, -1, -2.5, 1, 1, 2.5, 1, 1, -2.5, 1, -1, 2.5, 1, 1, -2.5, 1, -1, -2.5, 1, -1, 2.5, -1, 1, -2.5, -1, 1, 2.5, -1, -1, -2.5, -1, 1, 2.5, -1, -1, 2.5, -1, -1, -2.5, 1, 1, 2.5, -1, 1, 2.5, 1, 1, -2.5, -1, 1, 2.5, -1, 1, -2.5, 1, 1, -2.5, -1, -1, 2.5, 1, -1, 2.5, -1, -1, -2.5, 1, -1, 2.5, 1, -1, -2.5, -1, -1, -2.5 )
+
+[sub_resource type="CubeMesh" id=2]
+
+size = Vector3( 2, 2, 5 )
+
+[sub_resource type="BoxShape" id=3]
+
+extents = Vector3( 0.8, 0.8, 2.33 )
+
+[node name="Sucker" index="0" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+
+[node name="StaticBody" type="StaticBody" parent="." index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.55091 )
+
+[node name="CollisionShape" type="CollisionShape" parent="StaticBody" index="0"]
+shape = SubResource( 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="StaticBody" index="1"]
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="BodyDetector" type="Area" parent="." index="1"]
+
+[node name="CollisionShape" type="CollisionShape" parent="BodyDetector" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.43873 )
+shape = SubResource( 3 )
+
+[node name="Position3D" type="Position3D" parent="." index="2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.09853 )
+
