@@ -18,4 +18,3 @@ func loadLevel(levelPath : String):
 	
 func _process(delta):
 	pass
-	
