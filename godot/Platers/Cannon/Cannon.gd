@@ -16,3 +16,13 @@ func _process(delta):
 			i.add_central_force(cannonForce*(($Position3D.get_global_transform().origin - self.get_global_transform().origin).normalized()))
 			propulsedBodies.append(i.get_path())
 			$AnimationPlayer.play("explosion")
+			
+	var foundPath : bool = false
+	for i in propulsedBodies:
+		foundPath = false
+		for j in bodies:
+			if j.get_path() == i:
+				foundPath = true
+				break
+		if !foundPath:
+			propulsedBodies.erase(i)

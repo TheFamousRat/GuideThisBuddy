@@ -34,8 +34,6 @@ func _process(delta):
 				break
 		if !foundPath:
 			launchedBodies.erase(i)
-			print("removed")
-	
 	
 func bounceVect(inputVec : Vector3, xAxis : Vector3, yAxis : Vector3, zAxis : Vector3):
 	var a : float = xAxis.x
