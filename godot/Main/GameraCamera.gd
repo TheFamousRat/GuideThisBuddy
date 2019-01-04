@@ -6,8 +6,7 @@ export (float) var targetDist
 var target : Spatial setget setTarget
 
 func _ready():
-	self.projection = Camera.PROJECTION_ORTHOGONAL
-	self.size = targetDist
+	pass
 
 func _process(delta):
 	self.set_translation(target.get_global_transform().origin + distVect * targetDist)
