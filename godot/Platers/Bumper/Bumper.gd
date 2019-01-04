@@ -1,7 +1,12 @@
 extends "res://Platers/PlaterBase/PlaterBase.gd"
 
-var bumpStrength : float = 100.0
+var bumpStrength : float
+var maxStrength : float = 500.0
 var launchedBodies : Array
+
+func _ready():
+	launchedBodies = Array()
+	bumpStrength = 100.0
 
 func _process(delta):
 	var bodies = $BodyDetector.get_overlapping_bodies()
@@ -13,9 +18,25 @@ func _process(delta):
 			xVec = $Spatial/xAxis.get_global_transform().origin - $Spatial/origin.get_global_transform().origin
 			yVec = $Spatial/yAxis.get_global_transform().origin - $Spatial/origin.get_global_transform().origin
 			zVec = $Spatial/zAxis.get_global_transform().origin - $Spatial/origin.get_global_transform().origin
-			i.add_force(bumpStrength * bounceVect(i.linear_velocity,xVec,yVec,zVec),Vector3(0,0,0))
+			var forceToAdd : Vector3 = bumpStrength * bounceVect(i.linear_velocity,xVec,yVec,zVec)
+			if forceToAdd.length() > maxStrength:
+				forceToAdd = forceToAdd.normalized() * maxStrength
+			i.add_central_force(forceToAdd)
 			launchedBodies.append(i.get_path())
-			
+			$Model/AnimationPlayer.play("Bump")
+	
+	var foundPath : bool = false
+	for i in launchedBodies:
+		foundPath = false
+		for j in bodies:
+			if j.get_path() == i:
+				foundPath = true
+				break
+		if !foundPath:
+			launchedBodies.erase(i)
+			print("removed")
+	
+	
 func bounceVect(inputVec : Vector3, xAxis : Vector3, yAxis : Vector3, zAxis : Vector3):
 	var a : float = xAxis.x
 	var b : float = xAxis.y
