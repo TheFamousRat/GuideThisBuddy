@@ -1,39 +1,12 @@
+tool
+
 extends "res://Platers/PlaterBase/PlaterBase.gd"
 
 var bumpStrength : float
-var maxStrength : float = 500.0
-var launchedBodies : Array
+var maxStrength : float = 10.0
 
 func _ready():
-	launchedBodies = Array()
-	bumpStrength = 100.0
-
-func _process(delta):
-	var bodies = $BodyDetector.get_overlapping_bodies()
-	for i in bodies:
-		if i.is_in_group("player") and !launchedBodies.has(i.get_path()):
-			var xVec : Vector3
-			var yVec : Vector3
-			var zVec : Vector3
-			xVec = $Spatial/xAxis.get_global_transform().origin - $Spatial/origin.get_global_transform().origin
-			yVec = $Spatial/yAxis.get_global_transform().origin - $Spatial/origin.get_global_transform().origin
-			zVec = $Spatial/zAxis.get_global_transform().origin - $Spatial/origin.get_global_transform().origin
-			var forceToAdd : Vector3 = bumpStrength * bounceVect(i.linear_velocity,xVec,yVec,zVec)
-			if forceToAdd.length() > maxStrength:
-				forceToAdd = forceToAdd.normalized() * maxStrength
-			i.add_central_force(forceToAdd)
-			launchedBodies.append(i.get_path())
-			$Model/AnimationPlayer.play("Bump")
-	
-	var foundPath : bool = false
-	for i in launchedBodies:
-		foundPath = false
-		for j in bodies:
-			if j.get_path() == i:
-				foundPath = true
-				break
-		if !foundPath:
-			launchedBodies.erase(i)
+	bumpStrength = 3.0
 	
 func bounceVect(inputVec : Vector3, xAxis : Vector3, yAxis : Vector3, zAxis : Vector3):
 	var a : float = xAxis.x
@@ -55,3 +28,17 @@ func bounceVect(inputVec : Vector3, xAxis : Vector3, yAxis : Vector3, zAxis : Ve
 	beta = (a*l-k*b+(m*(a*e-d*b)+c*(l*d-k*e)+f*(k*b-a*l)) / (c*(h*d-g*e)+f*(g*b-h*a)-i)*(g*b-h*a))/(d*b-a*e)
 	
 	return (2.0 * (beta * yAxis) + inputVec)
+
+func _on_BodyDetector_body_entered(body):
+	if body.is_in_group("player"):
+		var xVec : Vector3
+		var yVec : Vector3
+		var zVec : Vector3
+		xVec = $Spatial/xAxis.get_global_transform().origin - $Spatial/origin.get_global_transform().origin
+		yVec = $Spatial/yAxis.get_global_transform().origin - $Spatial/origin.get_global_transform().origin
+		zVec = $Spatial/zAxis.get_global_transform().origin - $Spatial/origin.get_global_transform().origin
+		var forceToAdd : Vector3 = bumpStrength * bounceVect(body.linear_velocity,xVec,yVec,zVec)
+		if forceToAdd.length() > maxStrength:
+			forceToAdd = forceToAdd.normalized() * maxStrength
+		body.apply_central_impulse((1 - abs(zVec.dot(forceToAdd.normalized()))) * forceToAdd)
+		$Model/AnimationPlayer.play("Bump")
