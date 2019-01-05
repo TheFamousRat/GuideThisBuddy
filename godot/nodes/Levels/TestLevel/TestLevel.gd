@@ -1,5 +1,5 @@
 tool
 
-extends "res://LevelBase/LevelBase.gd"
+extends "res://nodes/LevelBase/LevelBase.gd"
 
 

@@ -3,7 +3,7 @@ extends Spatial
 func _ready():
 	$GameCamera.setTarget($Slime)
 	$Slime.hide()
-	$GUI.connect("launch_level", self, "loadLevel")
+	$GUI.loadGui("res://nodes/GUI/MainMenu/MainMenu.tscn")
 
 func loadLevel(levelPath : String):
 	#Unloading the previous level
