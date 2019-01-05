@@ -19,6 +19,10 @@ config/name="GuideThisBuddy"
 run/main_scene="res://nodes/Main/Main.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Global="*res://nodes/Global.gd"
+
 [debug]
 
 gdscript/completion/autocomplete_setters_and_getters=true

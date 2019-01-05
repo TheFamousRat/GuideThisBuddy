@@ -14,7 +14,7 @@ height = 0.268547
 radius = 1.24258
 height = 0.565068
 
-[node name="Bumper" index="0" instance=ExtResource( 1 )]
+[node name="Bumper" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 
 [node name="BodyDetector" type="Area" parent="." index="0"]
