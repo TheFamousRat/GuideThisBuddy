@@ -3,6 +3,7 @@ extends Spatial
 func _ready():
 	$GameCamera.setTarget($Slime)
 	$Slime.hide()
+	$Slime.set_sleeping(true)
 	$GUI.loadGui("res://nodes/GUI/MainMenu/MainMenu.tscn")
 
 func loadLevel(levelPath : String):
@@ -17,7 +18,9 @@ func loadLevel(levelPath : String):
 	#Applying the parameters of the level
 	$Slime.translation = level.get_node("PlayerStart").translation
 	$Slime.show()
-	$Slime.sleeping = true
+	
+func launchLevel():
+	$Slime.set_sleeping(false)
 	
 func _process(delta):
 	pass
