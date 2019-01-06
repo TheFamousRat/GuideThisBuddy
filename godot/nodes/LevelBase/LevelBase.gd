@@ -43,6 +43,9 @@ func _process(delta):
 		if body.is_in_group("player"):
 			emit_signal("won")
 
+func getAvailablePlaters():
+	return availablePlaters
+
 func availablePlaterArrayChecker(newArray : Array):
 	var platersArray : Array
 

@@ -1,7 +1,5 @@
 extends Spatial
 
-var currentLevel
-
 func _ready():
 	$Slime.hide()
 	$Slime.set_sleeping(true)
@@ -10,11 +8,11 @@ func _ready():
 
 func loadLevel(levelPath : String):
 	#Loading the new level and adding it as a child
-	var currentLevel = load(levelPath).instance()
-	self.add_child(currentLevel)
+	var newLevel = load(levelPath).instance()
+	$CurrentLevel.add_child(newLevel)
 	
 	#Applying the parameters of the level
-	$Slime.translation = currentLevel.get_node("PlayerStart").translation
+	$Slime.translation = newLevel.get_node("PlayerStart").translation
 	
 	#Preparing the start of the Plater placement phase
 	$Slime.show()
@@ -26,7 +24,7 @@ func launchLevel():
 	$GameCamera.setTarget($Slime)
 	
 func getLevelAvailablePlaters():
-	return currentLevel
+	return $CurrentLevel.get_child(0).getAvailablePlaters()
 	
 func _process(delta):
 	pass

@@ -28,3 +28,5 @@ targetDist = 3.0
 
 [node name="Slime" parent="." instance=ExtResource( 6 )]
 
+[node name="CurrentLevel" type="Node" parent="."]
+
