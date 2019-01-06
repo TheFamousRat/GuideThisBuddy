@@ -2,8 +2,7 @@
 
 [ext_resource path="res://nodes/LevelBase/LevelBase.gd" type="Script" id=1]
 
-
-[node name="LevelBase" type="Node"]
+[node name="LevelBase" type="Spatial"]
 script = ExtResource( 1 )
 availablePlaters = [  ]
 

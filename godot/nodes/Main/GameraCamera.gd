@@ -9,7 +9,8 @@ func _ready():
 	pass
 
 func _process(delta):
-	self.set_translation(target.get_global_transform().origin + distVect * targetDist)
+	if target != null:
+		self.set_translation(target.get_global_transform().origin + distVect * targetDist)
 
 func setTarget(newTarget : Spatial):
 	target = newTarget

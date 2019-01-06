@@ -17,6 +17,7 @@ func loadLevel(levelPath : String):
 	#Applying the parameters of the level
 	$Slime.translation = level.get_node("PlayerStart").translation
 	$Slime.show()
+	$Slime.sleeping = true
 	
 func _process(delta):
 	pass
