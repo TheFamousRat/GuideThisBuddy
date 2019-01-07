@@ -19,6 +19,9 @@ func _process(delta):
 func getAvailablePlaters():
 	return availablePlaters
 
+func reload():
+	print("Error : Using the base function to reload the level. Won't do anything")
+
 func availablePlaterArrayChecker(newArray : Array):
 	var platersArray : Array
 
