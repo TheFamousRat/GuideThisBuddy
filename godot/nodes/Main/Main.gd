@@ -22,6 +22,7 @@ func loadLevel(levelPath : String):
 func launchLevel():
 	$Slime.set_sleeping(false)
 	$GameCamera.setTarget($Slime)
+	$GUI.loadGui($GUI.levelGUI)
 	
 func getLevelAvailablePlaters():
 	return $CurrentLevel.get_child(0).getAvailablePlaters()

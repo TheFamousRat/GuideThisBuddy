@@ -17,3 +17,8 @@ func _ready():
 		else:
 			availablePlaters.remove(i+1)
 			availablePlaters.remove(i)
+
+
+func _on_LaunchLevel_pressed():
+	get_node(Global.mainPath).launchLevel()
+	self.queue_free()

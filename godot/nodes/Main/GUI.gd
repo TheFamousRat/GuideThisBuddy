@@ -2,6 +2,7 @@ extends Control
 
 export (PackedScene) var mainMenu
 export (PackedScene) var platerPlacement
+export (PackedScene) var levelGUI
 
 func loadGui(guiToLoad : PackedScene):
 	#Unloading the previous level
