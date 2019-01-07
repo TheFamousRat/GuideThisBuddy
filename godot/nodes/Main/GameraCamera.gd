@@ -1,7 +1,8 @@
 extends Camera
 
-export (Vector3) var distVect
-export (float) var targetDist
+export (Vector3) var distVect = Vector3(-1,0,0)
+export (float) var targetDist = 3.0
+export (float) var cameraSpeed = 10.0
 
 var target : Spatial setget setTarget
 
@@ -11,6 +12,15 @@ func _ready():
 func _process(delta):
 	if target != null:
 		self.set_translation(target.get_global_transform().origin + distVect * targetDist)
+	else:#Camera is free to move on a plane when not targeting a Spatial
+		if Input.is_action_pressed("ui_left"):
+			self.translation += cameraSpeed * $left.translation * delta
+		if Input.is_action_pressed("ui_right"):
+			self.translation -= cameraSpeed * $left.translation * delta
+		if Input.is_action_pressed("ui_up"):
+			self.translation += cameraSpeed * $up.translation * delta
+		if Input.is_action_pressed("ui_down"):
+			self.translation -= cameraSpeed * $up.translation * delta
 
 func setTarget(newTarget : Spatial):
 	target = newTarget

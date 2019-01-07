@@ -25,8 +25,14 @@ current = true
 fov = 75.0
 size = 5.0
 script = ExtResource( 6 )
-distVect = Vector3( -1, 0, 0 )
-targetDist = 3.0
+
+[node name="origin" type="Position3D" parent="GameCamera"]
+
+[node name="left" type="Position3D" parent="GameCamera"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.37114e-08, 0, -1 )
+
+[node name="up" type="Position3D" parent="GameCamera"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.42109e-14, 1, 0 )
 
 [node name="Slime" parent="." instance=ExtResource( 7 )]
 
