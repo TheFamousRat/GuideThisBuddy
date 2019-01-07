@@ -38,7 +38,8 @@ visible = false
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.42109e-14, 1, 0 )
 visible = false
 
-[node name="Slime" parent="." instance=ExtResource( 7 )]
-
 [node name="CurrentLevel" type="Node" parent="."]
+
+[node name="Slime" parent="." instance=ExtResource( 7 )]
+axis_lock_linear_x = true
 

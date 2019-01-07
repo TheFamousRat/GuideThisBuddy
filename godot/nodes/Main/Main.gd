@@ -11,19 +11,24 @@ func loadLevel(levelPath : String):
 	var newLevel = load(levelPath).instance()
 	$CurrentLevel.add_child(newLevel)
 	
-	applyLevelParameters()
-	
-	#Preparing the start of the Plater placement phase
-	$Slime.show()
-	$GUI.loadGui($GUI.platerPlacement)
-	$GameCamera.centerOn($Slime)
+	launchPlaterPlacement()
 	
 func reloadCurrentLevel():
 	$CurrentLevel.get_child(0).reload()
+	$Slime.set_sleeping(false)
+	
+	launchPlaterPlacement()
 
-func applyLevelParameters():
+func launchPlaterPlacement():
+	#This method prepares the level for the plater placement phase
+	$Slime.set_sleeping(true)
 	$Slime.translation = $CurrentLevel.get_child(0).get_node("PlayerStart").translation
-
+	$Slime.set_visible(true)
+	
+	$GameCamera.centerOn($Slime)
+	
+	$GUI.loadGui($GUI.platerPlacement)
+	
 func launchLevel():
 	$Slime.set_sleeping(false)
 	$GameCamera.setTarget($Slime)
