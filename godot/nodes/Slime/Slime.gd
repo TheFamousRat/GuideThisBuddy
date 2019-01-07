@@ -1,14 +1,12 @@
 extends RigidBody
 
-var savedMass : float
-
 func _process(delta):
 	pass
 	
 func _ready():
-	savedMass = self.mass
+	pass
 
 func set_sleeping(sleeping : bool):
-	self.axis_lock_linear_x = sleeping
-	self.axis_lock_linear_y = sleeping
-	self.axis_lock_linear_z = sleeping
+	self.set_axis_lock(PhysicsServer.BODY_AXIS_LINEAR_X, sleeping)
+	self.set_axis_lock(PhysicsServer.BODY_AXIS_LINEAR_Y, sleeping)
+	self.set_axis_lock(PhysicsServer.BODY_AXIS_LINEAR_Z, sleeping)

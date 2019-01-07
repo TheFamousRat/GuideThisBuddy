@@ -14,20 +14,24 @@ func _process(delta):
 		self.set_translation(target.get_global_transform().origin + distVect * targetDist)
 	else:#Camera is free to move on a plane when not targeting a Spatial
 		if Input.is_action_pressed("ui_left"):
-			self.translation += cameraSpeed * $left.translation * delta
+			self.h_offset -= cameraSpeed * delta
 		if Input.is_action_pressed("ui_right"):
-			self.translation -= cameraSpeed * $left.translation * delta
+			self.h_offset += cameraSpeed * delta
 		if Input.is_action_pressed("ui_up"):
-			self.translation += cameraSpeed * $up.translation * delta
+			self.v_offset += cameraSpeed * delta
 		if Input.is_action_pressed("ui_down"):
-			self.translation -= cameraSpeed * $up.translation * delta
-
+			self.v_offset -= cameraSpeed * delta
+		
 func setTarget(newTarget : Spatial):
+	self.h_offset = 0
+	self.v_offset = 0
 	target = newTarget
 	
 func centerOn(centeringTarget : Spatial, dist = targetDist, distDir = distVect):
 	#This function moves the camera so that a certain Spatial is at the center of the screen (given a certain direction/distance)
 	target = null
 	
+	self.h_offset = 0
+	self.v_offset = 0
 	if centeringTarget != null:
 		self.set_translation(centeringTarget.get_global_transform().origin + distDir * dist)
