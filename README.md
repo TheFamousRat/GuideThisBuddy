@@ -20,3 +20,4 @@ Next on to-do list :
 - "Wheel" plater
 - "Slicer" plater (slices a body in two)
 - "Zapper" plater (teleports to another Zapper plater)
+- "Accelerator" plater (accelerates a node rolling on it)

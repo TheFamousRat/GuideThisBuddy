@@ -6,6 +6,8 @@ export (float) var cameraSpeed = 10.0
 
 var target : Spatial setget setTarget
 
+var zoom 
+
 func _ready():
 	pass
 
@@ -23,15 +25,15 @@ func _process(delta):
 			self.v_offset -= cameraSpeed * delta
 		
 func setTarget(newTarget : Spatial):
-	self.h_offset = 0
-	self.v_offset = 0
 	target = newTarget
 	
 func centerOn(centeringTarget : Spatial, dist = targetDist, distDir = distVect):
 	#This function moves the camera so that a certain Spatial is at the center of the screen (given a certain direction/distance)
 	target = null
 	
-	self.h_offset = 0
-	self.v_offset = 0
 	if centeringTarget != null:
 		self.set_translation(centeringTarget.get_global_transform().origin + distDir * dist)
+		
+func resetFreeCamMov():
+	self.set_h_offset(0)
+	self.set_v_offset(0)

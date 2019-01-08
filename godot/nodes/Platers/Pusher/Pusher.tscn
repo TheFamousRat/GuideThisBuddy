@@ -4,28 +4,24 @@
 [ext_resource path="res://nodes/Platers/Pusher/Pusher.gd" type="Script" id=2]
 [ext_resource path="res://assets/Models/Platers/Pusher/Pusher.dae" type="PackedScene" id=3]
 
-
-
-
-
 [sub_resource type="BoxShape" id=1]
 
-extents = Vector3( 0.5, 0.438, 0.5 )
+extents = Vector3( 0.5, 0.233204, 0.5 )
 
 [sub_resource type="BoxShape" id=2]
 
-extents = Vector3( 0.9, 0.849199, 0.9 )
+extents = Vector3( 0.9, 0.732983, 0.9 )
 
-[node name="Pusher" index="0" instance=ExtResource( 1 )]
+[node name="Pusher" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 extensionSpeed = 50.0
 
-[node name="Area" type="Area" parent="." index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.379194, 0 )
+[node name="BodyDetector" type="Area" parent="." index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.426206, 0 )
 collision_mask = 2
 
-[node name="CollisionShape" type="CollisionShape" parent="Area" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.14684, 0 )
+[node name="CollisionShape" type="CollisionShape" parent="BodyDetector" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.08138, 0 )
 shape = SubResource( 1 )
 
 [node name="ExtendedTimer" type="Timer" parent="." index="1"]
@@ -35,13 +31,15 @@ one_shot = true
 [node name="Position3D" type="Position3D" parent="." index="2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 
-[node name="Scene Root" parent="." index="3" instance=ExtResource( 3 )]
+[node name="Model" parent="." index="3" instance=ExtResource( 3 )]
 
 [node name="StaticBody" type="StaticBody" parent="." index="4"]
-editor/display_folded = true
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.456296, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0225825, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0865123, 0 )
 shape = SubResource( 2 )
+disabled = true
 
+[connection signal="body_entered" from="BodyDetector" to="." method="_on_BodyDetector_body_entered"]
 [connection signal="timeout" from="ExtendedTimer" to="." method="_on_ExtendedTimer_timeout"]

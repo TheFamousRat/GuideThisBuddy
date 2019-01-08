@@ -6,14 +6,12 @@ export (float) var pushForce = 20.0
 
 func _ready():
 	$ExtendedTimer.wait_time = extendedStateDuration
-	
-func _process(delta):
-	var bodies = $Area.get_overlapping_bodies()
-	for i in bodies:
-		if i is RigidBody:
-			i.add_force(pushForce*(($Position3D.get_global_transform().origin - self.get_global_transform().origin).normalized()),Vector3(0,0,0))
-			$Model/AnimationPlayer.play("default", -1, extensionSpeed)
-			$ExtendedTimer.start()
-			
+
 func _on_ExtendedTimer_timeout():
 	$Model/AnimationPlayer.play_backwards("default")
+
+func _on_BodyDetector_body_entered(body):
+	if body is RigidBody:
+		body.apply_central_impulse(pushForce*(($Position3D.get_global_transform().origin - self.get_global_transform().origin).normalized()))
+		$Model/AnimationPlayer.play("default", -1, extensionSpeed)
+		$ExtendedTimer.start()

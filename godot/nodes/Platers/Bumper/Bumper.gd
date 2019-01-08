@@ -28,7 +28,7 @@ func bounceVect(inputVec : Vector3, xAxis : Vector3, yAxis : Vector3, zAxis : Ve
 	return (2.0 * (beta * yAxis) + inputVec)
 
 func _on_BodyDetector_body_entered(body):
-	if body.is_in_group("player"):
+	if body is RigidBody:
 		var xVec : Vector3
 		var yVec : Vector3
 		var zVec : Vector3
@@ -38,5 +38,5 @@ func _on_BodyDetector_body_entered(body):
 		var forceToAdd : Vector3 = bumpStrength * bounceVect(body.linear_velocity,xVec,yVec,zVec)
 		if forceToAdd.length() > maxStrength:
 			forceToAdd = forceToAdd.normalized() * maxStrength
-		body.apply_central_impulse((1 - abs(zVec.dot(forceToAdd.normalized()))) * forceToAdd)
+		body.apply_central_impulse(forceToAdd)
 		$Model/AnimationPlayer.play("Bump")
