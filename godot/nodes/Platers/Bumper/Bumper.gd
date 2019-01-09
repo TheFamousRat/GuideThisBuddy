@@ -3,8 +3,15 @@ extends "res://nodes/Platers/PlaterBase/PlaterBase.gd"
 var bumpStrength : float
 var maxStrength : float = 10.0
 
+var xVec : Vector3
+var yVec : Vector3
+var zVec : Vector3
+
 func _ready():
 	bumpStrength = 3.0
+	xVec = $Spatial/xAxis.get_global_transform().origin - $Spatial/origin.get_global_transform().origin
+	yVec = $Spatial/yAxis.get_global_transform().origin - $Spatial/origin.get_global_transform().origin
+	zVec = $Spatial/zAxis.get_global_transform().origin - $Spatial/origin.get_global_transform().origin
 	
 func bounceVect(inputVec : Vector3, xAxis : Vector3, yAxis : Vector3, zAxis : Vector3):
 	var a : float = xAxis.x
@@ -29,14 +36,11 @@ func bounceVect(inputVec : Vector3, xAxis : Vector3, yAxis : Vector3, zAxis : Ve
 
 func _on_BodyDetector_body_entered(body):
 	if body is RigidBody:
-		var xVec : Vector3
-		var yVec : Vector3
-		var zVec : Vector3
-		xVec = $Spatial/xAxis.get_global_transform().origin - $Spatial/origin.get_global_transform().origin
-		yVec = $Spatial/yAxis.get_global_transform().origin - $Spatial/origin.get_global_transform().origin
-		zVec = $Spatial/zAxis.get_global_transform().origin - $Spatial/origin.get_global_transform().origin
+		#Calculating the force and putting it within the correct bounds
 		var forceToAdd : Vector3 = bumpStrength * bounceVect(body.linear_velocity,xVec,yVec,zVec)
 		if forceToAdd.length() > maxStrength:
 			forceToAdd = forceToAdd.normalized() * maxStrength
+		
+		body.get_global_transform().origin + body.linear_velocity
 		body.apply_central_impulse(forceToAdd)
 		$Model/AnimationPlayer.play("Bump")
