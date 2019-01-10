@@ -27,6 +27,10 @@ Global="*res://nodes/Global.gd"
 
 gdscript/completion/autocomplete_setters_and_getters=true
 
+[gui]
+
+theme/custom_font="res://assets/fonts/cartoonFont.tres"
+
 [input]
 
 ui_scroll_up={

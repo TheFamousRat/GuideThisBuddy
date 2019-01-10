@@ -1,7 +1,7 @@
 extends "res://nodes/Platers/PlaterBase/PlaterBase.gd"
 
 var suckForce : Vector3 = Vector3(0,0,0)
-var suckStrength : float = 1000.0
+var suckStrength : float = 500.0
 
 func _ready():
 	suckForce = (self.get_global_transform().origin - $Position3D.get_global_transform().origin).normalized()
