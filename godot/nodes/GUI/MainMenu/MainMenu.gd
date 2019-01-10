@@ -11,3 +11,7 @@ func _on_Quit_pressed():
 
 func _on_ConfirmQuit_confirmed():
 	get_tree().quit()
+
+
+func _on_Options_pressed():
+	get_parent().loadGui(get_parent().options)

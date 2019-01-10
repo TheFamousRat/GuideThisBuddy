@@ -15,12 +15,23 @@ custom_fonts/title_font = ExtResource( 1 )
 window_title = "Options"
 script = ExtResource( 2 )
 
-[node name="HSlider" type="HSlider" parent="."]
+[node name="Control" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Label" type="Label" parent="Control"]
+margin_left = 22.0
+margin_top = 22.0
+margin_right = 153.0
+margin_bottom = 37.0
+text = "Some slider idk"
+
+[node name="HSlider" type="HSlider" parent="Control"]
 anchor_right = 1.0
 margin_left = 20.0
-margin_top = 51.0
+margin_top = 42.0
 margin_right = -20.0
-margin_bottom = 67.0
+margin_bottom = 58.0
 max_value = 500.0
 value = 25.0
 ticks_on_borders = true
