@@ -6,10 +6,6 @@
 [ext_resource path="res://assets/Models/Platers/Cannon/wick.tres" type="Material" id=4]
 [ext_resource path="res://assets/Models/Platers/Cannon/cannon_metal.tres" type="Material" id=5]
 
-
-
-
-
 [sub_resource type="CylinderShape" id=1]
 
 radius = 0.569755
@@ -24,6 +20,7 @@ data = PoolVector3Array( -0.238, 0.5746, 1.2479, -0.238, 0.5746, -1.2479, 0, 0.6
 resource_name = "explosion"
 
 [node name="Cannon" index="0" instance=ExtResource( 1 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0 )
 script = ExtResource( 2 )
 
 [node name="BodyDetector" type="Area" parent="." index="0"]

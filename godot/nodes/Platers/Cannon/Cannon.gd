@@ -1,6 +1,6 @@
 extends "res://nodes/Platers/PlaterBase/PlaterBase.gd"
 
-export (float) var cannonForce = 2000.0
+export (float) var cannonForce = 0.0
 
 func _on_BodyDetector_body_entered(body):
 	if body is RigidBody:
