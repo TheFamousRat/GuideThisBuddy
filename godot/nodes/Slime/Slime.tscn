@@ -5,7 +5,8 @@
 
 [sub_resource type="PhysicsMaterial" id=2]
 
-bounce = 10.0
+friction = 1000.0
+bounce = 1000.0
 absorbent = true
 
 [sub_resource type="CapsuleShape" id=3]
@@ -29,3 +30,5 @@ transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
 transform = Transform( -2.18557e-08, 2.18557e-08, 0.5, 0.5, -2.18557e-08, 2.18557e-08, 2.18557e-08, 0.5, -2.18557e-08, 0, 0.153246, 0 )
 shape = SubResource( 3 )
 
+
+[editable path="Scene Root"]

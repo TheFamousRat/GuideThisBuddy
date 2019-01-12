@@ -4,6 +4,10 @@ export (Vector3) var distVect = Vector3(0,0,1)
 export (float) var targetDist = 3.0
 export (float) var cameraSpeed = 10.0
 
+var maxZoomFactor = 128.0
+var minZoomFactor = 1.0
+var zoomFactor = 2.0
+
 var target : Spatial setget setTarget
 
 var zoom 
@@ -23,7 +27,15 @@ func _process(delta):
 			self.v_offset += cameraSpeed * delta
 		if Input.is_action_pressed("ui_down"):
 			self.v_offset -= cameraSpeed * delta
+		self.set_size(100.0/zoomFactor)
+
 		
+func _input(event):
+	if event.is_action_pressed("ui_scroll_up"):
+		zoomFactor = min(maxZoomFactor, zoomFactor * 2.0)
+	if event.is_action_pressed("ui_scroll_down"):
+		zoomFactor = max(minZoomFactor, zoomFactor / 2.0)
+	
 func setTarget(newTarget : Spatial):
 	resetFreeCamMov()
 	target = newTarget
