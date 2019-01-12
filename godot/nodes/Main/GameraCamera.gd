@@ -1,6 +1,6 @@
 extends Camera
 
-export (Vector3) var distVect = Vector3(-1,0,0)
+export (Vector3) var distVect = Vector3(0,0,1)
 export (float) var targetDist = 3.0
 export (float) var cameraSpeed = 10.0
 
