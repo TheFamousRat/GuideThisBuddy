@@ -26,6 +26,7 @@ func launchPlaterPlacement():
 	slimeGlobalTransform.origin = $CurrentLevel.get_child(0).get_node("PlayerStart").get_global_transform().origin
 	$Slime.set_global_transform(slimeGlobalTransform)
 	$Slime.set_visible(true)
+	$Slime.launchAnimation("Idle", true, 2.0)
 	
 	$GameCamera.centerOn($Slime)
 	
