@@ -19,7 +19,7 @@ data = PoolVector3Array( -0.238, 0.5746, 1.2479, -0.238, 0.5746, -1.2479, 0, 0.6
 
 resource_name = "explosion"
 
-[node name="Cannon" index="0" instance=ExtResource( 1 )]
+[node name="Cannon" instance=ExtResource( 1 )]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0 )
 script = ExtResource( 2 )
 

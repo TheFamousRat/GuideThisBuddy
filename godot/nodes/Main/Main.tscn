@@ -24,6 +24,7 @@ options = ExtResource( 6 )
 
 [node name="GameCamera" type="Camera" parent="."]
 transform = Transform( 1, 0, -1.06581e-14, 0, 1, 0, 1.06581e-14, 0, 1, 0, 0, 5 )
+current = true
 fov = 75.0
 size = 5.0
 script = ExtResource( 7 )
@@ -34,6 +35,5 @@ script = ExtResource( 7 )
 axis_lock_linear_x = true
 
 [node name="FreeFlyCamera" type="Camera" parent="."]
-current = true
 script = ExtResource( 9 )
 

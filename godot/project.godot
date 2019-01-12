@@ -51,7 +51,7 @@ ui_scroll_down={
 
 [physics]
 
-3d/physics_engine="Bullet"
+3d/smooth_trimesh_collision=true
 
 [rendering]
 
