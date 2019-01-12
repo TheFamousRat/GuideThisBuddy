@@ -49,6 +49,10 @@ ui_scroll_down={
 3d_physics/layer_1="platform"
 3d_physics/layer_2="bodies"
 
+[physics]
+
+3d/physics_engine="Bullet"
+
 [rendering]
 
 quality/filters/msaa=4

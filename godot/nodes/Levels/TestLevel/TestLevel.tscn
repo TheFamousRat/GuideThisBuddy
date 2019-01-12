@@ -60,7 +60,7 @@ background_sky = SubResource( 4 )
 [sub_resource type="Curve3D" id=6]
 
 _data = {
-"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, -0.00146484, 1.48944, 8.23243, 0, 0, 0, 0, 0, 0, -0.000488281, -2.25705, 7.83102, 0.0224609, 0.10692, 4.11273, -0.0224609, -0.10692, -4.11273, 0, -8.27818, 3.28171, 0, 0.0337093, 2.47682, 0, -0.0337093, -2.47682, -0.0898438, -8.24364, -11.4951, 0, 0, 0, 0, 0, 0, 0.00292969, -9.44721, -17.419 ),
+"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, -0.00146484, 1.48944, 8.23243, 0, 0, 0, 0, 0, 0, -0.000488281, -2.25705, 7.83102, 0.0224609, 0.10692, 4.11273, -0.0224609, -0.10692, -4.11273, -0.00976563, -8.45722, 3.59935, 0, 0.0337093, 2.47682, 0, -0.0337093, -2.47682, -0.0898438, -8.24364, -11.4951, 0, 0, 0, 0, 0, 0, 0.00292969, -9.44721, -17.419 ),
 "tilts": PoolRealArray( 0, 0, 0, 0, 0 )
 }
 
@@ -70,7 +70,7 @@ albedo_color = Color( 1, 0, 0, 1 )
 metallic = 1.0
 roughness = 0.3
 
-[sub_resource type="ArrayMesh" id=10]
+[sub_resource type="ArrayMesh" id=8]
 
 surfaces/0 = {
 "aabb": AABB( -1, -1, -1, 2, 2.00001, 2.00001 ),
@@ -106,11 +106,11 @@ script = ExtResource( 4 )
 meshRepetitonsNumber = 40
 generateBoundingBox = true
 xyzScale = Vector3( 0.4, 0.39, 1 )
-mainMesh = SubResource( 10 )
+mainMesh = SubResource( 8 )
 
 [node name="RessourceSaver" type="MeshInstance" parent="MeshCurver" index="1"]
 visible = false
-mesh = SubResource( 10 )
+mesh = SubResource( 8 )
 material/0 = null
 script = ExtResource( 5 )
 
