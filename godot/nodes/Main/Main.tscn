@@ -33,9 +33,14 @@ script = ExtResource( 7 )
 [node name="CurrentLevel" type="Node" parent="."]
 
 [node name="Slime" parent="." instance=ExtResource( 8 )]
+editor/display_folded = true
 axis_lock_linear_x = true
 
 [node name="FreeFlyCamera" type="Camera" parent="."]
 fov = 75.0
 script = ExtResource( 9 )
 
+
+[editable path="Slime"]
+
+[editable path="Slime/Model"]

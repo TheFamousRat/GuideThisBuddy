@@ -5,7 +5,7 @@ export (float) var targetDist = 3.0
 export (float) var cameraSpeed = 10.0
 
 var maxZoomFactor = 128.0
-var minZoomFactor = 1.0
+var minZoomFactor = 4.0
 var zoomFactor = 16.0
 
 var target : Spatial setget setTarget

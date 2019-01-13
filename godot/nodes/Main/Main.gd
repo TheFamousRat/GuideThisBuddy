@@ -22,11 +22,9 @@ func reloadCurrentLevel():
 func launchPlaterPlacement():
 	#This method prepares the level for the plater placement phase
 	$Slime.set_sleeping(true)
-	var slimeGlobalTransform : Transform = $Slime.get_global_transform()
-	slimeGlobalTransform.origin = $CurrentLevel.get_child(0).get_node("PlayerStart").get_global_transform().origin
-	$Slime.set_global_transform(slimeGlobalTransform)
+	$Slime.set_global_transform($CurrentLevel.get_child(0).get_node("PlayerStart").get_global_transform())
 	$Slime.set_visible(true)
-	$Slime.launchAnimation("Idle", true, 2.0)
+	$Slime.launchAnimation("Idle", true, 1.0)
 	
 	$GameCamera.centerOn($Slime)
 	

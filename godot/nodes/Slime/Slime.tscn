@@ -3,13 +3,13 @@
 [ext_resource path="res://nodes/Slime/Slime.gd" type="Script" id=1]
 [ext_resource path="res://assets/Models/Slime/Slime.dae" type="PackedScene" id=2]
 
-[sub_resource type="PhysicsMaterial" id=2]
+[sub_resource type="PhysicsMaterial" id=1]
 
 friction = 1000.0
 bounce = 1000.0
 absorbent = true
 
-[sub_resource type="CapsuleShape" id=3]
+[sub_resource type="CapsuleShape" id=2]
 
 radius = 0.72
 height = 0.54
@@ -17,7 +17,7 @@ height = 0.54
 [node name="Slime" type="RigidBody" groups=[
 "player",
 ]]
-physics_material_override = SubResource( 2 )
+physics_material_override = SubResource( 1 )
 axis_lock_linear_z = true
 axis_lock_angular_x = true
 axis_lock_angular_y = true
@@ -28,7 +28,7 @@ transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( -2.18557e-08, 2.18557e-08, 0.5, 0.5, -2.18557e-08, 2.18557e-08, 2.18557e-08, 0.5, -2.18557e-08, 0, 0.153246, 0 )
-shape = SubResource( 3 )
+shape = SubResource( 2 )
 
 [connection signal="animation_finished" from="Model/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 

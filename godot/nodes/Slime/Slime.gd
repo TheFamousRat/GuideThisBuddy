@@ -2,12 +2,13 @@ extends RigidBody
 
 var loopingAnim : bool = false
 var lastAnimSpeed : float = 0.0
+var idleLoops : int = 0
 
 func _process(delta):
 	pass
 	
 func _ready():
-	pass
+	idleLoops = 0
 
 func set_sleeping(sleeping : bool):
 	if sleeping:
@@ -26,4 +27,12 @@ func launchAnimation(animationName : String, looping : bool = false, animationSp
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if loopingAnim:
-		$Model/AnimationPlayer.play(anim_name, -1, lastAnimSpeed)
+		if anim_name.begins_with("Idle"):
+			idleLoops+=1
+			if idleLoops >= 10:#Playing a random other idle animation
+				idleLoops = 0
+				$Model/AnimationPlayer.play("IdleLookAround", -1, lastAnimSpeed)
+			else:
+				$Model/AnimationPlayer.play("Idle", -1, lastAnimSpeed)
+		else:
+			$Model/AnimationPlayer.play(anim_name, -1, lastAnimSpeed)
