@@ -4,6 +4,7 @@ var availablePlaters : Array
 
 func _ready():
 	availablePlaters = Array()
+	print(Global.mainPath)
 	availablePlaters = get_node(Global.mainPath).getLevelAvailablePlaters()
 	
 	#We remove any node that doesn't inherit from PlaterBase

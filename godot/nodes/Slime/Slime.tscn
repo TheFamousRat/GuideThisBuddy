@@ -11,7 +11,7 @@ absorbent = true
 
 [sub_resource type="CapsuleShape" id=2]
 
-radius = 0.72
+radius = 0.69
 height = 0.54
 
 [node name="Slime" type="RigidBody" groups=[
@@ -27,7 +27,7 @@ script = ExtResource( 1 )
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( -2.18557e-08, 2.18557e-08, 0.5, 0.5, -2.18557e-08, 2.18557e-08, 2.18557e-08, 0.5, -2.18557e-08, 0, 0.153246, 0 )
+transform = Transform( -2.18557e-08, 2.18557e-08, 0.5, 0.5, -2.18557e-08, 2.18557e-08, 2.18557e-08, 0.5, -2.18557e-08, 0, 0.168103, 0 )
 shape = SubResource( 2 )
 
 [connection signal="animation_finished" from="Model/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

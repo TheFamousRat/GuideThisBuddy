@@ -7,8 +7,11 @@ export (Array) var availablePlaters setget availablePlaterArrayChecker
 signal won
 signal lost
 
+var running : bool #Indicates whether the player has placed his layout and tests it or not
+
 func _ready():
 	set_process(get_tree().get_edited_scene_root() == null)
+	running = false
 	
 func _process(delta):
 	var bodies = $PlayerArrival.get_overlapping_bodies()
@@ -52,3 +55,24 @@ func availablePlaterArrayChecker(newArray : Array):
 				availablePlaters.remove(i)
 			else:
 				platersArray.append(availablePlaters[i])
+
+func set_running(isRunning : bool):
+	running = isRunning
+
+func isRunning():
+	return running
+
+func _input(event):
+	if !running:
+		$MeshInstance.set_translation(findClosestCurvePoint(get_viewport().get_camera().project_position(get_viewport().get_mouse_position())))
+
+func findClosestCurvePoint(point : Vector3):#Looks in all the curves of the LevelLayout for the point on a 3d curve closest to said point
+	var closestPoint : Vector3 = Vector3(INF,INF,INF)
+	var currentPoint : Vector3 = Vector3(0,0,0)
+	for curves in $LevelLayout.get_children():
+		if curves is Path:
+			currentPoint = curves.get_curve().get_closest_point(point)
+			if (point - currentPoint).length() < (point - closestPoint).length():
+				closestPoint = currentPoint
+	
+	return closestPoint

@@ -2,7 +2,7 @@ extends "res://nodes/Platers/PlaterBase/PlaterBase.gd"
 
 export (float) var extensionSpeed = 100.0 #Time it takes the bumper to fully extend
 export (float) var extendedStateDuration  = 0.5 #Time the bumper spends extended
-export (float) var pushForce = 30.0
+export (float) var pushForce = 20.0
 
 func _ready():
 	$ExtendedTimer.wait_time = extendedStateDuration

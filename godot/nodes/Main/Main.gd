@@ -1,4 +1,4 @@
-extends Spatial
+extends Node
 
 func _ready():
 	$Slime.hide()
@@ -30,10 +30,16 @@ func launchPlaterPlacement():
 	
 	$GUI.loadGui($GUI.platerPlacement)
 	
+	$CurrentLevel.get_child(0).set_running(false)
+	
 func launchLevel():
 	$Slime.set_sleeping(false)
+	
 	$GameCamera.setTarget($Slime)
+	
 	$GUI.loadGui($GUI.levelGUI)
+	
+	$CurrentLevel.get_child(0).set_running(true)
 	
 func getLevelAvailablePlaters():
 	return $CurrentLevel.get_child(0).getAvailablePlaters()
