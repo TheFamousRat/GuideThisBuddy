@@ -2,10 +2,9 @@
 
 [ext_resource path="res://nodes/LevelBase/LevelBase.gd" type="Script" id=1]
 
-[sub_resource type="SphereMesh" id=1]
+[sub_resource type="CubeMesh" id=1]
 
-radial_segments = 16
-rings = 8
+size = Vector3( 0.5, 0.5, 0.5 )
 
 [node name="LevelBase" type="Node"]
 script = ExtResource( 1 )
@@ -22,6 +21,8 @@ script = ExtResource( 1 )
 mesh = SubResource( 1 )
 material/0 = null
 
-[node name="curveShapeDetector" type="RayCast" parent="."]
+[node name="CurveShapeDetector" type="RayCast" parent="."]
+enabled = true
+exclude_parent = false
 
 [connection signal="body_entered" from="PlayerArrival" to="." method="_on_PlayerArrival_body_entered"]

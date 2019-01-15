@@ -21,7 +21,7 @@
 #include <gen/File.hpp>
 #include <gen/Material.hpp>
 #include <gen/SpatialMaterial.hpp>
-
+#include <gen/StaticBody.hpp>
 
 namespace godot{
 
@@ -34,7 +34,7 @@ class MeshCurver : public godot::Path {
 		godot::Ref<godot::ArrayMesh> mainMesh = godot::Ref<godot::ArrayMesh>();
 		int meshRepetitonsNumber = 1;
 		float curvedMeshStartingOffset = 0.0f;
-		bool generateBoundingBox = false;
+		bool generateBoundingBox = true;
 		godot::Vector3 xyzScale = godot::Vector3(1.0f, 1.0f, 1.0f);
 
 		float epsilon = 0.2f;
@@ -89,7 +89,8 @@ class MeshCurver : public godot::Path {
 		updateMesh(mainMesh);};
 		godot::Vector3 getGuidingVector() const {return guidingVectorVisual;};
 		
-		godot::MeshInstance* getCurvedMesh() {return curvedMesh;};
+		godot::MeshInstance* getCurvedMesh() const {return curvedMesh;};
+		godot::Node* getCollisionBody() const {return curvedMesh->get_child(0);};
 
 		void initMesh(godot::Object* savedMesh);
 		void updateCurve();

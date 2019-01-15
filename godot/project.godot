@@ -53,6 +53,7 @@ leftClick={
 
 3d_physics/layer_1="platform"
 3d_physics/layer_2="bodies"
+3d_physics/layer_20="tempLevelRaycast"
 
 [physics]
 
