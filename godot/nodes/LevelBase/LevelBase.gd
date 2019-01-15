@@ -4,9 +4,6 @@ extends Node
 
 export (Array) var availablePlaters setget availablePlaterArrayChecker
 
-signal won
-signal lost
-
 var running : bool #Indicates whether the player has placed his layout and tests it or not
 var lastClosestPoint : Vector3
 var lastClosestNormal : Vector3
@@ -113,4 +110,3 @@ func _on_PlayerArrival_body_entered(body):
 	#Called when the player reached point of arrival
 	if body.is_in_group("player"):
 		Engine.time_scale = 0.01
-		emit_signal("won")
