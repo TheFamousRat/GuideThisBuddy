@@ -1,10 +1,13 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://nodes/LevelBase/LevelBase.tscn" type="PackedScene" id=1]
 [ext_resource path="res://nodes/Levels/TestLevel/TestLevel.gd" type="Script" id=2]
 [ext_resource path="res://nodes/MeshCurver/MeshCurver.gdns" type="Script" id=3]
 [ext_resource path="res://nodes/MeshCurver/RessourceSaver.gd" type="Script" id=4]
 [ext_resource path="res://nodes/Platers/Pusher/Pusher.tscn" type="PackedScene" id=5]
+
+[sub_resource type="BoxShape" id=6]
+
 
 [sub_resource type="ProceduralSky" id=1]
 
@@ -17,8 +20,8 @@ background_sky = SubResource( 1 )
 [sub_resource type="Curve3D" id=3]
 
 _data = {
-"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, -6.62906, -4.13805, 0, 0, 0, 0, 0, 0, 0, -4.30549, -4.4291, 0, -0.310149, 1.51221, 0, 0.310149, -1.51221, 0, -2.60609, -6.69745, 0, -0.841599, 0.336639, 0, 0.841599, -0.336639, 0, -1.30668, -9.08836, 0, 0, 0, 0, 0, 0, 0, 2.30183, -10.2446, 0, 0, 0, 0, 0, 0, 0, 6.80545, -9.32866, 0, 0, 0, 0, 0, 0, 0, 8.86642, -8.33634, 0, 0, 0, 0, 0, 0, 0, 9.78241, -7.95468, 0, 0, 0, 0, 0, 0, 0, 13.141, -8.10734, 0, 0, 0, 0, 0, 0, 0, 13.9044, -8.33634, 0, 0, 0, 0, 0, 0, 0, 14.5914, -8.56533, 0, 0, 0, 0, 0, 0, 0, 15.2783, -8.64167, 0 ),
-"tilts": PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 )
+"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, -6.62906, -4.13805, 0, -1.63539, 1.27415, 0, 1.63539, -1.27415, 0, -4.30549, -4.4291, 0, 0.0934398, 0.654077, 0, -0.0934398, -0.654077, 0, -3.23869, -9.03484, 0, -0.707472, -0.000490189, 0, 0.707472, 0.000490189, 0, -0.245954, -9.42777, 0, -1.86626, -0.32934, 0, 1.86626, 0.32934, 0, 11.1317, -10.5258, 0, 0, 0, 0, 0, 0, 0, 14.8642, -11.5688, 0 ),
+"tilts": PoolRealArray( 0, 0, 0, 0, 0, 0 )
 }
 
 [sub_resource type="SpatialMaterial" id=4]
@@ -27,7 +30,7 @@ albedo_color = Color( 1, 0, 0, 1 )
 metallic = 1.0
 roughness = 0.3
 
-[sub_resource type="ArrayMesh" id=5]
+[sub_resource type="ArrayMesh" id=11]
 
 surfaces/0 = {
 "aabb": AABB( -1, -1, -1, 2, 2.00001, 2.00001 ),
@@ -42,12 +45,43 @@ surfaces/0 = {
 "vertex_count": 24
 }
 
+[sub_resource type="Curve3D" id=8]
+
+_data = {
+"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, -5.29034, -2.66373, 0, 0, 0, 0, 0, 0, 0, 5.07263, -0.326979, 0, 0, 0, 0, 0, 0, 0, 11.0669, -0.326979, 0, 0, 0, 0, 0, 0, 0, 14.2164, -2.15574, 0 ),
+"tilts": PoolRealArray( 0, 0, 0, 0 )
+}
+
+[sub_resource type="SpatialMaterial" id=10]
+
+albedo_color = Color( 0.207843, 1, 0, 1 )
+metallic = 1.0
+
+[sub_resource type="ArrayMesh" id=12]
+
+surfaces/0 = {
+"aabb": AABB( -1, -1, -1, 2, 2.00001, 2.00001 ),
+"array_data": PoolByteArray( 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 127, 0, 127, 0, 0, 129, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 191, 0, 0, 129, 0, 129, 0, 0, 129, 85, 57, 0, 0, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 127, 0, 127, 0, 0, 129, 85, 53, 0, 0, 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 128, 191, 0, 0, 129, 0, 129, 0, 0, 129, 0, 60, 0, 0, 0, 0, 128, 191, 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 127, 0, 127, 0, 0, 129, 0, 0, 0, 56, 0, 0, 128, 63, 0, 0, 128, 191, 0, 0, 128, 191, 0, 0, 129, 0, 129, 0, 0, 129, 85, 57, 0, 56, 0, 0, 128, 63, 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 127, 0, 127, 0, 0, 129, 85, 53, 0, 56, 0, 0, 128, 191, 0, 0, 128, 191, 0, 0, 128, 191, 0, 0, 129, 0, 129, 0, 0, 129, 0, 60, 0, 56, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 63, 127, 0, 0, 0, 0, 0, 129, 129, 85, 53, 0, 0, 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 128, 191, 129, 0, 0, 0, 0, 0, 127, 129, 0, 0, 0, 56, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 191, 127, 0, 0, 0, 0, 0, 129, 129, 85, 57, 0, 0, 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 128, 63, 129, 0, 0, 0, 0, 0, 127, 129, 85, 53, 0, 56, 0, 0, 128, 63, 0, 0, 128, 191, 0, 0, 128, 63, 127, 0, 0, 0, 0, 0, 129, 129, 85, 53, 0, 56, 0, 0, 128, 191, 0, 0, 128, 191, 0, 0, 128, 191, 129, 0, 0, 0, 0, 0, 127, 129, 0, 0, 0, 60, 0, 0, 128, 63, 0, 0, 128, 191, 0, 0, 128, 191, 127, 0, 0, 0, 0, 0, 129, 129, 85, 57, 0, 56, 0, 0, 128, 191, 0, 0, 128, 191, 0, 0, 128, 63, 129, 0, 0, 0, 0, 0, 127, 129, 85, 53, 0, 60, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 63, 0, 127, 0, 0, 129, 0, 0, 129, 85, 53, 0, 56, 0, 0, 128, 191, 0, 0, 128, 191, 0, 0, 128, 63, 0, 129, 0, 0, 127, 0, 0, 129, 85, 57, 0, 56, 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 128, 63, 0, 127, 0, 0, 129, 0, 0, 129, 85, 57, 0, 56, 0, 0, 128, 63, 0, 0, 128, 191, 0, 0, 128, 63, 0, 129, 0, 0, 127, 0, 0, 129, 0, 60, 0, 56, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 191, 0, 127, 0, 0, 129, 0, 0, 129, 85, 53, 0, 60, 0, 0, 128, 191, 0, 0, 128, 191, 0, 0, 128, 191, 0, 129, 0, 0, 127, 0, 0, 129, 85, 57, 0, 60, 0, 0, 128, 191, 0, 0, 128, 63, 0, 0, 128, 191, 0, 127, 0, 0, 129, 0, 0, 129, 85, 57, 0, 60, 0, 0, 128, 63, 0, 0, 128, 191, 0, 0, 128, 191, 0, 129, 0, 0, 127, 0, 0, 129, 0, 60, 0, 60 ),
+"array_index_data": PoolByteArray( 0, 0, 2, 0, 4, 0, 2, 0, 6, 0, 4, 0, 1, 0, 3, 0, 5, 0, 3, 0, 7, 0, 5, 0, 8, 0, 10, 0, 12, 0, 10, 0, 14, 0, 12, 0, 9, 0, 11, 0, 13, 0, 11, 0, 15, 0, 13, 0, 16, 0, 18, 0, 20, 0, 18, 0, 22, 0, 20, 0, 17, 0, 19, 0, 21, 0, 19, 0, 23, 0, 21, 0 ),
+"blend_shape_data": [  ],
+"format": 97559,
+"index_count": 36,
+"material": SubResource( 10 ),
+"primitive": 4,
+"skeleton_aabb": [  ],
+"vertex_count": 24
+}
+
 [node name="TestLevel" index="0" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 availablePlaters = [  ]
 
 [node name="PlayerStart" parent="." index="0"]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.75431e-09, -1.26953, 0.0630117 )
+transform = Transform( 1, 0, 1.06581e-14, 0, 1, 0, -1.06581e-14, 0, 1, 0, -1.26953, 0.0630117 )
+
+[node name="CollisionShape" type="CollisionShape" parent="PlayerArrival" index="0"]
+transform = Transform( 0.998936, -0.0461223, 0, 0.0461223, 0.998936, 0, 0, 0, 1, 11.2228, -9.51336, 0 )
+shape = SubResource( 6 )
 
 [node name="WorldEnvironment" parent="." index="2"]
 environment = SubResource( 2 )
@@ -58,15 +92,30 @@ curve = SubResource( 3 )
 script = ExtResource( 3 )
 meshRepetitonsNumber = 40
 generateBoundingBox = true
-xyzScale = Vector3( 0.4, 0.39, 1 )
-mainMesh = SubResource( 5 )
+xyzScale = Vector3( 0.3, 0.1, 1 )
+mainMesh = SubResource( 11 )
 
 [node name="RessourceSaver" type="MeshInstance" parent="LevelLayout/MeshCurver" index="1"]
 visible = false
-mesh = SubResource( 5 )
+mesh = SubResource( 11 )
+material/0 = null
+script = ExtResource( 4 )
+
+[node name="MeshCurver2" type="Path" parent="LevelLayout" index="1"]
+editor/display_folded = true
+curve = SubResource( 8 )
+script = ExtResource( 3 )
+meshRepetitonsNumber = 10
+generateBoundingBox = true
+xyzScale = Vector3( 1, 0.42, 1 )
+mainMesh = SubResource( 12 )
+
+[node name="RessourceSaver" type="MeshInstance" parent="LevelLayout/MeshCurver2" index="1"]
+visible = false
+mesh = SubResource( 12 )
 material/0 = null
 script = ExtResource( 4 )
 
 [node name="Pusher" parent="." index="4" instance=ExtResource( 5 )]
-transform = Transform( -1.97217e-08, 0.215494, -0.451179, 9.41954e-09, 0.451179, 0.215494, 0.5, -7.10543e-15, -2.18557e-08, 0, -8.133, 0 )
+transform = Transform( -6.38322e-10, 0.499787, -0.0146027, 2.18464e-08, 0.0146027, 0.499787, 0.5, -7.10543e-15, -2.18557e-08, -0.186879, -8.92015, 0 )
 

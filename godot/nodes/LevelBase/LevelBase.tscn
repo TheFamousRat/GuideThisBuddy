@@ -4,8 +4,8 @@
 
 [sub_resource type="SphereMesh" id=1]
 
-radius = 2.0
-height = 4.0
+radial_segments = 16
+rings = 8
 
 [node name="LevelBase" type="Node"]
 script = ExtResource( 1 )
@@ -22,3 +22,6 @@ script = ExtResource( 1 )
 mesh = SubResource( 1 )
 material/0 = null
 
+[node name="curveShapeDetector" type="RayCast" parent="."]
+
+[connection signal="body_entered" from="PlayerArrival" to="." method="_on_PlayerArrival_body_entered"]

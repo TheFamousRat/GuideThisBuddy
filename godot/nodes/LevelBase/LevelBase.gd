@@ -64,7 +64,7 @@ func isRunning():
 
 func _input(event):
 	if !running:
-		$MeshInstance.set_translation(findClosestCurvePoint(get_viewport().get_camera().project_position(get_viewport().get_mouse_position())))
+		$MeshInstance.set_translation(findClosestCurveShapePoint(get_viewport().get_camera().project_position(get_viewport().get_mouse_position())))
 
 func findClosestCurvePoint(point : Vector3):#Looks in all the curves of the LevelLayout for the point on a 3d curve closest to said point
 	var closestPoint : Vector3 = Vector3(INF,INF,INF)
@@ -76,3 +76,12 @@ func findClosestCurvePoint(point : Vector3):#Looks in all the curves of the Leve
 				closestPoint = currentPoint
 	
 	return closestPoint
+	
+func findClosestCurveShapePoint(point : Vector3):
+	closestCurvePoint = findClosestCurvePoint(point)
+
+func _on_PlayerArrival_body_entered(body):
+	#Called when the player reached point of arrival
+	if body.is_in_group("player"):
+		Engine.time_scale = 0.01
+		
