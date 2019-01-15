@@ -7,6 +7,7 @@ export (Array) var availablePlaters setget availablePlaterArrayChecker
 var running : bool #Indicates whether the player has placed his layout and tests it or not
 var lastClosestPoint : Vector3
 var lastClosestNormal : Vector3
+var upNormal : bool
 var currentPlater
 
 func _ready():
@@ -65,7 +66,19 @@ func isRunning():
 	
 func _input(event):
 	if !running:
-		currentPlater.set_translation(findClosestCurveShapePoint(get_viewport().get_camera().project_position(get_viewport().get_mouse_position())))
+		var curveShapePoint : Vector3 = findClosestCurveShapePoint(get_viewport().get_camera().project_position(get_viewport().get_mouse_position()))
+		currentPlater.set_translation(curveShapePoint)
+		currentPlater.resetRotation()
+
+		currentPlater.rotate_z(-acos(currentPlater.getRotatedUpVectorDirection().dot(lastClosestNormal)))
+		
+		if abs(currentPlater.getRotatedUpVectorDirection().dot(lastClosestNormal)) < 0.99999:
+			currentPlater.resetRotation()
+			currentPlater.rotate_z(acos(currentPlater.getRotatedUpVectorDirection().dot(lastClosestNormal)))
+		
+		print(currentPlater.getRotatedUpVectorDirection().dot(lastClosestNormal))
+
+
 
 func findClosestCurveShapePoint(point : Vector3):#Looks in all the curves of the LevelLayout for the point on a 3d curve closest to said point
 	var closestPoint : Vector3 = Vector3(INF,INF,INF)
@@ -87,8 +100,10 @@ func findClosestCurveShapePoint(point : Vector3):#Looks in all the curves of the
 	var pointVector : Vector3 = point - closestPoint
 	var usedUpVector : Vector3
 	if pointVector.normalized().dot(-closestCurve.interpolate_baked_up_vector(closestOffset)) > pointVector.normalized().dot(closestCurve.interpolate_baked_up_vector(closestOffset)):
+		upNormal = false
 		usedUpVector = -closestCurve.interpolate_baked_up_vector(closestOffset)
 	else:
+		upNormal = true
 		usedUpVector = closestCurve.interpolate_baked_up_vector(closestOffset)
 	
 	

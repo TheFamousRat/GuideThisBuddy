@@ -7,8 +7,10 @@ script = ExtResource( 1 )
 
 [node name="PlaterPlacementDetection" type="Area" parent="."]
 
-[node name="UpVector" type="RayCast" parent="."]
-cast_to = Vector3( 0, 1, 0 )
-
 [node name="Base" type="Position3D" parent="."]
+
+[node name="Origin" type="Position3D" parent="."]
+
+[node name="Up" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 
