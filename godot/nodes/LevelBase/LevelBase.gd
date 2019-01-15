@@ -7,12 +7,15 @@ export (Array) var availablePlaters setget availablePlaterArrayChecker
 var running : bool #Indicates whether the player has placed his layout and tests it or not
 var lastClosestPoint : Vector3
 var lastClosestNormal : Vector3
+var currentPlater
 
 func _ready():
 	set_process(get_tree().get_edited_scene_root() == null)
 	running = false
 	lastClosestNormal = Vector3()
 	lastClosestPoint = Vector3()
+	currentPlater = load("res://nodes/Platers/Pusher/Pusher.tscn").instance()
+	self.add_child(currentPlater)
 	
 func _process(delta):
 	pass
@@ -59,10 +62,10 @@ func set_running(isRunning : bool):
 
 func isRunning():
 	return running
-
+	
 func _input(event):
 	if !running:
-		$MeshInstance.set_translation(findClosestCurveShapePoint(get_viewport().get_camera().project_position(get_viewport().get_mouse_position())))
+		currentPlater.set_translation(findClosestCurveShapePoint(get_viewport().get_camera().project_position(get_viewport().get_mouse_position())))
 
 func findClosestCurveShapePoint(point : Vector3):#Looks in all the curves of the LevelLayout for the point on a 3d curve closest to said point
 	var closestPoint : Vector3 = Vector3(INF,INF,INF)

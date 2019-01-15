@@ -5,7 +5,7 @@
 
 [sub_resource type="CanvasItemMaterial" id=2]
 
-blend_mode = 3
+blend_mode = 2
 
 [sub_resource type="DynamicFont" id=1]
 
