@@ -30,7 +30,7 @@ albedo_color = Color( 1, 0, 0, 1 )
 metallic = 1.0
 roughness = 0.3
 
-[sub_resource type="ArrayMesh" id=6]
+[sub_resource type="ArrayMesh" id=9]
 
 surfaces/0 = {
 "aabb": AABB( -1, -1, -1, 2, 2.00001, 2.00001 ),
@@ -48,8 +48,8 @@ surfaces/0 = {
 [sub_resource type="Curve3D" id=7]
 
 _data = {
-"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, -5.29034, -2.66373, 0, 0, 0, 0, 0, 0, 0, 5.07263, -0.326979, 0, 0, 0, 0, 0, 0, 0, 11.0669, -0.326979, 0, 0, 0, 0, 0, 0, 0, 14.2164, -2.15574, 0 ),
-"tilts": PoolRealArray( 0, 0, 0, 0 )
+"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, -5.29034, -2.66373, 0, -2.54421, -0.600512, 0, 2.54421, 0.600512, 0, 5.07263, -0.326979, 0, -2.13131, 0.533138, 0, 2.13131, -0.533138, 0, 11.0669, -0.326979, 0, -1.44208, 1.4815, 0, 1.44208, -1.4815, 0, 14.2164, -2.15574, 0, 0, 0, 0, 0, 0, 0, 13.5222, -10.6899, 0 ),
+"tilts": PoolRealArray( 0, 0, 0, 0, 0 )
 }
 
 [sub_resource type="SpatialMaterial" id=8]
@@ -57,7 +57,7 @@ _data = {
 albedo_color = Color( 0.207843, 1, 0, 1 )
 metallic = 1.0
 
-[sub_resource type="ArrayMesh" id=9]
+[sub_resource type="ArrayMesh" id=10]
 
 surfaces/0 = {
 "aabb": AABB( -1, -1, -1, 2, 2.00001, 2.00001 ),
@@ -77,7 +77,7 @@ script = ExtResource( 2 )
 availablePlaters = [  ]
 
 [node name="PlayerStart" parent="." index="0"]
-transform = Transform( 1, 0, 1.06581e-14, 0, 1, 0, -1.06581e-14, 0, 1, 0, -1.26953, 0.0630117 )
+transform = Transform( 1, 0, 1.06581e-14, 0, 1, 0, -1.06581e-14, 0, 1, 0, -3.40259, 0.0630117 )
 
 [node name="CollisionShape" type="CollisionShape" parent="PlayerArrival" index="0"]
 transform = Transform( 0.998936, -0.0461223, 0, 0.0461223, 0.998936, 0, 0, 0, 1, 11.2228, -9.51336, 0 )
@@ -93,11 +93,11 @@ script = ExtResource( 3 )
 meshRepetitonsNumber = 40
 generateBoundingBox = true
 xyzScale = Vector3( 0.3, 0.1, 1 )
-mainMesh = SubResource( 6 )
+mainMesh = SubResource( 9 )
 
 [node name="RessourceSaver" type="MeshInstance" parent="LevelLayout/MeshCurver" index="1"]
 visible = false
-mesh = SubResource( 6 )
+mesh = SubResource( 9 )
 material/0 = null
 script = ExtResource( 4 )
 
@@ -105,14 +105,14 @@ script = ExtResource( 4 )
 editor/display_folded = true
 curve = SubResource( 7 )
 script = ExtResource( 3 )
-meshRepetitonsNumber = 10
+meshRepetitonsNumber = 28
 generateBoundingBox = true
-xyzScale = Vector3( 1, 0.42, 1 )
-mainMesh = SubResource( 9 )
+xyzScale = Vector3( 0.5, 0.42, 1 )
+mainMesh = SubResource( 10 )
 
 [node name="RessourceSaver" type="MeshInstance" parent="LevelLayout/MeshCurver2" index="1"]
 visible = false
-mesh = SubResource( 9 )
+mesh = SubResource( 10 )
 material/0 = null
 script = ExtResource( 4 )
 

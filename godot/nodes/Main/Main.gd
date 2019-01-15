@@ -40,6 +40,10 @@ func launchLevel():
 	$GUI.loadGui($GUI.levelGUI)
 	
 	$CurrentLevel.get_child(0).set_running(true)
+
+func levelComplete():#Method giving procedure when player won a level
+	$GUI.clearCurrentGui()
+	$GUI.loadGui($GUI.levelComplete)
 	
 func getLevelAvailablePlaters():
 	return $CurrentLevel.get_child(0).getAvailablePlaters()

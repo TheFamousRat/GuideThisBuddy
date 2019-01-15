@@ -110,3 +110,4 @@ func _on_PlayerArrival_body_entered(body):
 	#Called when the player reached point of arrival
 	if body.is_in_group("player"):
 		Engine.time_scale = 0.01
+		get_node(Global.mainPath).levelComplete()

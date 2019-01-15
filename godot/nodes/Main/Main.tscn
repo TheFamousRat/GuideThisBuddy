@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://nodes/Main/Main.gd" type="Script" id=1]
 [ext_resource path="res://nodes/Main/GUI.gd" type="Script" id=2]
@@ -6,9 +6,10 @@
 [ext_resource path="res://nodes/GUI/PlaterPlacement/PlaterPlacement.tscn" type="PackedScene" id=4]
 [ext_resource path="res://nodes/GUI/LevelGUI/LevelGUI.tscn" type="PackedScene" id=5]
 [ext_resource path="res://nodes/GUI/Options/Options.tscn" type="PackedScene" id=6]
-[ext_resource path="res://nodes/Main/GameraCamera.gd" type="Script" id=7]
-[ext_resource path="res://nodes/Slime/Slime.tscn" type="PackedScene" id=8]
-[ext_resource path="res://nodes/Main/freeflyCamera.gd" type="Script" id=9]
+[ext_resource path="res://nodes/GUI/LevelComplete/LevelComplete.tscn" type="PackedScene" id=7]
+[ext_resource path="res://nodes/Main/GameraCamera.gd" type="Script" id=8]
+[ext_resource path="res://nodes/Slime/Slime.tscn" type="PackedScene" id=9]
+[ext_resource path="res://nodes/Main/freeflyCamera.gd" type="Script" id=10]
 
 [node name="Main" type="Node"]
 script = ExtResource( 1 )
@@ -23,6 +24,7 @@ mainMenu = ExtResource( 3 )
 platerPlacement = ExtResource( 4 )
 levelGUI = ExtResource( 5 )
 options = ExtResource( 6 )
+levelComplete = ExtResource( 7 )
 
 [node name="GameCamera" type="Camera" parent="."]
 transform = Transform( 1, 0, -1.06581e-14, 0, 1, 0, 1.06581e-14, 0, 1, 0, 0, 5 )
@@ -30,14 +32,14 @@ projection = 1
 current = true
 fov = 45.0
 size = 5.0
-script = ExtResource( 7 )
+script = ExtResource( 8 )
 
-[node name="Slime" parent="." instance=ExtResource( 8 )]
+[node name="Slime" parent="." instance=ExtResource( 9 )]
 editor/display_folded = true
 
 [node name="FreeFlyCamera" type="Camera" parent="."]
 fov = 75.0
-script = ExtResource( 9 )
+script = ExtResource( 10 )
 
 
 [editable path="Slime"]
