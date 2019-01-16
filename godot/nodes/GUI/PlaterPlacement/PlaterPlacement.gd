@@ -2,12 +2,13 @@ extends Control
 
 var availablePlaters : Array
 
+signal selectedPlater
+
 func _ready():
 	availablePlaters = Array()
 	availablePlaters = get_node(Global.mainPath).getLevelAvailablePlaters()
 	
 	#We remove any node that doesn't inherit from PlaterBase
-	var index : int = 0
 	for i in range(availablePlaters.size() - 2, -2, -2):
 		if availablePlaters[i].can_instance():
 			if availablePlaters[i].instance().get_class() != "PlaterBase":

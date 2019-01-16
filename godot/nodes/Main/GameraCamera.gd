@@ -10,8 +10,6 @@ var zoomFactor = 16.0
 
 var target : Spatial setget setTarget
 
-var zoom 
-
 func _ready():
 	pass
 

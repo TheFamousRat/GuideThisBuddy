@@ -32,6 +32,8 @@ func launchPlaterPlacement():
 	
 	$CurrentLevel.get_child(0).set_running(false)
 	
+	$GUI.getGUI($GUI.platerPlacement).connect("selectedPlater", $CurrentLevel.get_child(0), "placeNewPlater")
+	
 func launchLevel():
 	$Slime.set_sleeping(false)
 	

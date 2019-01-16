@@ -15,8 +15,6 @@ func _ready():
 	running = false
 	lastClosestNormal = Vector3()
 	lastClosestPoint = Vector3()
-	currentPlater = load("res://nodes/Platers/Pusher/Pusher.tscn").instance()
-	self.add_child(currentPlater)
 	
 func _process(delta):
 	pass
@@ -65,18 +63,19 @@ func isRunning():
 	return running
 	
 func _input(event):
-	if !running:
-		var curveShapePoint : Vector3 = findClosestCurveShapePoint(get_viewport().get_camera().project_position(get_viewport().get_mouse_position()))
-		currentPlater.set_translation(curveShapePoint)
-		currentPlater.resetRotation()
-
-		currentPlater.rotate_z(-acos(-currentPlater.getRotatedUpVectorDirection().dot(lastClosestNormal)))
-		
-		if abs(currentPlater.getRotatedUpVectorDirection().dot(lastClosestNormal)) < 0.99999:
+	if Input.is_action_pressed("leftClick") and currentPlater != null:
+		if !running:
+			var curveShapePoint : Vector3 = findClosestCurveShapePoint(get_viewport().get_camera().project_position(get_viewport().get_mouse_position()))
+			currentPlater.set_translation(curveShapePoint)
 			currentPlater.resetRotation()
-			currentPlater.rotate_z(acos(-currentPlater.getRotatedUpVectorDirection().dot(lastClosestNormal)))
-		
-		currentPlater.set_translation(curveShapePoint + currentPlater.getRotatedUpVectorDirection() * currentPlater.getBaseOffset().length()/2)
+	
+			currentPlater.rotate_z(-acos(-currentPlater.getRotatedUpVectorDirection().dot(lastClosestNormal)))
+			
+			if abs(currentPlater.getRotatedUpVectorDirection().dot(lastClosestNormal)) < 0.999999:
+				currentPlater.resetRotation()
+				currentPlater.rotate_z(acos(-currentPlater.getRotatedUpVectorDirection().dot(lastClosestNormal)))
+			
+			currentPlater.set_translation(curveShapePoint + currentPlater.getRotatedUpVectorDirection() * currentPlater.getBaseOffset().length()/2)
 
 
 
@@ -129,3 +128,8 @@ func _on_PlayerArrival_body_entered(body):
 	if body.is_in_group("player"):
 		Engine.time_scale = 0.01
 		get_node(Global.mainPath).levelComplete()
+
+func placeNewPlater(newPlaterPath : NodePath):
+	self.remove_child(currentPlater)
+	currentPlater = load(newPlaterPath).instance()
+	self.add_child(currentPlater)
