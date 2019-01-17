@@ -24,6 +24,7 @@ func _ready():
 	for plater in range(0,availablePlaters.size(),2):
 		var newPlaterInterface = platerInterface.instance()
 		newPlaterInterface.setAvailableNumber(availablePlaters[plater+1])
+		newPlaterInterface.setCurrentPlater(availablePlaters[plater])
 		$PlaterSelection/AllPlaterInterfaces.add_child(newPlaterInterface)
 	
 

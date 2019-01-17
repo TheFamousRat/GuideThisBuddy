@@ -2,6 +2,8 @@ tool
 
 extends Spatial
 
+export (Texture) var GUI_Illustration
+
 var initialRotation : Vector3
 
 func _ready():
@@ -26,3 +28,6 @@ func getRotatedUpVectorDirection():
 func resetRotation():
 	#Resets the rotation to what the plater had in the editor
 	self.set_rotation(initialRotation)
+	
+func getGUI_Illustration():
+	return GUI_Illustration
