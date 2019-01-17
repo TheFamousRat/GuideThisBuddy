@@ -1,23 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://nodes/GUI/MainMenu/MainMenu.gd" type="Script" id=1]
-[ext_resource path="res://assets/fonts/Block Cartoon.ttf" type="DynamicFontData" id=2]
-
-[sub_resource type="DynamicFont" id=1]
-
-size = 32
-use_mipmaps = false
-use_filter = false
-font_data = ExtResource( 2 )
-
-[sub_resource type="DynamicFont" id=2]
-
-size = 64
-outline_size = 1
-outline_color = Color( 0, 0, 0, 1 )
-use_mipmaps = false
-use_filter = false
-font_data = ExtResource( 2 )
+[ext_resource path="res://assets/fonts/Blockheads32.tres" type="DynamicFont" id=2]
+[ext_resource path="res://assets/fonts/Blockheads64.tres" type="DynamicFont" id=3]
 
 [node name="MainMenu" type="Control"]
 anchor_right = 1.0
@@ -54,7 +39,7 @@ margin_left = -79.0
 margin_top = -48.0
 margin_right = 80.0
 margin_bottom = -7.0
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = ExtResource( 2 )
 text = "Start"
 
 [node name="Options" type="Button" parent="."]
@@ -66,7 +51,7 @@ margin_left = -79.0
 margin_top = 25.0
 margin_right = 80.0
 margin_bottom = 66.0
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = ExtResource( 2 )
 text = "Options"
 
 [node name="Quit" type="Button" parent="."]
@@ -78,7 +63,7 @@ margin_left = -79.0
 margin_top = 99.0
 margin_right = 80.0
 margin_bottom = 140.0
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = ExtResource( 2 )
 text = "Quit"
 
 [node name="Label" type="Label" parent="."]
@@ -88,7 +73,7 @@ margin_left = -306.0
 margin_top = 100.0
 margin_right = 306.0
 margin_bottom = 170.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = ExtResource( 3 )
 text = "GuideThisBuddy"
 align = 1
 valign = 1

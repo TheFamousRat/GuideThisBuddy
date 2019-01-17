@@ -29,7 +29,7 @@ gdscript/completion/autocomplete_setters_and_getters=true
 
 [gui]
 
-theme/custom_font="res://assets/fonts/cartoonFont.tres"
+theme/custom_font="res://assets/fonts/Blockheads24.tres"
 
 [input]
 

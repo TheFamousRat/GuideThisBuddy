@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://assets/fonts/cartoonFont.tres" type="DynamicFont" id=1]
+[ext_resource path="res://assets/fonts/Blockheads24.tres" type="DynamicFont" id=1]
 [ext_resource path="res://nodes/GUI/Options/Options.gd" type="Script" id=2]
 
 [node name="Options" type="WindowDialog"]
@@ -22,8 +22,9 @@ anchor_bottom = 1.0
 [node name="Label" type="Label" parent="Control"]
 margin_left = 22.0
 margin_top = 22.0
-margin_right = 153.0
+margin_right = 165.0
 margin_bottom = 37.0
+custom_fonts/font = ExtResource( 1 )
 text = "Some slider idk"
 
 [node name="HSlider" type="HSlider" parent="Control"]
