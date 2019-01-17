@@ -1,5 +1,3 @@
-tool
-
 extends Node
 
 export (Array) var availablePlaters setget availablePlaterArrayChecker
@@ -45,8 +43,11 @@ func availablePlaterArrayChecker(newArray : Array):
 						availablePlaters[i] = PackedScene.new()
 				else:
 					availablePlaters[i] = PackedScene.new()
-			elif i%2 == 1 and !(availablePlaters[i] is int):
-				availablePlaters[i] = int(0)
+			elif i%2 == 1:
+				if !(availablePlaters[i] is int):
+					availablePlaters[i] = int(1)
+				elif availablePlaters[i] <= 0:
+					availablePlaters[i] = 1
 				
 		platersArray.clear()
 		for i in range(availablePlaters.size() - 2, -2, -2):

@@ -2,6 +2,8 @@ extends Control
 
 var availablePlaters : Array
 
+export (PackedScene) var platerInterface
+
 signal selectedPlater
 
 func _ready():
@@ -19,6 +21,10 @@ func _ready():
 			availablePlaters.remove(i+1)
 			availablePlaters.remove(i)
 	
+	for plater in range(0,availablePlaters.size(),2):
+		var newPlaterInterface = platerInterface.instance()
+		newPlaterInterface.setAvailableNumber(availablePlaters[plater+1])
+		$PlaterSelection/AllPlaterInterfaces.add_child(newPlaterInterface)
 	
 
 func _on_LaunchLevel_pressed():
