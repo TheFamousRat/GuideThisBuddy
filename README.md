@@ -9,8 +9,10 @@ Things done :
 
 Things I'm doing right now :
 - Menu system
-- Sucker 3d model
-- Sound system ?
+	* Plater placement screen
+	* Win screen
+	* Connection between the various GUI
+	* Try to make the whole thing not look as shit
 - Basic Demo Level
 - Not sleeping
 
