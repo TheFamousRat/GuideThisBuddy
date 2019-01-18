@@ -34,14 +34,7 @@ hint_tooltip = "
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
-[node name="AllPlaterInterfaces" type="HBoxContainer" parent="PlaterSelection"]
-margin_left = 35.0
-margin_right = 1263.0
-margin_bottom = 145.0
-rect_clip_content = true
-
 [node name="Sliding" type="HBoxContainer" parent="PlaterSelection"]
-editor/display_folded = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 alignment = 1
@@ -52,14 +45,169 @@ margin_bottom = 145.0
 custom_fonts/font = ExtResource( 4 )
 text = " <- "
 
-[node name="HSlider" type="HSlider" parent="PlaterSelection/Sliding"]
+[node name="ScrollContainer" type="ScrollContainer" parent="PlaterSelection/Sliding"]
 margin_left = 35.0
-margin_top = 129.0
 margin_right = 989.0
 margin_bottom = 145.0
 size_flags_horizontal = 3
-size_flags_vertical = 8
-ticks_on_borders = true
+size_flags_vertical = 3
+scroll_vertical_enabled = false
+
+[node name="AllPlaterInterfaces" type="HBoxContainer" parent="PlaterSelection/Sliding/ScrollContainer"]
+margin_right = 1556.0
+margin_bottom = 133.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="PlaterInterface" parent="PlaterSelection/Sliding/ScrollContainer/AllPlaterInterfaces" instance=ExtResource( 2 )]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 0.0
+margin_top = 0.0
+margin_right = 100.0
+margin_bottom = 133.0
+
+[node name="PlaterInterface2" parent="PlaterSelection/Sliding/ScrollContainer/AllPlaterInterfaces" instance=ExtResource( 2 )]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 104.0
+margin_top = 0.0
+margin_right = 204.0
+margin_bottom = 133.0
+
+[node name="PlaterInterface4" parent="PlaterSelection/Sliding/ScrollContainer/AllPlaterInterfaces" instance=ExtResource( 2 )]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 208.0
+margin_top = 0.0
+margin_right = 308.0
+margin_bottom = 133.0
+
+[node name="PlaterInterface5" parent="PlaterSelection/Sliding/ScrollContainer/AllPlaterInterfaces" instance=ExtResource( 2 )]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 312.0
+margin_top = 0.0
+margin_right = 412.0
+margin_bottom = 133.0
+
+[node name="PlaterInterface6" parent="PlaterSelection/Sliding/ScrollContainer/AllPlaterInterfaces" instance=ExtResource( 2 )]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 416.0
+margin_top = 0.0
+margin_right = 516.0
+margin_bottom = 133.0
+
+[node name="PlaterInterface7" parent="PlaterSelection/Sliding/ScrollContainer/AllPlaterInterfaces" instance=ExtResource( 2 )]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 520.0
+margin_top = 0.0
+margin_right = 620.0
+margin_bottom = 133.0
+
+[node name="PlaterInterface8" parent="PlaterSelection/Sliding/ScrollContainer/AllPlaterInterfaces" instance=ExtResource( 2 )]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 624.0
+margin_top = 0.0
+margin_right = 724.0
+margin_bottom = 133.0
+
+[node name="PlaterInterface9" parent="PlaterSelection/Sliding/ScrollContainer/AllPlaterInterfaces" instance=ExtResource( 2 )]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 728.0
+margin_top = 0.0
+margin_right = 828.0
+margin_bottom = 133.0
+
+[node name="PlaterInterface10" parent="PlaterSelection/Sliding/ScrollContainer/AllPlaterInterfaces" instance=ExtResource( 2 )]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 832.0
+margin_top = 0.0
+margin_right = 932.0
+margin_bottom = 133.0
+
+[node name="PlaterInterface11" parent="PlaterSelection/Sliding/ScrollContainer/AllPlaterInterfaces" instance=ExtResource( 2 )]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 936.0
+margin_top = 0.0
+margin_right = 1036.0
+margin_bottom = 133.0
+
+[node name="PlaterInterface12" parent="PlaterSelection/Sliding/ScrollContainer/AllPlaterInterfaces" instance=ExtResource( 2 )]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1040.0
+margin_top = 0.0
+margin_right = 1140.0
+margin_bottom = 133.0
+
+[node name="PlaterInterface13" parent="PlaterSelection/Sliding/ScrollContainer/AllPlaterInterfaces" instance=ExtResource( 2 )]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1144.0
+margin_top = 0.0
+margin_right = 1244.0
+margin_bottom = 133.0
+
+[node name="PlaterInterface14" parent="PlaterSelection/Sliding/ScrollContainer/AllPlaterInterfaces" instance=ExtResource( 2 )]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1248.0
+margin_top = 0.0
+margin_right = 1348.0
+margin_bottom = 133.0
+
+[node name="PlaterInterface15" parent="PlaterSelection/Sliding/ScrollContainer/AllPlaterInterfaces" instance=ExtResource( 2 )]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1352.0
+margin_top = 0.0
+margin_right = 1452.0
+margin_bottom = 133.0
+
+[node name="PlaterInterface3" parent="PlaterSelection/Sliding/ScrollContainer/AllPlaterInterfaces" instance=ExtResource( 2 )]
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1456.0
+margin_top = 0.0
+margin_right = 1556.0
+margin_bottom = 133.0
 
 [node name="RButton" type="Button" parent="PlaterSelection/Sliding"]
 margin_left = 993.0

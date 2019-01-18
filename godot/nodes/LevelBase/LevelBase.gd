@@ -130,7 +130,7 @@ func _on_PlayerArrival_body_entered(body):
 		Engine.time_scale = 0.01
 		get_node(Global.mainPath).levelComplete()
 
-func placeNewPlater(newPlaterPath : NodePath):
+func placeNewPlater(newPlaterPath : PackedScene):
 	self.remove_child(currentPlater)
-	currentPlater = load(newPlaterPath).instance()
+	currentPlater = newPlaterPath.instance()
 	self.add_child(currentPlater)

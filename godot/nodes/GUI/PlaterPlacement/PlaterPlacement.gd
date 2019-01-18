@@ -25,9 +25,11 @@ func _ready():
 		var newPlaterInterface = platerInterface.instance()
 		newPlaterInterface.setAvailableNumber(availablePlaters[plater+1])
 		newPlaterInterface.setCurrentPlater(availablePlaters[plater])
-		$PlaterSelection/AllPlaterInterfaces.add_child(newPlaterInterface)
-	
-
+		$PlaterSelection/Sliding/ScrollContainer/AllPlaterInterfaces.add_child(newPlaterInterface)
+		
 func _on_LaunchLevel_pressed():
 	get_node(Global.mainPath).launchLevel()
 	self.queue_free()
+
+func pressedPlaterInterface():
+	pass
