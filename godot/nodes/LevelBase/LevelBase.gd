@@ -133,6 +133,7 @@ func _on_PlayerArrival_body_entered(body):
 
 func placeNewPlater(newPlaterPath : PackedScene):
 	if currentPlater != null:
+		self.add_child(currentPlater.duplicate())
 		self.remove_child(currentPlater)
 	currentPlater = newPlaterPath.instance()
 	self.add_child(currentPlater)
