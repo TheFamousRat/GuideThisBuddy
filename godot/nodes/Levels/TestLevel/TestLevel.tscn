@@ -48,7 +48,7 @@ background_sky = SubResource( 4 )
 [sub_resource type="Curve3D" id=6]
 
 _data = {
-"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, -6.62906, -4.13805, 0, -1.63539, 1.27415, 0, 1.63539, -1.27415, 0, -4.30549, -4.4291, 0, 0.0934398, 0.654077, 0, -0.0934398, -0.654077, 0, -3.23869, -9.03484, 0, -0.707472, -0.000490189, 0, 0.707472, 0.000490189, 0, -0.245954, -9.42777, 0, -1.86626, -0.32934, 0, 1.86626, 0.32934, 0, 11.1317, -10.5258, 0, 0, 0, 0, 0, 0, 0, 14.8642, -11.5688, 0 ),
+"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, -6.62906, -4.13805, 0, -1.63539, 1.27415, 0, 1.63539, -1.27415, 0, -4.30549, -4.4291, 0, -0.845053, 0.857365, 0, 0.845053, -0.857365, 0, -3.23869, -9.03484, 0, -0.707472, -0.000490189, 0, 0.707472, 0.000490189, 0, -0.245954, -9.42777, 0, -1.86626, -0.32934, 0, 1.86626, 0.32934, 0, 11.1317, -10.5258, 0, 0, 0, 0, 0, 0, 0, 14.8642, -11.5688, 0 ),
 "tilts": PoolRealArray( 0, 0, 0, 0, 0, 0 )
 }
 
@@ -73,7 +73,7 @@ surfaces/0 = {
 "vertex_count": 24
 }
 
-[node name="TestLevel" instance=ExtResource( 1 )]
+[node name="TestLevel" index="0" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 availablePlaters = [ ExtResource( 3 ), 1, SubResource( 1 ), 1, SubResource( 2 ), 1 ]
 
@@ -91,9 +91,9 @@ environment = SubResource( 5 )
 editor/display_folded = true
 curve = SubResource( 6 )
 script = ExtResource( 4 )
-meshRepetitonsNumber = 40
+meshRepetitonsNumber = 60
 generateBoundingBox = true
-xyzScale = Vector3( 0.3, 0.1, 1 )
+xyzScale = Vector3( 0.2, 0.1, 1 )
 mainMesh = SubResource( 8 )
 
 [node name="RessourceSaver" type="MeshInstance" parent="LevelLayout/MeshCurver" index="1"]
