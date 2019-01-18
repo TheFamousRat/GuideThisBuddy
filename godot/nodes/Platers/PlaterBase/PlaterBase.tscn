@@ -1,9 +1,18 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://nodes/Platers/PlaterBase/PlaterBase.gd" type="Script" id=1]
 
+[sub_resource type="Gradient" id=1]
+
+colors = PoolColorArray( 1, 0, 1, 1, 1, 0, 0.984375, 1 )
+
+[sub_resource type="GradientTexture" id=2]
+
+gradient = SubResource( 1 )
+
 [node name="PlaterBase" type="Spatial"]
 script = ExtResource( 1 )
+GUI_Illustration = SubResource( 2 )
 
 [node name="PlaterPlacementDetection" type="Area" parent="."]
 

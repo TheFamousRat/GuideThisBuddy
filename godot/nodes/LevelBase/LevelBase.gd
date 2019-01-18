@@ -77,6 +77,7 @@ func _input(event):
 				currentPlater.rotate_z(acos(-currentPlater.getRotatedUpVectorDirection().dot(lastClosestNormal)))
 			
 			currentPlater.set_translation(curveShapePoint + currentPlater.getRotatedUpVectorDirection() * currentPlater.getBaseOffset().length()/2)
+			print(str(get_viewport().get_camera().project_position(get_viewport().get_mouse_position())) + " " + str(currentPlater.get_translation()))
 
 
 

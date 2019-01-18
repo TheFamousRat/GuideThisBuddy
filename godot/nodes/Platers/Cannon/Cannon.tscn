@@ -19,8 +19,8 @@ data = PoolVector3Array( -0.238, 0.5746, 1.2479, -0.238, 0.5746, -1.2479, 0, 0.6
 
 resource_name = "explosion"
 
-[node name="Cannon" instance=ExtResource( 1 )]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0 )
+[node name="Cannon" index="0" instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 1.06581e-14, 0, 1, 0, -1.06581e-14, 0, 1, 0, 0, 0 )
 script = ExtResource( 2 )
 
 [node name="BodyDetector" type="Area" parent="." index="0"]
@@ -48,5 +48,8 @@ shape = SubResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="3"]
 anims/explosion = SubResource( 3 )
+
+[node name="Base" parent="." index="5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.867981, 0 )
 
 [connection signal="body_entered" from="BodyDetector" to="." method="_on_BodyDetector_body_entered"]
