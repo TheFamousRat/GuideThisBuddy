@@ -1,6 +1,7 @@
 extends Control
 
 var availablePlaters : Array
+var scrollButtonValue : float = 130
 
 export (PackedScene) var platerInterface
 
@@ -33,3 +34,10 @@ func _on_LaunchLevel_pressed():
 
 func pressedPlaterInterface():
 	pass
+
+func _on_LButton_pressed():
+	$PlaterSelection/Sliding/ScrollContainer.set_h_scroll($PlaterSelection/Sliding/ScrollContainer.get_h_scroll() - scrollButtonValue)
+
+
+func _on_RButton_pressed():
+	$PlaterSelection/Sliding/ScrollContainer.set_h_scroll($PlaterSelection/Sliding/ScrollContainer.get_h_scroll() + scrollButtonValue)
