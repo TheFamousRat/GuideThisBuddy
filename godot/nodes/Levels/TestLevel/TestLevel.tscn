@@ -6,7 +6,7 @@
 [ext_resource path="res://nodes/MeshCurver/MeshCurver.gdns" type="Script" id=4]
 [ext_resource path="res://nodes/MeshCurver/RessourceSaver.gd" type="Script" id=5]
 
-[sub_resource type="PackedScene" id=8]
+[sub_resource type="PackedScene" id=1]
 
 _bundled = {
 "conn_count": 0,
@@ -20,7 +20,7 @@ _bundled = {
 "version": 2
 }
 
-[sub_resource type="PackedScene" id=9]
+[sub_resource type="PackedScene" id=2]
 
 _bundled = {
 "conn_count": 0,
@@ -34,31 +34,31 @@ _bundled = {
 "version": 2
 }
 
-[sub_resource type="BoxShape" id=2]
+[sub_resource type="BoxShape" id=3]
 
 
-[sub_resource type="ProceduralSky" id=3]
+[sub_resource type="ProceduralSky" id=4]
 
 
-[sub_resource type="Environment" id=4]
+[sub_resource type="Environment" id=5]
 
 background_mode = 2
-background_sky = SubResource( 3 )
+background_sky = SubResource( 4 )
 
-[sub_resource type="Curve3D" id=5]
+[sub_resource type="Curve3D" id=6]
 
 _data = {
 "points": PoolVector3Array( 0, 0, 0, 0, 0, 0, -6.62906, -4.13805, 0, -1.63539, 1.27415, 0, 1.63539, -1.27415, 0, -4.30549, -4.4291, 0, 0.0934398, 0.654077, 0, -0.0934398, -0.654077, 0, -3.23869, -9.03484, 0, -0.707472, -0.000490189, 0, 0.707472, 0.000490189, 0, -0.245954, -9.42777, 0, -1.86626, -0.32934, 0, 1.86626, 0.32934, 0, 11.1317, -10.5258, 0, 0, 0, 0, 0, 0, 0, 14.8642, -11.5688, 0 ),
 "tilts": PoolRealArray( 0, 0, 0, 0, 0, 0 )
 }
 
-[sub_resource type="SpatialMaterial" id=6]
+[sub_resource type="SpatialMaterial" id=7]
 
 albedo_color = Color( 1, 0, 0, 1 )
 metallic = 1.0
 roughness = 0.3
 
-[sub_resource type="ArrayMesh" id=10]
+[sub_resource type="ArrayMesh" id=8]
 
 surfaces/0 = {
 "aabb": AABB( -1, -1, -1, 2, 2.00001, 2.00001 ),
@@ -67,7 +67,7 @@ surfaces/0 = {
 "blend_shape_data": [  ],
 "format": 97559,
 "index_count": 36,
-"material": SubResource( 6 ),
+"material": SubResource( 7 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 24
@@ -75,30 +75,30 @@ surfaces/0 = {
 
 [node name="TestLevel" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
-availablePlaters = [ ExtResource( 3 ), 1, SubResource( 8 ), 1, SubResource( 9 ), 1 ]
+availablePlaters = [ ExtResource( 3 ), 1, SubResource( 1 ), 1, SubResource( 2 ), 1 ]
 
 [node name="PlayerStart" parent="." index="0"]
 transform = Transform( 1, 0, 1.06581e-14, 0, 1, 0, -1.06581e-14, 0, 1, 0, -3.40259, 0.0630117 )
 
 [node name="CollisionShape" type="CollisionShape" parent="PlayerArrival" index="0"]
 transform = Transform( 0.998936, -0.0461223, 0, 0.0461223, 0.998936, 0, 0, 0, 1, 11.2228, -9.51336, 0 )
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="WorldEnvironment" parent="." index="2"]
-environment = SubResource( 4 )
+environment = SubResource( 5 )
 
 [node name="MeshCurver" type="Path" parent="LevelLayout" index="0"]
 editor/display_folded = true
-curve = SubResource( 5 )
+curve = SubResource( 6 )
 script = ExtResource( 4 )
 meshRepetitonsNumber = 40
 generateBoundingBox = true
 xyzScale = Vector3( 0.3, 0.1, 1 )
-mainMesh = SubResource( 10 )
+mainMesh = SubResource( 8 )
 
 [node name="RessourceSaver" type="MeshInstance" parent="LevelLayout/MeshCurver" index="1"]
 visible = false
-mesh = SubResource( 10 )
+mesh = SubResource( 8 )
 material/0 = null
 script = ExtResource( 5 )
 

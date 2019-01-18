@@ -26,18 +26,20 @@ func _ready():
 		var newPlaterInterface = platerInterface.instance()
 		newPlaterInterface.setAvailableNumber(availablePlaters[plater+1])
 		newPlaterInterface.setCurrentPlater(availablePlaters[plater])
+		newPlaterInterface.connect("platerInterfacePressed", self, "on_pressedPlaterInterface")
 		$PlaterSelection/Sliding/ScrollContainer/AllPlaterInterfaces.add_child(newPlaterInterface)
 		
 func _on_LaunchLevel_pressed():
 	get_node(Global.mainPath).launchLevel()
 	self.queue_free()
 
-func pressedPlaterInterface():
-	pass
+func on_pressedPlaterInterface(platerInterfacePressed):
+	if platerInterfacePressed.getAvailableNumber() > 0:
+		platerInterfacePressed.setAvailableNumber(platerInterfacePressed.getAvailableNumber() - 1)
+		emit_signal("selectedPlater", platerInterfacePressed.getCurrentPlater())
 
 func _on_LButton_pressed():
 	$PlaterSelection/Sliding/ScrollContainer.set_h_scroll($PlaterSelection/Sliding/ScrollContainer.get_h_scroll() - scrollButtonValue)
-
 
 func _on_RButton_pressed():
 	$PlaterSelection/Sliding/ScrollContainer.set_h_scroll($PlaterSelection/Sliding/ScrollContainer.get_h_scroll() + scrollButtonValue)

@@ -1,17 +1,19 @@
 
 extends Control
 
-var availableNumber : int #Number of available platers
+var availableNumber : int = 0 #Number of available platers
 var currentPlater : PackedScene #Current plater the Node references
 
+signal platerInterfacePressed
+
 func _ready():
-	availableNumber = 0
+	pass
 
 func setAvailableNumber(newNumber : int):
 	availableNumber = newNumber
 	$TextureButton/AvailabNumLabel.set_text("Available : " + str(availableNumber))
 	
-func getAvailableNumber(newNumber : int):
+func getAvailableNumber():
 	return availableNumber
 	
 func setCurrentPlater(newPlater : PackedScene):
@@ -21,3 +23,6 @@ func setCurrentPlater(newPlater : PackedScene):
 
 func getCurrentPlater():
 	return currentPlater
+
+func _on_TextureButton_pressed():
+	emit_signal('platerInterfacePressed', self)

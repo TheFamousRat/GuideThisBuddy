@@ -131,6 +131,7 @@ func _on_PlayerArrival_body_entered(body):
 		get_node(Global.mainPath).levelComplete()
 
 func placeNewPlater(newPlaterPath : PackedScene):
-	self.remove_child(currentPlater)
+	if currentPlater != null:
+		self.remove_child(currentPlater)
 	currentPlater = newPlaterPath.instance()
 	self.add_child(currentPlater)
