@@ -7,6 +7,7 @@ var lastClosestPoint : Vector3
 var lastClosestNormal : Vector3
 var upNormal : bool
 var currentPlater
+var maxCurveDistance : float = 2.0#Maximum distance at which the Plater is close enough to the curve to be placed on it
 
 func _ready():
 	set_process(get_tree().get_edited_scene_root() == null)

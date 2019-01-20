@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://nodes/Main/Main.gd" type="Script" id=1]
 [ext_resource path="res://nodes/Main/GUI.gd" type="Script" id=2]
@@ -9,7 +9,8 @@
 [ext_resource path="res://nodes/GUI/LevelComplete/LevelComplete.tscn" type="PackedScene" id=7]
 [ext_resource path="res://nodes/Main/GameraCamera.gd" type="Script" id=8]
 [ext_resource path="res://nodes/Slime/Slime.tscn" type="PackedScene" id=9]
-[ext_resource path="res://nodes/Main/freeflyCamera.gd" type="Script" id=10]
+[ext_resource path="res://nodes/GUI/SpatialStalker.tscn" type="PackedScene" id=10]
+[ext_resource path="res://nodes/Main/freeflyCamera.gd" type="Script" id=11]
 
 [node name="Main" type="Node"]
 script = ExtResource( 1 )
@@ -35,13 +36,14 @@ size = 5.0
 script = ExtResource( 8 )
 
 [node name="Slime" parent="." instance=ExtResource( 9 )]
-editor/display_folded = true
+
+[node name="SpatialStalker" parent="Slime" instance=ExtResource( 10 )]
+
+[node name="Button" type="Button" parent="Slime/SpatialStalker"]
+margin_right = 12.0
+margin_bottom = 18.0
 
 [node name="FreeFlyCamera" type="Camera" parent="."]
 fov = 75.0
-script = ExtResource( 10 )
+script = ExtResource( 11 )
 
-
-[editable path="Slime"]
-
-[editable path="Slime/Model"]
