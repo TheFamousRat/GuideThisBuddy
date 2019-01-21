@@ -32,7 +32,6 @@ func resetRotation():
 func getGUI_Illustration():
 	return GUI_Illustration
 
-
-
-func _on_PlaterPlacementDetection_mouse_entered():
-	print("hey")
+func _on_PlaterPlacementDetection_input_event(camera, event, click_position, click_normal, shape_idx):
+	if event.is_action_pressed("leftClick"):
+		print("yep")
