@@ -5,8 +5,11 @@ var center : Vector2
 
 var showingAnimDuration : float = 0.1
 var hidingAnimDuration : float = 0.1
-var initialPosArray : PoolVector2Array#Initial positions of all Control nodes
+var visiblePlatersNumber : int
 
+export (float) var radius = 50.0
+export (float) var minAngle = 0.0
+export (float) var maxAngle = 2 * PI
 export (bool) var showTranslation setget translationVisibility
 export (bool) var showRotation setget rotationVisibility
 
@@ -15,12 +18,14 @@ func _ready():
 	center = self.get_size() * 0.5
 	$hidingTimer.set_wait_time(hidingAnimDuration)
 	
+	visiblePlatersNumber = 0
+	
 	for popupChild in self.get_children():
 		if popupChild.is_class("Control"):
 			if popupChild.is_visible():
 				var newTween : Tween = Tween.new()
 				$Tweens.add_child(newTween)
-				initialPosArray.append(popupChild.get_position())
+				visiblePlatersNumber += 1
 			
 	if self.is_visible():
 		self.show()
@@ -35,7 +40,9 @@ func show():
 	for popupChild in self.get_children():
 		if popupChild.is_class("Control"):
 			if popupChild.is_visible():
-				$Tweens.get_child(childNumber).interpolate_property(popupChild, "rect_position", center, initialPosArray[childNumber], showingAnimDuration, Tween.TRANS_LINEAR, Tween.EASE_OUT)
+				var circlePos : float = (maxAngle - minAngle) * childNumber / (visiblePlatersNumber-1)
+				print(Vector2(cos(circlePos),sin(circlePos)))
+				$Tweens.get_child(childNumber).interpolate_property(popupChild, "rect_position", center, center + radius * Vector2(cos(circlePos),-sin(circlePos)), showingAnimDuration, Tween.TRANS_LINEAR, Tween.EASE_OUT)
 				childNumber += 1
 	
 	for i in $Tweens.get_children():
@@ -46,7 +53,8 @@ func hide():
 	for popupChild in self.get_children():
 		if popupChild.is_class("Control"):
 			if popupChild.is_visible():
-				$Tweens.get_child(childNumber).interpolate_property(popupChild, "rect_position", initialPosArray[childNumber], center, hidingAnimDuration, Tween.TRANS_LINEAR, Tween.EASE_OUT)
+				var circlePos : float = (maxAngle - minAngle) * childNumber / (visiblePlatersNumber-1)
+				$Tweens.get_child(childNumber).interpolate_property(popupChild, "rect_position", center + radius * Vector2(cos(circlePos),-sin(circlePos)), center, hidingAnimDuration, Tween.TRANS_LINEAR, Tween.EASE_OUT)
 				childNumber += 1
 			
 	for i in $Tweens.get_children():

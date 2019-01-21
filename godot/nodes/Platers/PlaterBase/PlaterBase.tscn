@@ -26,6 +26,7 @@ input_ray_pickable = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 
 [node name="PlaterPlacementPopup" parent="." instance=ExtResource( 2 )]
-visible = false
+showTranslation = null
+showRotation = null
 
 [connection signal="input_event" from="PlaterPlacementDetection" to="." method="_on_PlaterPlacementDetection_input_event"]
