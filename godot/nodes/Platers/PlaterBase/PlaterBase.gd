@@ -31,3 +31,8 @@ func resetRotation():
 	
 func getGUI_Illustration():
 	return GUI_Illustration
+
+
+
+func _on_PlaterPlacementDetection_mouse_entered():
+	print("hey")

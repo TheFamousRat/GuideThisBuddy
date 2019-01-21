@@ -15,3 +15,4 @@ func _on_BodyDetector_body_entered(body):
 		body.apply_central_impulse(pushForce*(($Position3D.get_global_transform().origin - self.get_global_transform().origin).normalized()))
 		$Model/AnimationPlayer.play("default", -1, extensionSpeed)
 		$ExtendedTimer.start()
+

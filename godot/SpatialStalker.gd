@@ -3,8 +3,10 @@ extends Control
 #Node that follows its parent on screen, if it is a Spatial node. Otherwise it wont move and act like a regular node
 
 var parentInheritsSpatial : bool
+var initialPos : Vector2
 
 func _ready():
+	initialPos = self.get_position()
 	parentInheritsSpatial = false
 	
 	if get_parent() != null:
@@ -18,5 +20,5 @@ func _ready():
 	set_process(parentInheritsSpatial)
 	
 func _process(delta):
-	self.set_position(get_viewport().get_camera().unproject_position(get_parent().get_global_transform().origin))
+	self.set_position(initialPos + get_viewport().get_camera().unproject_position(get_parent().get_global_transform().origin))
 

@@ -36,3 +36,4 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 				$Model/AnimationPlayer.play("Idle", -1, lastAnimSpeed)
 		else:
 			$Model/AnimationPlayer.play(anim_name, -1, lastAnimSpeed)
+

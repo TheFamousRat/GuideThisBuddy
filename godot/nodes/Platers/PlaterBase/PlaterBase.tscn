@@ -15,6 +15,7 @@ script = ExtResource( 1 )
 GUI_Illustration = SubResource( 2 )
 
 [node name="PlaterPlacementDetection" type="Area" parent="."]
+input_ray_pickable = true
 
 [node name="Base" type="Position3D" parent="."]
 
@@ -23,3 +24,4 @@ GUI_Illustration = SubResource( 2 )
 [node name="Up" type="Position3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 
+[connection signal="mouse_entered" from="PlaterPlacementDetection" to="." method="_on_PlaterPlacementDetection_mouse_entered"]
