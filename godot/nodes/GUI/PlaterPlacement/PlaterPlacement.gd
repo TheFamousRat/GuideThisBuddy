@@ -43,3 +43,9 @@ func _on_LButton_pressed():
 
 func _on_RButton_pressed():
 	$PlaterSelection/Sliding/ScrollContainer.set_h_scroll($PlaterSelection/Sliding/ScrollContainer.get_h_scroll() + scrollButtonValue)
+
+func levelRemovedPlater(platerFilename : String):
+	for i in $PlaterSelection/Sliding/ScrollContainer/AllPlaterInterfaces.get_children():
+		if i.getCurrentPlater().get_path() == platerFilename:
+			i.setAvailableNumber(i.getAvailableNumber() + 1)
+			break

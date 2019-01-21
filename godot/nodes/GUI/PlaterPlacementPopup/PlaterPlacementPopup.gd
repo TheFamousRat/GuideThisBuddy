@@ -1,4 +1,3 @@
-tool
 extends "res://nodes/GUI/SpatialStalker.gd"
 
 var center : Vector2
@@ -10,8 +9,6 @@ var visiblePlatersNumber : int
 export (float) var radius = 80.0
 export (float) var minAngle = 0.0
 export (float) var maxAngle = 2 * PI
-export (bool) var showTranslation setget translationVisibility
-export (bool) var showRotation setget rotationVisibility
 
 func _ready():
 	set_process(get_tree().get_edited_scene_root() == null)
@@ -63,13 +60,3 @@ func hide():
 
 func closingAnimDone():
 	self.set_visible(false)
-
-func translationVisibility(newVisibility : bool):
-	if self.has_node("Translation"):
-		showTranslation = newVisibility
-		$Translation.set_visible(newVisibility)
-	
-func rotationVisibility(newVisibility : bool):
-	if self.has_node("Rotation"):
-		showRotation = newVisibility
-		$Rotation.set_visible(newVisibility)

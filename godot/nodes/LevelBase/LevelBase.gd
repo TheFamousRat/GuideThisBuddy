@@ -9,6 +9,8 @@ var upNormal : bool
 var currentPlater
 var maxCurveDistance : float = 2.0#Maximum distance at which the Plater is close enough to the curve to be placed on it
 
+signal removedPlater
+
 func _ready():
 	set_process(get_tree().get_edited_scene_root() == null)
 	running = false
@@ -60,39 +62,48 @@ func availablePlaterArrayChecker(newArray : Array):
 
 func set_running(isRunning : bool):
 	running = isRunning
+	if running:
+		clearCurrentPlater()
 
 func isRunning():
 	return running
 	
+func clearCurrentPlater():
+	emit_signal("removedPlater", currentPlater.get_filename())
+	self.remove_child(currentPlater)
+	currentPlater = null
+	
 func _input(event):
 	if !running:
 		if currentPlater != null:
-			var projectedMousePoint : Vector3 = get_viewport().get_camera().project_position(get_viewport().get_mouse_position())
-			var curveShapePoint : Vector3 = findClosestCurveShapePoint(projectedMousePoint)
-			projectedMousePoint.z = curveShapePoint.z
-			currentPlater.resetRotation()
-
-			if ((projectedMousePoint - curveShapePoint).length() <= 1.0):
-				currentPlater.set_translation(curveShapePoint)
-		
-				currentPlater.rotate_z(-acos(-currentPlater.getRotatedUpVectorDirection().dot(lastClosestNormal)))
-				
-				if abs(currentPlater.getRotatedUpVectorDirection().dot(lastClosestNormal)) < 0.9999999:
-					currentPlater.resetRotation()
-					currentPlater.rotate_z(acos(-currentPlater.getRotatedUpVectorDirection().dot(lastClosestNormal)))
-				
-				currentPlater.set_translation(curveShapePoint + currentPlater.getRotatedUpVectorDirection() * currentPlater.getBaseOffset().length()/2)
-				
-				if event.is_action_pressed("leftClick"):
-					self.add_child(currentPlater.duplicate())
-					self.remove_child(currentPlater)
-					currentPlater = null
-					print(self.get_child_count())
-
+			if event.is_action_pressed("rightClick"):
+				clearCurrentPlater()
 			else:
-				currentPlater.set_translation(projectedMousePoint)
-
+				var projectedMousePoint : Vector3 = get_viewport().get_camera().project_position(get_viewport().get_mouse_position())
+				var curveShapePoint : Vector3 = findClosestCurveShapePoint(projectedMousePoint)
+				projectedMousePoint.z = curveShapePoint.z
+				currentPlater.resetRotation()
+	
+				if ((projectedMousePoint - curveShapePoint).length() <= 1.0):
+					currentPlater.set_translation(curveShapePoint)
 			
+					currentPlater.rotate_z(-acos(-currentPlater.getRotatedUpVectorDirection().dot(lastClosestNormal)))
+					
+					if abs(currentPlater.getRotatedUpVectorDirection().dot(lastClosestNormal)) < 0.9999999:
+						currentPlater.resetRotation()
+						currentPlater.rotate_z(acos(-currentPlater.getRotatedUpVectorDirection().dot(lastClosestNormal)))
+					
+					currentPlater.set_translation(curveShapePoint + currentPlater.getRotatedUpVectorDirection() * currentPlater.getBaseOffset().length()/2)
+					
+					if event.is_action_pressed("leftClick"):
+						self.add_child(currentPlater.duplicate())
+						self.remove_child(currentPlater)
+						currentPlater = null
+						print(self.get_child_count())
+				
+				else:
+					currentPlater.set_translation(projectedMousePoint)
+
 func findClosestCurveShapePoint(point : Vector3):#Looks in all the curves of the LevelLayout for the point on a 3d curve closest to said point
 	var closestPoint : Vector3 = Vector3(INF,INF,INF)
 	var currentPoint : Vector3 = Vector3(0,0,0)

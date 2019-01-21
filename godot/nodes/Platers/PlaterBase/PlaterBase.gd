@@ -5,6 +5,7 @@ extends Spatial
 export (Texture) var GUI_Illustration
 
 var initialRotation : Vector3
+var platerPlacementGUIEnabled : bool = true
 
 func _ready():
 	set_process(get_tree().get_edited_scene_root() == null)
@@ -33,6 +34,12 @@ func resetRotation():
 func getGUI_Illustration():
 	return GUI_Illustration
 
+func setEnablePlaterPlacementGUI(enable : bool):
+	$PlaterPlacementPopup.set_visible(enable)
+	$PlaterPlacementPopup.set_process(enable)
+	$PlaterPlacementPopup.set_process_input(enable)
+	platerPlacementGUIEnabled = enable
+
 func _on_PlaterPlacementDetection_input_event(camera, event, click_position, click_normal, shape_idx):
-	if event.is_action_pressed("leftClick"):
+	if event.is_action_pressed("leftClick") and platerPlacementGUIEnabled:
 		$PlaterPlacementPopup.show()
