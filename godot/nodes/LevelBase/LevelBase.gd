@@ -65,13 +65,13 @@ func isRunning():
 	return running
 	
 func _input(event):
-	if Input.is_action_pressed("leftClick") and currentPlater != null:
-		if !running:
+	if !running:
+		if currentPlater != null:
 			var projectedMousePoint : Vector3 = get_viewport().get_camera().project_position(get_viewport().get_mouse_position())
 			var curveShapePoint : Vector3 = findClosestCurveShapePoint(projectedMousePoint)
 			projectedMousePoint.z = curveShapePoint.z
 			currentPlater.resetRotation()
-			
+
 			if ((projectedMousePoint - curveShapePoint).length() <= 1.0):
 				currentPlater.set_translation(curveShapePoint)
 		
@@ -82,8 +82,16 @@ func _input(event):
 					currentPlater.rotate_z(acos(-currentPlater.getRotatedUpVectorDirection().dot(lastClosestNormal)))
 				
 				currentPlater.set_translation(curveShapePoint + currentPlater.getRotatedUpVectorDirection() * currentPlater.getBaseOffset().length()/2)
+				
+				if event.is_action_pressed("leftClick"):
+					self.add_child(currentPlater.duplicate())
+					self.remove_child(currentPlater)
+					currentPlater = null
+					print(self.get_child_count())
+
 			else:
 				currentPlater.set_translation(projectedMousePoint)
+
 			
 func findClosestCurveShapePoint(point : Vector3):#Looks in all the curves of the LevelLayout for the point on a 3d curve closest to said point
 	var closestPoint : Vector3 = Vector3(INF,INF,INF)
@@ -139,9 +147,10 @@ func placeNewPlater(newPlater : PackedScene):
 	if currentPlater != null:
 		self.add_child(currentPlater.duplicate())
 		self.remove_child(currentPlater)
+		
 	currentPlater = newPlater.instance()
 	self.add_child(currentPlater)
-	
+		
 	for i in range(0, availablePlaters.size(), 2):
 		if availablePlaters[i] == newPlater:
 			availablePlaters[i+1] -= 1

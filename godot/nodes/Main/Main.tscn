@@ -14,6 +14,8 @@
 [node name="Main" type="Node"]
 script = ExtResource( 1 )
 
+[node name="CurrentLevel" type="Node" parent="."]
+
 [node name="GUI" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -24,8 +26,6 @@ platerPlacement = ExtResource( 4 )
 levelGUI = ExtResource( 5 )
 options = ExtResource( 6 )
 levelComplete = ExtResource( 7 )
-
-[node name="CurrentLevel" type="Node" parent="."]
 
 [node name="Slime" parent="." instance=ExtResource( 8 )]
 

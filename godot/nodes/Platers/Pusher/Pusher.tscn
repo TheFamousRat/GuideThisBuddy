@@ -23,7 +23,7 @@ extents = Vector3( 0.5, 0.233204, 0.5 )
 
 extents = Vector3( 1, 0.82, 1 )
 
-[node name="Pusher" instance=ExtResource( 1 )]
+[node name="Pusher" index="0" instance=ExtResource( 1 )]
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
 script = ExtResource( 2 )
 GUI_Illustration = SubResource( 2 )
@@ -63,20 +63,18 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.30275, 0 )
 
 [node name="PlaterPlacementPopup" parent="." index="9"]
 visible = false
-radius = 50.0
-maxAngle = 3.142
-showTranslation = true
-showRotation = true
+minAngle = -0.785
+maxAngle = 3.925
 
 [node name="Translation" parent="PlaterPlacementPopup" index="2"]
-visible = true
+visible = false
 margin_left = 10.0
 margin_top = 0.0
 margin_right = 50.0
 margin_bottom = 40.0
 
 [node name="Rotation" parent="PlaterPlacementPopup" index="3"]
-visible = true
+visible = false
 margin_left = -10.0
 margin_top = 1.22465e-15
 margin_right = 30.0

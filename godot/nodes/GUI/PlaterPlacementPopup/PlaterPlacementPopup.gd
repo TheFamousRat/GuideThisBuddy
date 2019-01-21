@@ -7,7 +7,7 @@ var showingAnimDuration : float = 0.1
 var hidingAnimDuration : float = 0.1
 var visiblePlatersNumber : int
 
-export (float) var radius = 50.0
+export (float) var radius = 80.0
 export (float) var minAngle = 0.0
 export (float) var maxAngle = 2 * PI
 export (bool) var showTranslation setget translationVisibility
@@ -40,8 +40,7 @@ func show():
 	for popupChild in self.get_children():
 		if popupChild.is_class("Control"):
 			if popupChild.is_visible():
-				var circlePos : float = (maxAngle - minAngle) * childNumber / (visiblePlatersNumber-1)
-				print(Vector2(cos(circlePos),sin(circlePos)))
+				var circlePos : float = minAngle + (maxAngle - minAngle) * childNumber / (visiblePlatersNumber-1)
 				$Tweens.get_child(childNumber).interpolate_property(popupChild, "rect_position", center, center + radius * Vector2(cos(circlePos),-sin(circlePos)), showingAnimDuration, Tween.TRANS_LINEAR, Tween.EASE_OUT)
 				childNumber += 1
 	
@@ -53,7 +52,7 @@ func hide():
 	for popupChild in self.get_children():
 		if popupChild.is_class("Control"):
 			if popupChild.is_visible():
-				var circlePos : float = (maxAngle - minAngle) * childNumber / (visiblePlatersNumber-1)
+				var circlePos : float = minAngle + (maxAngle - minAngle) * childNumber / (visiblePlatersNumber-1)
 				$Tweens.get_child(childNumber).interpolate_property(popupChild, "rect_position", center + radius * Vector2(cos(circlePos),-sin(circlePos)), center, hidingAnimDuration, Tween.TRANS_LINEAR, Tween.EASE_OUT)
 				childNumber += 1
 			
@@ -66,9 +65,11 @@ func closingAnimDone():
 	self.set_visible(false)
 
 func translationVisibility(newVisibility : bool):
-	showTranslation = newVisibility
-	$Translation.set_visible(newVisibility)
+	if self.has_node("Translation"):
+		showTranslation = newVisibility
+		$Translation.set_visible(newVisibility)
 	
 func rotationVisibility(newVisibility : bool):
-	showRotation = newVisibility
-	$Rotation.set_visible(newVisibility)
+	if self.has_node("Rotation"):
+		showRotation = newVisibility
+		$Rotation.set_visible(newVisibility)
