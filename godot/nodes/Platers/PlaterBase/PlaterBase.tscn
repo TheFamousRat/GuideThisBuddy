@@ -24,6 +24,6 @@ input_ray_pickable = true
 [node name="Up" type="Position3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 
-[node name="PlaterPlacementPopup" type="Node" parent="."]
+[node name="PlaterPlacmntPopup" type="Node" parent="."]
 
 [connection signal="input_event" from="PlaterPlacementDetection" to="." method="_on_PlaterPlacementDetection_input_event"]

@@ -12,4 +12,10 @@ centered = true
 [node name="hidingTimer" type="Timer" parent="." index="1"]
 one_shot = true
 
+[node name="Button" type="Button" parent="." index="2"]
+margin_left = 612.578
+margin_top = 337.305
+margin_right = 624.578
+margin_bottom = 355.305
+
 [connection signal="timeout" from="hidingTimer" to="." method="closingAnimDone"]

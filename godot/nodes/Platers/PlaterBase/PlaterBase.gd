@@ -34,4 +34,4 @@ func getGUI_Illustration():
 
 func _on_PlaterPlacementDetection_input_event(camera, event, click_position, click_normal, shape_idx):
 	if event.is_action_pressed("leftClick"):
-		print("yep")
+		$PlaterPlacmntPopup.get_child(0).show()

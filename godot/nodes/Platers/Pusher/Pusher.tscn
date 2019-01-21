@@ -62,9 +62,8 @@ shape = SubResource( 5 )
 [node name="Base" parent="." index="6"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.30275, 0 )
 
-[node name="PlaterPlacementPopup" parent="." index="9" instance=ExtResource( 4 )]
-
-[node name="PlaterPlacementPopup2" parent="." index="10" instance=ExtResource( 4 )]
+[node name="PlaterPlacementPopup" parent="PlaterPlacmntPopup" index="0" instance=ExtResource( 4 )]
+visible = false
 
 [connection signal="body_entered" from="BodyDetector" to="." method="_on_BodyDetector_body_entered"]
 [connection signal="timeout" from="ExtendedTimer" to="." method="_on_ExtendedTimer_timeout"]

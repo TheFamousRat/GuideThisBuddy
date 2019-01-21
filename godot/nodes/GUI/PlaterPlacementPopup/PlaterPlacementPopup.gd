@@ -2,8 +2,8 @@ extends "res://nodes/GUI/SpatialStalker.gd"
 
 var center : Vector2
 
-var showingAnimDuration : float = 0.3
-var hidingAnimDuration : float = 0.3
+var showingAnimDuration : float = 0.1
+var hidingAnimDuration : float = 0.1
 var initialPosArray : PoolVector2Array#Initial positions of all Control nodes
 
 func _ready():
