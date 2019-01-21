@@ -27,7 +27,6 @@ func _process(delta):
 			self.v_offset -= cameraSpeed * delta
 		self.set_size(100.0/zoomFactor)
 
-		
 func _input(event):
 	if event.is_action_pressed("ui_scroll_up"):
 		zoomFactor = min(maxZoomFactor, zoomFactor * 2.0)

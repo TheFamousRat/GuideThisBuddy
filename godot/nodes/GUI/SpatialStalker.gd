@@ -5,15 +5,9 @@ extends Control
 export (bool) var centered#If yes, SpatialStalker with be offseted by half his size
 
 var parentInheritsSpatial : bool
-var constantOffset : Vector2
 var spatialParent
 
 func _ready():
-	if centered:
-		constantOffset = self.get_size() * -0.5
-	else:
-		constantOffset = self.get_position()
-
 	parentInheritsSpatial = false
 	
 	spatialParent = get_parent()
@@ -32,5 +26,5 @@ func _ready():
 	set_process(parentInheritsSpatial)
 	
 func _process(delta):
-	self.set_position(constantOffset + get_viewport().get_camera().unproject_position(spatialParent.get_global_transform().origin))
+	self.set_position(-0.5 * self.get_scale() * self.get_size() + get_viewport().get_camera().unproject_position(spatialParent.get_global_transform().origin))
 
