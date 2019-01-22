@@ -10,6 +10,9 @@ export (float) var radius = 80.0
 export (float) var minAngle = 0.0
 export (float) var maxAngle = 2 * PI
 
+signal translationRequested
+signal rotationRequested
+
 func _ready():
 	set_process(get_tree().get_edited_scene_root() == null)
 	center = self.get_size() * 0.5
@@ -19,10 +22,9 @@ func _ready():
 	
 	for popupChild in self.get_children():
 		if popupChild.is_class("Control"):
-			if popupChild.is_visible():
-				var newTween : Tween = Tween.new()
-				$Tweens.add_child(newTween)
-				visiblePlatersNumber += 1
+			var newTween : Tween = Tween.new()
+			$Tweens.add_child(newTween)
+			visiblePlatersNumber += 1
 			
 	if self.is_visible():
 		self.show()
@@ -60,3 +62,9 @@ func hide():
 
 func closingAnimDone():
 	self.set_visible(false)
+
+func _on_Translation_pressed():
+	emit_signal("translationRequested")
+
+func _on_Rotation_pressed():
+	emit_signal("rotationRequested")

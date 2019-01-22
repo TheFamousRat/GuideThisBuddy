@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://nodes/LevelBase/LevelBase.gd" type="Script" id=1]
+[ext_resource path="res://nodes/GUI/PlaterPlacementPopup/PlaterPlacementPopup.tscn" type="PackedScene" id=2]
 
 [node name="LevelBase" type="Node"]
 script = ExtResource( 1 )
@@ -17,4 +18,10 @@ script = ExtResource( 1 )
 enabled = true
 exclude_parent = false
 
+[node name="PlaterPlacementPopup" parent="." instance=ExtResource( 2 )]
+editor/display_folded = true
+maxAngle = 3.142
+
 [connection signal="body_entered" from="PlayerArrival" to="." method="_on_PlayerArrival_body_entered"]
+
+[editable path="PlaterPlacementPopup"]

@@ -12,82 +12,20 @@ script = ExtResource( 2 )
 wait_time = 0.1
 one_shot = true
 
-[node name="Translation" type="Control" parent="." index="2"]
+[node name="Translation" type="Button" parent="." index="2"]
 margin_left = 592.0
 margin_top = 300.0
 margin_right = 632.0
 margin_bottom = 340.0
+text = "Translation"
 
-[node name="Button" type="Button" parent="Translation" index="0"]
-margin_right = 12.0
-margin_bottom = 18.0
-text = "translation"
-
-[node name="Rotation" type="Control" parent="." index="3"]
-margin_left = 573.284
-margin_top = 248.577
-margin_right = 613.284
-margin_bottom = 288.577
-
-[node name="Button" type="Button" parent="Rotation" index="0"]
-margin_right = 12.0
-margin_bottom = 18.0
-text = "rotation"
-
-[node name="Button" type="Button" parent="." index="4"]
-margin_left = 525.892
-margin_top = 221.215
-margin_right = 556.892
-margin_bottom = 239.215
-text = "blurp"
-
-[node name="Button2" type="Button" parent="." index="5"]
-margin_left = 472.0
-margin_top = 230.718
-margin_right = 503.0
-margin_bottom = 248.718
-text = "blurp"
-
-[node name="Button3" type="Button" parent="." index="6"]
-margin_left = 436.825
-margin_top = 272.638
-margin_right = 467.825
-margin_bottom = 290.638
-text = "blurp"
-
-[node name="Button4" type="Button" parent="." index="7"]
-margin_left = 436.825
-margin_top = 327.362
-margin_right = 467.825
-margin_bottom = 345.362
-text = "blurp"
-
-[node name="Button5" type="Button" parent="." index="8"]
-margin_left = 472.0
-margin_top = 369.282
-margin_right = 503.0
-margin_bottom = 387.282
-text = "blurp"
-
-[node name="Button6" type="Button" parent="." index="9"]
-margin_left = 525.892
-margin_top = 378.785
-margin_right = 556.892
-margin_bottom = 396.785
-text = "blurp"
-
-[node name="Button7" type="Button" parent="." index="10"]
-margin_left = 573.284
-margin_top = 351.423
-margin_right = 604.284
-margin_bottom = 369.423
-text = "blurp"
-
-[node name="Button8" type="Button" parent="." index="11"]
+[node name="Rotation" type="Button" parent="." index="3"]
 margin_left = 592.0
 margin_top = 300.0
-margin_right = 623.0
-margin_bottom = 318.0
-text = "blurp"
+margin_right = 632.0
+margin_bottom = 340.0
+text = "Rotation"
 
 [connection signal="timeout" from="hidingTimer" to="." method="closingAnimDone"]
+[connection signal="pressed" from="Translation" to="." method="_on_Translation_pressed"]
+[connection signal="pressed" from="Rotation" to="." method="_on_Rotation_pressed"]

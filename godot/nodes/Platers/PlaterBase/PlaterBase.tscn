@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://nodes/Platers/PlaterBase/PlaterBase.gd" type="Script" id=1]
-[ext_resource path="res://nodes/GUI/PlaterPlacementPopup/PlaterPlacementPopup.tscn" type="PackedScene" id=2]
 
 [sub_resource type="Gradient" id=1]
 
@@ -24,7 +23,5 @@ input_ray_pickable = true
 
 [node name="Up" type="Position3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
-
-[node name="PlaterPlacementPopup" parent="." instance=ExtResource( 2 )]
 
 [connection signal="input_event" from="PlaterPlacementDetection" to="." method="_on_PlaterPlacementDetection_input_event"]

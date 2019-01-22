@@ -16,6 +16,7 @@ func _ready():
 	running = false
 	lastClosestNormal = Vector3()
 	lastClosestPoint = Vector3()
+	$PlaterPlacementPopup.set_visible(false)
 	
 func _process(delta):
 	pass
@@ -69,9 +70,10 @@ func isRunning():
 	return running
 	
 func clearCurrentPlater():
-	emit_signal("removedPlater", currentPlater.get_filename())
-	self.remove_child(currentPlater)
-	currentPlater = null
+	if currentPlater != null:
+		emit_signal("removedPlater", currentPlater.get_filename())
+		self.remove_child(currentPlater)
+		currentPlater = null
 	
 func _input(event):
 	if !running:
@@ -93,13 +95,15 @@ func _input(event):
 						currentPlater.resetRotation()
 						currentPlater.rotate_z(acos(-currentPlater.getRotatedUpVectorDirection().dot(lastClosestNormal)))
 					
-					currentPlater.set_translation(curveShapePoint + currentPlater.getRotatedUpVectorDirection() * currentPlater.getBaseOffset().length()/2)
+					currentPlater.set_translation(curveShapePoint + currentPlater.getRotatedUpVectorDirection() * 0.55 * currentPlater.getBaseOffset().length())
 					
 					if event.is_action_pressed("leftClick"):
-						self.add_child(currentPlater.duplicate())
+						Input.action_release("leftClick")
+						var nextPlater = currentPlater.duplicate()
+						nextPlater.connect("clickedPlater", self, "onClickedPlater")
+						self.add_child(nextPlater)
 						self.remove_child(currentPlater)
 						currentPlater = null
-						print(self.get_child_count())
 				
 				else:
 					currentPlater.set_translation(projectedMousePoint)
@@ -165,3 +169,7 @@ func placeNewPlater(newPlater : PackedScene):
 	for i in range(0, availablePlaters.size(), 2):
 		if availablePlaters[i] == newPlater:
 			availablePlaters[i+1] -= 1
+			
+func onClickedPlater(clickedPlater):
+	$PlaterPlacementPopup.setStalkedSpatial(clickedPlater)
+	$PlaterPlacementPopup.show()
