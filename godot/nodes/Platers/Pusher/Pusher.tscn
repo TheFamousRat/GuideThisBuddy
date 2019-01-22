@@ -27,6 +27,8 @@ extents = Vector3( 1, 0.82, 1 )
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
 script = ExtResource( 2 )
 GUI_Illustration = SubResource( 2 )
+enabledTranslation = true
+enabledRotation = true
 
 [node name="CollisionShape" type="CollisionShape" parent="PlaterPlacementDetection" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.42521, 0 )

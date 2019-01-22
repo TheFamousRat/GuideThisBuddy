@@ -13,6 +13,8 @@ gradient = SubResource( 1 )
 [node name="PlaterBase" type="Spatial"]
 script = ExtResource( 1 )
 GUI_Illustration = SubResource( 2 )
+enabledTranslation = null
+enabledRotation = null
 
 [node name="PlaterPlacementDetection" type="Area" parent="."]
 input_ray_pickable = true

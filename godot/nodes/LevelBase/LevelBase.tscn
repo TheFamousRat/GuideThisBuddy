@@ -20,8 +20,11 @@ exclude_parent = false
 
 [node name="PlaterPlacementPopup" parent="." instance=ExtResource( 2 )]
 editor/display_folded = true
+visible = false
 maxAngle = 3.142
 
 [connection signal="body_entered" from="PlayerArrival" to="." method="_on_PlayerArrival_body_entered"]
+[connection signal="rotationRequested" from="PlaterPlacementPopup" to="." method="_on_PlaterPlacementPopup_rotationRequested"]
+[connection signal="translationRequested" from="PlaterPlacementPopup" to="." method="_on_PlaterPlacementPopup_translationRequested"]
 
 [editable path="PlaterPlacementPopup"]

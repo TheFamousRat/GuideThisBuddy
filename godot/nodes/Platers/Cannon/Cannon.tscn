@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://nodes/Platers/PlaterBase/PlaterBase.tscn" type="PackedScene" id=1]
 [ext_resource path="res://nodes/Platers/Cannon/Cannon.gd" type="Script" id=2]
@@ -19,12 +19,18 @@ data = PoolVector3Array( -0.238, 0.5746, 1.2479, -0.238, 0.5746, -1.2479, 0, 0.6
 
 resource_name = "explosion"
 
-[node name="Cannon" index="0" instance=ExtResource( 1 )]
+[sub_resource type="CylinderShape" id=4]
+
+radius = 0.829097
+height = 4.13058
+
+[node name="Cannon" instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 1.06581e-14, 0, 1, 0, -1.06581e-14, 0, 1, 0, 0, 0 )
 script = ExtResource( 2 )
+enabledTranslation = true
+enabledRotation = false
 
 [node name="BodyDetector" type="Area" parent="." index="0"]
-editor/display_folded = true
 
 [node name="CollisionShape" type="CollisionShape" parent="BodyDetector" index="0"]
 transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
@@ -48,6 +54,10 @@ shape = SubResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="3"]
 anims/explosion = SubResource( 3 )
+
+[node name="CollisionShape" type="CollisionShape" parent="PlaterPlacementDetection" index="0"]
+transform = Transform( -4.37114e-08, -1, -1.06581e-14, 1, -4.37114e-08, 1.06581e-14, -1.06581e-14, -1.06581e-14, 1, 0, 0, 0 )
+shape = SubResource( 4 )
 
 [node name="Base" parent="." index="5"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.867981, 0 )

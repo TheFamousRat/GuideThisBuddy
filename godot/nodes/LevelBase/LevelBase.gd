@@ -173,3 +173,9 @@ func placeNewPlater(newPlater : PackedScene):
 func onClickedPlater(clickedPlater):
 	$PlaterPlacementPopup.setStalkedSpatial(clickedPlater)
 	$PlaterPlacementPopup.show()
+
+func _on_PlaterPlacementPopup_rotationRequested():
+	print("rotation of " + str($PlaterPlacementPopup.getStalkedSpatial()) + " requested")
+
+func _on_PlaterPlacementPopup_translationRequested():
+	print("translation of " + str($PlaterPlacementPopup.getStalkedSpatial()) + " requested")

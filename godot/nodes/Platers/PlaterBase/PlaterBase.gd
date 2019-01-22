@@ -3,6 +3,8 @@ tool
 extends Spatial
 
 export (Texture) var GUI_Illustration
+export (bool) var enabledTranslation
+export (bool) var enabledRotation
 
 signal clickedPlater
 
