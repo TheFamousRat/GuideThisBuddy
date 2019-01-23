@@ -1,5 +1,7 @@
 extends Node
 
+#Main Node
+
 func _ready():
 	$Slime.hide()
 	$Slime.set_sleeping(true)
