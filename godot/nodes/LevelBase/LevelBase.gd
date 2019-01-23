@@ -134,7 +134,6 @@ func findClosestCurveShapePoint(point : Vector3):#Looks in all the curves of the
 		upNormal = true
 		usedUpVector = closestCurve.interpolate_baked_up_vector(closestOffset)
 	
-	
 	$CurveShapeDetector.set_translation(closestPoint)
 	$CurveShapeDetector.set_cast_to(usedUpVector * 10.0)
 	$CurveShapeDetector.set_enabled(true)
@@ -171,11 +170,22 @@ func placeNewPlater(newPlater : PackedScene):
 			availablePlaters[i+1] -= 1
 			
 func onClickedPlater(clickedPlater):
-	$PlaterPlacementPopup.setStalkedSpatial(clickedPlater)
-	$PlaterPlacementPopup.show()
+	if clickedPlater != currentPlater:
+		$PlaterPlacementPopup.setStalkedSpatial(clickedPlater)
+		$PlaterPlacementPopup.show()
 
 func _on_PlaterPlacementPopup_rotationRequested():
 	print("rotation of " + str($PlaterPlacementPopup.getStalkedSpatial()) + " requested")
 
 func _on_PlaterPlacementPopup_translationRequested():
-	print("translation of " + str($PlaterPlacementPopup.getStalkedSpatial()) + " requested")
+	currentPlater = $PlaterPlacementPopup.getStalkedSpatial()
+	$fixed3DPoint.set_transform(currentPlater.get_global_transform())
+	$PlaterPlacementPopup.setStalkedSpatial($fixed3DPoint)
+	$PlaterPlacementPopup.hide()
+
+func _on_PlaterPlacementPopup_deletionRequested():
+	currentPlater = $PlaterPlacementPopup.getStalkedSpatial()
+	$fixed3DPoint.set_transform(currentPlater.get_global_transform())
+	$PlaterPlacementPopup.setStalkedSpatial($fixed3DPoint)
+	$PlaterPlacementPopup.hide()
+	clearCurrentPlater()

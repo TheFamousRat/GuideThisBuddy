@@ -5,11 +5,10 @@ extends Control
 var stalkedSpatial : Spatial = null
 
 func _ready():
-	set_process(false)
+	pass
 	
 func setStalkedSpatial(newSpatial : Spatial):
 	stalkedSpatial = newSpatial
-	set_process(stalkedSpatial != null)
 	
 func getStalkedSpatial():
 	return stalkedSpatial

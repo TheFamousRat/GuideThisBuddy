@@ -12,6 +12,7 @@ export (float) var maxAngle = 2 * PI
 
 signal translationRequested
 signal rotationRequested
+signal deletionRequested
 
 #Don't bother positioning the childs of OptionButtons : they WILL get repositioned by the script
 
@@ -39,8 +40,9 @@ func updateVisibleChildrenCount():
 func setStalkedSpatial(newSpatial):
 	.setStalkedSpatial(newSpatial)
 	#Update the visibility parameters of the childs
-	$OptionButtons/Translation.set_visible(newSpatial.enabledTranslation)
-	$OptionButtons/Rotation.set_visible(newSpatial.enabledRotation)
+	if newSpatial.get_class() == "PlaterBase":
+		$OptionButtons/Translation.set_visible(newSpatial.enabledTranslation)
+		$OptionButtons/Rotation.set_visible(newSpatial.enabledRotation)
 	updateVisibleChildrenCount()
 	
 func _process(delta):
@@ -90,3 +92,6 @@ func _on_Translation_pressed():
 
 func _on_Rotation_pressed():
 	emit_signal("rotationRequested")
+
+func _on_Delete_pressed():
+	emit_signal("deletionRequested")
