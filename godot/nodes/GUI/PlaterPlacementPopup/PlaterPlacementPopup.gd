@@ -59,7 +59,7 @@ func show():
 	for popupChild in $OptionButtons.get_children():
 		if popupChild.is_visible():
 			var circlePos : float = minAngle + (maxAngle - minAngle) * childNumber / max(1.0, visiblePlatersCount-1)
-			var childOffsetedCenter : float = center - 0.5 * popupChild.get_size()#Made so that the children are correctly centered
+			var childOffsetedCenter : float = center - 0.5 * popupChild.get_size() * popupChild.get_scale()#Made so that the children are correctly centered
 			$Tweens.get_child(childNumber).interpolate_property(popupChild, "rect_position", childOffsetedCenter, childOffsetedCenter + radius * Vector2(cos(circlePos),-sin(circlePos)), showingAnimDuration, Tween.TRANS_LINEAR, Tween.EASE_OUT)
 			childNumber += 1
 	
@@ -75,7 +75,7 @@ func hide():
 	for popupChild in $OptionButtons.get_children():
 		if popupChild.is_visible():
 			var circlePos : float = minAngle + (maxAngle - minAngle) * childNumber / max(1.0, visiblePlatersCount-1)
-			var childOffsetedCenter : float = center - 0.5 * popupChild.get_size()
+			var childOffsetedCenter : float = center - 0.5 * popupChild.get_size() * popupChild.get_scale()
 			$Tweens.get_child(childNumber).interpolate_property(popupChild, "rect_position", childOffsetedCenter + radius * Vector2(cos(circlePos),-sin(circlePos)), childOffsetedCenter, hidingAnimDuration, Tween.TRANS_LINEAR, Tween.EASE_OUT)
 			childNumber += 1
 			

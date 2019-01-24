@@ -1,9 +1,34 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://nodes/GUI/SpatialStalker.tscn" type="PackedScene" id=1]
 [ext_resource path="res://nodes/GUI/PlaterPlacementPopup/PlaterPlacementPopup.gd" type="Script" id=2]
+[ext_resource path="res://assets/GUI/PlatrPlacmntGUIImg.png" type="Texture" id=3]
 
-[node name="PlaterPlacementPopup" instance=ExtResource( 1 )]
+[sub_resource type="AtlasTexture" id=1]
+
+flags = 4
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 195, 195 )
+
+[sub_resource type="AtlasTexture" id=2]
+
+flags = 4
+atlas = ExtResource( 3 )
+region = Rect2( 195, 0, 194, 195 )
+
+[sub_resource type="AtlasTexture" id=3]
+
+flags = 4
+atlas = ExtResource( 3 )
+region = Rect2( 0, 195, 195, 194 )
+
+[sub_resource type="AtlasTexture" id=4]
+
+flags = 4
+atlas = ExtResource( 3 )
+region = Rect2( 195, 195, 194, 194 )
+
+[node name="PlaterPlacementPopup" index="0" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 
 [node name="Tweens" type="Node" parent="." index="0"]
@@ -13,50 +38,28 @@ wait_time = 0.1
 one_shot = true
 
 [node name="OptionButtons" type="Control" parent="." index="2"]
-editor/display_folded = true
 margin_right = 40.0
 margin_bottom = 40.0
 
-[node name="Translation" type="Button" parent="OptionButtons" index="0"]
+[node name="Translation" type="TextureButton" parent="OptionButtons" index="0"]
 margin_left = 592.0
 margin_top = 300.0
-margin_right = 657.0
-margin_bottom = 340.0
-text = "Translation"
+margin_right = 642.0
+margin_bottom = 350.0
+rect_scale = Vector2( 0.2, 0.2 )
+texture_normal = SubResource( 1 )
+texture_pressed = SubResource( 2 )
 
-[node name="Rotation" type="Button" parent="OptionButtons" index="1"]
-margin_left = 592.0
-margin_top = 300.0
-margin_right = 643.0
-margin_bottom = 340.0
-text = "Rotation"
+[node name="Rotation" type="TextureButton" parent="OptionButtons" index="1"]
+margin_left = 535.277
+margin_top = 390.756
+margin_right = 730.277
+margin_bottom = 584.756
+rect_scale = Vector2( 0.2, 0.2 )
+texture_normal = SubResource( 3 )
+texture_pressed = SubResource( 4 )
 
 [node name="Button" type="Button" parent="OptionButtons" index="2"]
-margin_right = 12.0
-margin_bottom = 18.0
-text = "ass"
-
-[node name="Button2" type="Button" parent="OptionButtons" index="3"]
-margin_right = 12.0
-margin_bottom = 18.0
-text = "ass"
-
-[node name="Button3" type="Button" parent="OptionButtons" index="4"]
-margin_right = 12.0
-margin_bottom = 18.0
-text = "ass"
-
-[node name="Button4" type="Button" parent="OptionButtons" index="5"]
-margin_right = 12.0
-margin_bottom = 18.0
-text = "ass"
-
-[node name="Button5" type="Button" parent="OptionButtons" index="6"]
-margin_right = 12.0
-margin_bottom = 18.0
-text = "ass"
-
-[node name="Button6" type="Button" parent="OptionButtons" index="7"]
 margin_right = 12.0
 margin_bottom = 18.0
 text = "ass"

@@ -12,13 +12,16 @@ var initialRotation : Vector3
 
 func _ready():
 	set_process(get_tree().get_edited_scene_root() == null)
-	initialRotation = self.get_rotation()
-
+	initialRotation = Vector3(0,0,0)
+	
 func on_translationRequested():
-	pass
+	print("SomePlaterIdk : Oh boy, translation requested")
 
 func on_rotationRequested():
-	pass
+	print("SomePlaterIdk : Oh boy, rotation requested")
+	
+func on_deletionRequested():
+	print("SomePlaterIdk : Oh boy, deletion requested")
 
 func is_class(type): 
 	return type == "PlaterBase" or .is_type(type)

@@ -95,7 +95,7 @@ func _input(event):
 						currentPlater.resetRotation()
 						currentPlater.rotate_z(acos(-currentPlater.getRotatedUpVectorDirection().dot(lastClosestNormal)))
 					
-					currentPlater.set_translation(curveShapePoint + currentPlater.getRotatedUpVectorDirection() * 0.55 * currentPlater.getBaseOffset().length())
+					currentPlater.set_translation(curveShapePoint + currentPlater.getRotatedUpVectorDirection() * 0.5 * currentPlater.getBaseOffset().length())
 					
 					if event.is_action_pressed("leftClick"):
 						Input.action_release("leftClick")
@@ -175,15 +175,18 @@ func onClickedPlater(clickedPlater):
 		$PlaterPlacementPopup.show()
 
 func _on_PlaterPlacementPopup_rotationRequested():
-	print("rotation of " + str($PlaterPlacementPopup.getStalkedSpatial()) + " requested")
+	$PlaterPlacementPopup.getStalkedSpatial().on_rotationRequested()
 
 func _on_PlaterPlacementPopup_translationRequested():
+	$PlaterPlacementPopup.getStalkedSpatial().on_translationRequested()
 	currentPlater = $PlaterPlacementPopup.getStalkedSpatial()
+	currentPlater.resetRotation()
 	$fixed3DPoint.set_transform(currentPlater.get_global_transform())
 	$PlaterPlacementPopup.setStalkedSpatial($fixed3DPoint)
 	$PlaterPlacementPopup.hide()
 
 func _on_PlaterPlacementPopup_deletionRequested():
+	$PlaterPlacementPopup.getStalkedSpatial().on_deletionRequested()
 	currentPlater = $PlaterPlacementPopup.getStalkedSpatial()
 	$fixed3DPoint.set_transform(currentPlater.get_global_transform())
 	$PlaterPlacementPopup.setStalkedSpatial($fixed3DPoint)

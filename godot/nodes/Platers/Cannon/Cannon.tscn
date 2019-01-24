@@ -24,8 +24,7 @@ resource_name = "explosion"
 radius = 0.829097
 height = 4.13058
 
-[node name="Cannon" instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 1.06581e-14, 0, 1, 0, -1.06581e-14, 0, 1, 0, 0, 0 )
+[node name="Cannon" index="0" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 enabledTranslation = true
 enabledRotation = false
