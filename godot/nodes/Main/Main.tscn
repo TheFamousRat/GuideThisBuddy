@@ -42,3 +42,5 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8.5989 )
 fov = 75.0
 script = ExtResource( 10 )
 
+[node name="ExtradiegeticSounds" type="AudioStreamPlayer" parent="."]
+

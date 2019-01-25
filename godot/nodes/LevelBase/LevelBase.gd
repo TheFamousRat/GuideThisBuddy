@@ -90,6 +90,7 @@ func _input(event):
 					currentPlater.set_translation(curveShapePoint)
 			
 					currentPlater.rotate_z(-acos(-currentPlater.getRotatedUpVectorDirection().dot(lastClosestNormal)))
+					print(lastClosestNormal - curveShapePoint)
 					
 					if abs(currentPlater.getRotatedUpVectorDirection().dot(lastClosestNormal)) < 0.9999999:
 						currentPlater.resetRotation()
