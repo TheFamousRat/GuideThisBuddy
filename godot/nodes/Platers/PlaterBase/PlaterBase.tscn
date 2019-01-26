@@ -10,11 +10,11 @@ colors = PoolColorArray( 1, 0, 1, 1, 1, 0, 0.984375, 1 )
 
 gradient = SubResource( 1 )
 
-[node name="PlaterBase" type="Spatial"]
+[node name="PlaterBase" type="Spatial" groups=[
+"plater",
+]]
 script = ExtResource( 1 )
 GUI_Illustration = SubResource( 2 )
-enabledTranslation = null
-enabledRotation = null
 
 [node name="PlaterPlacementDetection" type="Area" parent="."]
 input_ray_pickable = true

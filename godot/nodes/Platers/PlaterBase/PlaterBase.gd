@@ -44,7 +44,11 @@ func resetRotation():
 	
 func getGUI_Illustration():
 	return GUI_Illustration
+	
+func getPlaterPlacementDetectionArea():
+	return $PlaterPlacementDetection
 
 func _on_PlaterPlacementDetection_input_event(camera, event, click_position, click_normal, shape_idx):
 	if Input.is_action_just_pressed("leftClick"):
 		emit_signal("clickedPlater", self)
+

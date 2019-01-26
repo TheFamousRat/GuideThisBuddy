@@ -8,6 +8,8 @@ var lastClosestNormal : Vector3
 var upNormal : bool
 var currentPlater
 var maxCurveDistance : float = 2.0#Maximum distance at which the Plater is close enough to the curve to be placed on it
+var lastSafePlaterTransform : Transform#Transform where the currentPlater wasn't colliding with any other plater
+
 
 signal removedPlater
 
@@ -87,10 +89,8 @@ func _input(event):
 				currentPlater.resetRotation()
 	
 				if ((projectedMousePoint - curveShapePoint).length() <= 1.0):
-					currentPlater.set_translation(curveShapePoint)
 			
 					currentPlater.rotate_z(-acos(-currentPlater.getRotatedUpVectorDirection().dot(lastClosestNormal)))
-					print(lastClosestNormal - curveShapePoint)
 					
 					if abs(currentPlater.getRotatedUpVectorDirection().dot(lastClosestNormal)) < 0.9999999:
 						currentPlater.resetRotation()
@@ -102,10 +102,10 @@ func _input(event):
 						Input.action_release("leftClick")
 						var nextPlater = currentPlater.duplicate()
 						nextPlater.connect("clickedPlater", self, "onClickedPlater")
+						nextPlater.getPlaterPlacementDetectionArea().disconnect("area_entered", self, "printShit")
 						self.add_child(nextPlater)
 						self.remove_child(currentPlater)
 						currentPlater = null
-				
 				else:
 					currentPlater.set_translation(projectedMousePoint)
 
@@ -164,7 +164,9 @@ func placeNewPlater(newPlater : PackedScene):
 		self.remove_child(currentPlater)
 		
 	currentPlater = newPlater.instance()
+	currentPlater.getPlaterPlacementDetectionArea().connect("area_entered", self, "printShit")
 	self.add_child(currentPlater)
+	lastSafePlaterTransform = currentPlater.get_global_transform()
 		
 	for i in range(0, availablePlaters.size(), 2):
 		if availablePlaters[i] == newPlater:
@@ -193,3 +195,7 @@ func _on_PlaterPlacementPopup_deletionRequested():
 	$PlaterPlacementPopup.setStalkedSpatial($fixed3DPoint)
 	$PlaterPlacementPopup.hide()
 	clearCurrentPlater()
+
+func printShit(area):
+	if area.get_name() == "PlaterPlacementDetection":
+		currentPlater.set_global_transform(lastSafePlaterTransform)
