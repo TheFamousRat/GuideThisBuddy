@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://nodes/Main/Main.gd" type="Script" id=1]
 [ext_resource path="res://nodes/Main/GUI.gd" type="Script" id=2]
@@ -10,6 +10,18 @@
 [ext_resource path="res://nodes/Slime/Slime.tscn" type="PackedScene" id=8]
 [ext_resource path="res://nodes/Main/GameraCamera.gd" type="Script" id=9]
 [ext_resource path="res://nodes/Main/freeflyCamera.gd" type="Script" id=10]
+
+[sub_resource type="CubeMesh" id=1]
+
+
+[sub_resource type="VisualShader" id=2]
+
+graph_offset = Vector2( -235, 97 )
+nodes/fragment/0/position = Vector2( 280, 120 )
+
+[sub_resource type="ShaderMaterial" id=3]
+
+shader = SubResource( 2 )
 
 [node name="Main" type="Node"]
 script = ExtResource( 1 )
@@ -32,15 +44,19 @@ levelComplete = ExtResource( 7 )
 [node name="GameCamera" type="Camera" parent="."]
 transform = Transform( 1, 0, -1.06581e-14, 0, 1, 0, 1.06581e-14, 0, 1, 0, 0, 5 )
 projection = 1
-current = true
 fov = 45.0
 size = 5.0
 script = ExtResource( 9 )
 
 [node name="FreeFlyCamera" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8.5989 )
+current = true
 fov = 75.0
 script = ExtResource( 10 )
 
 [node name="ExtradiegeticSounds" type="AudioStreamPlayer" parent="."]
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+mesh = SubResource( 1 )
+material/0 = SubResource( 3 )
 
