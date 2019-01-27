@@ -125,7 +125,6 @@ func _input(event):
 				Input.action_release("leftClick")
 				var nextPlater = currentPlater.duplicate()
 				nextPlater.connect("clickedPlater", self, "onClickedPlater")
-				nextPlater.getPlaterPlacementDetectionArea().disconnect("area_entered", self, "printShit")
 				self.add_child(nextPlater)
 				self.remove_child(currentPlater)
 				currentPlater = null
