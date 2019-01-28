@@ -145,8 +145,8 @@ func _input(event):
 				
 				Input.action_release("leftClick")
 				var nextPlater = currentPlater.duplicate()
-				nextPlater.connect("clickedPlater", self, "onClickedPlater")
 				self.add_child(nextPlater)
+				nextPlater.connect("clickedPlater", self, "onClickedPlater")
 				self.remove_child(currentPlater)
 				currentPlater = null
 
@@ -205,7 +205,6 @@ func placeNewPlater(newPlater : PackedScene):
 		self.remove_child(currentPlater)
 		
 	currentPlater = newPlater.instance()
-	currentPlater.getPlaterPlacementDetectionArea().connect("area_entered", self, "testNewPlacement")
 	self.add_child(currentPlater)
 	currentPlater.on_translationRequested()
 	lastSafePlaterTransform = currentPlater.get_global_transform()
@@ -215,6 +214,7 @@ func placeNewPlater(newPlater : PackedScene):
 			availablePlaters[i+1] -= 1
 			
 func onClickedPlater(clickedPlater):
+	print("?")
 	if clickedPlater != currentPlater:
 		$PlaterPlacementPopup.setStalkedSpatial(clickedPlater)
 		$PlaterPlacementPopup.show()
@@ -237,6 +237,3 @@ func _on_PlaterPlacementPopup_deletionRequested():
 	$PlaterPlacementPopup.setStalkedSpatial($fixed3DPoint)
 	$PlaterPlacementPopup.hide()
 	clearCurrentPlater()
-
-func testNewPlacement(area):
-	pass

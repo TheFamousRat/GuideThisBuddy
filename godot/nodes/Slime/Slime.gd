@@ -37,3 +37,5 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 		else:
 			$Model/AnimationPlayer.play(anim_name, -1, lastAnimSpeed)
 
+func _on_Slime_body_shape_entered(body_id, body, body_shape, local_shape):
+	print("I pissed and shidded and farded")
