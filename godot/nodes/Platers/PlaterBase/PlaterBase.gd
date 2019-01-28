@@ -51,7 +51,7 @@ func getGUI_Illustration():
 func getPlaterPlacementDetectionArea():
 	return $PlaterPlacementDetection
 	
-func setWronglacementShaders():
+func setWrongPlacementShaders():
 	Global.setPlaterMaterial(self, wrongPlacementMaterial)
 
 func setGoodPlacementShaders():

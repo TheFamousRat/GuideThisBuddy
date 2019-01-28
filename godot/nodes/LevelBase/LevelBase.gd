@@ -10,6 +10,8 @@ var currentPlater
 var maxCurveDistance : float = 2.0#Maximum distance at which the Plater is close enough to the curve to be placed on it
 var lastSafePlaterTransform : Transform#Transform where the currentPlater wasn't colliding with any other plater
 
+var positionEvaluated : bool = false
+var positionSafe : bool = false#Means that a Plater is being placed 1/On something on which it can be placed 2/Where it doesn't intersects with the other platers
 
 signal removedPlater
 
@@ -21,7 +23,17 @@ func _ready():
 	$PlaterPlacementPopup.set_visible(false)
 	
 func _process(delta):
-	pass
+	if currentPlater != null:
+		if positionEvaluated:
+			if positionSafe:
+				currentPlater.setGoodPlacementShaders()
+			else:
+				currentPlater.setWrongPlacementShaders()
+		else:
+			positionEvaluated = true
+			for i in currentPlater.getPlaterPlacementDetectionArea().get_overlapping_areas():
+				if i.get_name() == "PlaterPlacementDetection":
+					positionSafe = false
 
 func getAvailablePlaters():
 	return availablePlaters
@@ -85,7 +97,6 @@ func _input(event):
 				clearCurrentPlater()
 				
 			elif event is InputEventMouseMotion:
-				#a = (C.z - O.z)/N.z 
 				var projectedMousePoint : Vector3
 				var curveShapePoint : Vector3
 				
@@ -121,10 +132,16 @@ func _input(event):
 						currentPlater.rotate_z(acos(-currentPlater.getRotatedUpVectorDirection().dot(lastClosestNormal)))
 					
 					currentPlater.set_translation(curveShapePoint + currentPlater.getRotatedUpVectorDirection() * 0.5 * currentPlater.getBaseOffset().length())
+					
+					#This follows the reasonning of "the plater is placed in a safe spot, until something else proves otherwise"
+					positionEvaluated = false
+					positionSafe = true
 				else:
 					currentPlater.set_translation(projectedMousePoint)
+					positionEvaluated = true
+					positionSafe = false
 					
-			if event.is_action_pressed("leftClick"):
+			if event.is_action_pressed("leftClick") and positionEvaluated and positionSafe:
 				
 				Input.action_release("leftClick")
 				var nextPlater = currentPlater.duplicate()
@@ -222,4 +239,4 @@ func _on_PlaterPlacementPopup_deletionRequested():
 	clearCurrentPlater()
 
 func testNewPlacement(area):
-	print("hm")
+	pass
