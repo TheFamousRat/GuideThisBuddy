@@ -81,7 +81,9 @@ func _input(event):
 	if !running:
 		if currentPlater != null:
 			if event.is_action_pressed("rightClick"):
+				
 				clearCurrentPlater()
+				
 			elif event is InputEventMouseMotion:
 				#a = (C.z - O.z)/N.z 
 				var projectedMousePoint : Vector3
@@ -121,7 +123,9 @@ func _input(event):
 					currentPlater.set_translation(curveShapePoint + currentPlater.getRotatedUpVectorDirection() * 0.5 * currentPlater.getBaseOffset().length())
 				else:
 					currentPlater.set_translation(projectedMousePoint)
+					
 			if event.is_action_pressed("leftClick"):
+				
 				Input.action_release("leftClick")
 				var nextPlater = currentPlater.duplicate()
 				nextPlater.connect("clickedPlater", self, "onClickedPlater")
@@ -184,8 +188,9 @@ func placeNewPlater(newPlater : PackedScene):
 		self.remove_child(currentPlater)
 		
 	currentPlater = newPlater.instance()
-	currentPlater.getPlaterPlacementDetectionArea().connect("area_entered", self, "printShit")
+	currentPlater.getPlaterPlacementDetectionArea().connect("area_entered", self, "testNewPlacement")
 	self.add_child(currentPlater)
+	currentPlater.on_translationRequested()
 	lastSafePlaterTransform = currentPlater.get_global_transform()
 		
 	for i in range(0, availablePlaters.size(), 2):
@@ -216,5 +221,5 @@ func _on_PlaterPlacementPopup_deletionRequested():
 	$PlaterPlacementPopup.hide()
 	clearCurrentPlater()
 
-func printShit(area):
+func testNewPlacement(area):
 	print("hm")

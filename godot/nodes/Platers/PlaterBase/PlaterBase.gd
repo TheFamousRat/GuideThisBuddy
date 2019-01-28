@@ -1,21 +1,24 @@
-tool
-
 extends Spatial
 
 export (Texture) var GUI_Illustration
 export (bool) var enabledTranslation
 export (bool) var enabledRotation
+export (Material) var wrongPlacementMaterial
+export (Material) var goodPlacementMaterial
 
 signal clickedPlater
 
 var initialRotation : Vector3
-
+	
 func _ready():
 	set_process(get_tree().get_edited_scene_root() == null)
 	initialRotation = Vector3(0,0,0)
+	Global.registerPlater(self)
+	Global.restorePlaterMaterials(self)
 	
 func on_translationRequested():
 	print("SomePlaterIdk : Oh boy, translation requested")
+	self.setGoodPlacementShaders()
 
 func on_rotationRequested():
 	print("SomePlaterIdk : Oh boy, rotation requested")
@@ -47,6 +50,15 @@ func getGUI_Illustration():
 	
 func getPlaterPlacementDetectionArea():
 	return $PlaterPlacementDetection
+	
+func setWronglacementShaders():
+	Global.setPlaterMaterial(self, wrongPlacementMaterial)
+
+func setGoodPlacementShaders():
+	Global.setPlaterMaterial(self, goodPlacementMaterial)
+	
+func restorePlacementShaders():
+	Global.restorePlaterMaterials(self)
 
 func _on_PlaterPlacementDetection_input_event(camera, event, click_position, click_normal, shape_idx):
 	if Input.is_action_just_pressed("leftClick"):
