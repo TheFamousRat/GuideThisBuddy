@@ -214,7 +214,6 @@ func placeNewPlater(newPlater : PackedScene):
 			availablePlaters[i+1] -= 1
 			
 func onClickedPlater(clickedPlater):
-	print("?")
 	if clickedPlater != currentPlater:
 		$PlaterPlacementPopup.setStalkedSpatial(clickedPlater)
 		$PlaterPlacementPopup.show()

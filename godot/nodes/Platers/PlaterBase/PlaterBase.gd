@@ -17,14 +17,13 @@ func _ready():
 	Global.restorePlaterMaterials(self)
 	
 func on_translationRequested():
-	print("SomePlaterIdk : Oh boy, translation requested")
-	self.setGoodPlacementShaders()
+	pass
 
 func on_rotationRequested():
-	print("SomePlaterIdk : Oh boy, rotation requested")
+	pass
 	
 func on_deletionRequested():
-	print("SomePlaterIdk : Oh boy, deletion requested")
+	pass
 
 func is_class(type): 
 	return type == "PlaterBase" or .is_type(type)
