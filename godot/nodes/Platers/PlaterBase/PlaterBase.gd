@@ -18,6 +18,7 @@ func _ready():
 	
 func on_translationRequested():
 	pass
+	self.setGoodPlacementShaders()
 
 func on_rotationRequested():
 	pass
