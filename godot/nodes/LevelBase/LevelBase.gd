@@ -12,6 +12,7 @@ var lastSafePlaterTransform : Transform#Transform where the currentPlater wasn't
 
 var positionEvaluated : bool = false
 var positionSafe : bool = false#Means that a Plater is being placed 1/On something on which it can be placed 2/Where it doesn't intersects with the other platers
+var curveOffsetHasMesh : bool#False if the closest point on the curve has no mesh on it
 
 signal removedPlater
 
@@ -123,7 +124,7 @@ func _input(event):
 				
 				currentPlater.resetRotation()
 	
-				if ((projectedMousePoint - curveShapePoint).length() <= 1.0):
+				if ((projectedMousePoint - curveShapePoint).length() <= 1.0) and curveOffsetHasMesh:
 			
 					currentPlater.rotate_z(-acos(-currentPlater.getRotatedUpVectorDirection().dot(lastClosestNormal)))
 					
@@ -190,6 +191,8 @@ func findClosestCurveShapePoint(point : Vector3):#Looks in all the curves of the
 	lastClosestPoint = $CurveShapeDetector.get_collision_point()
 	
 	closestPath.getCollisionBody().set_collision_layer_bit(19, false)
+	
+	curveOffsetHasMesh = ($CurveShapeDetector.get_collider() != null)
 	
 	return lastClosestPoint
 

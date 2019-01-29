@@ -4,7 +4,6 @@
 [ext_resource path="res://nodes/GUI/Options/Options.gd" type="Script" id=2]
 
 [node name="Options" type="WindowDialog"]
-visible = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 26.0
@@ -14,28 +13,6 @@ margin_bottom = -20.0
 custom_fonts/title_font = ExtResource( 1 )
 window_title = "Options"
 script = ExtResource( 2 )
-
-[node name="Control" type="Control" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-
-[node name="Label" type="Label" parent="Control"]
-margin_left = 22.0
-margin_top = 22.0
-margin_right = 165.0
-margin_bottom = 37.0
-custom_fonts/font = ExtResource( 1 )
-text = "Some slider idk"
-
-[node name="HSlider" type="HSlider" parent="Control"]
-anchor_right = 1.0
-margin_left = 20.0
-margin_top = 42.0
-margin_right = -20.0
-margin_bottom = 58.0
-max_value = 500.0
-value = 25.0
-ticks_on_borders = true
 
 [node name="Quit" type="Button" parent="."]
 anchor_left = 0.5
@@ -49,4 +26,25 @@ margin_bottom = 255.0
 custom_fonts/font = ExtResource( 1 )
 text = "Done"
 
+[node name="Antialiasing" type="OptionButton" parent="."]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 13.0
+margin_top = -235.0
+margin_right = -526.0
+margin_bottom = -203.0
+custom_fonts/font = ExtResource( 1 )
+text = "Disabled"
+items = [ "Disabled", null, false, -1, null, "x2", null, false, -1, null, "x4", null, false, -1, null, "x8", null, false, -1, null, "x16", null, false, -1, null ]
+selected = 0
+
+[node name="Label" type="Label" parent="Antialiasing"]
+margin_top = -26.0
+margin_right = 92.0
+margin_bottom = -5.0
+custom_fonts/font = ExtResource( 1 )
+text = "Antialiasing"
+
 [connection signal="pressed" from="Quit" to="." method="_on_Quit_pressed"]
+[connection signal="item_selected" from="Antialiasing" to="." method="_on_Antialiasing_item_selected"]
