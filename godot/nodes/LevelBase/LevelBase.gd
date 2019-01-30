@@ -215,6 +215,7 @@ func placeNewPlater(newPlater : PackedScene):
 	currentPlater = newPlater.instance()
 	self.add_child(currentPlater)
 	currentPlater.on_translationRequested()
+	currentPlater.setDisabledPlater(true)
 		
 	for i in range(0, availablePlaters.size(), 2):
 		if availablePlaters[i] == newPlater:
