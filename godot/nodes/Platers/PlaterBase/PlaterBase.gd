@@ -12,7 +12,7 @@ var initialRotation : Vector3
 var disabled : bool
 	
 func _ready():
-	setDisabledPlater(true)
+	setDisabledPlater(false)
 	set_process(get_tree().get_edited_scene_root() == null)
 	initialRotation = Vector3(0,0,0)
 	Global.registerPlater(self)

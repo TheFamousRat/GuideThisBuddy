@@ -5,10 +5,9 @@ export (Array) var availablePlaters setget availablePlaterArrayChecker
 var running : bool #Indicates whether the player has placed his layout and tests it or not
 var lastClosestPoint : Vector3
 var lastClosestNormal : Vector3
-var upNormal : bool
-var currentPlater
-var maxCurveDistance : float = 2.0#Maximum distance at which the Plater is close enough to the curve to be placed on it
-var lastSafePlaterTransform : Transform#Transform where the currentPlater wasn't colliding with any other plater
+
+var currentPlater#Current Plater being placed
+var maxCurvePlaterDistance : float = 2.0#Maximum distance at which the Plater is close enough to the curve to be placed on it
 
 var positionEvaluated : bool = false
 var positionSafe : bool = false#Means that a Plater is being placed 1/On something on which it can be placed 2/Where it doesn't intersects with the other platers
@@ -132,7 +131,7 @@ func _input(event):
 				
 				currentPlater.resetRotation()
 	
-				if ((projectedMousePoint - curveShapePoint).length() <= 1.0) and curveOffsetHasMesh:
+				if ((projectedMousePoint - curveShapePoint).length() <= maxCurvePlaterDistance) and curveOffsetHasMesh:
 			
 					currentPlater.rotate_z(-acos(-currentPlater.getRotatedUpVectorDirection().dot(lastClosestNormal)))
 					
@@ -179,10 +178,8 @@ func findClosestCurveShapePoint(point : Vector3):#Looks in all the curves of the
 	var pointVector : Vector3 = point - closestPoint
 	var usedUpVector : Vector3
 	if pointVector.normalized().dot(-closestCurve.interpolate_baked_up_vector(closestOffset)) > pointVector.normalized().dot(closestCurve.interpolate_baked_up_vector(closestOffset)):
-		upNormal = false
 		usedUpVector = -closestCurve.interpolate_baked_up_vector(closestOffset)
 	else:
-		upNormal = true
 		usedUpVector = closestCurve.interpolate_baked_up_vector(closestOffset)
 	
 	$CurveShapeDetector.set_translation(closestPoint)
@@ -218,7 +215,6 @@ func placeNewPlater(newPlater : PackedScene):
 	currentPlater = newPlater.instance()
 	self.add_child(currentPlater)
 	currentPlater.on_translationRequested()
-	lastSafePlaterTransform = currentPlater.get_global_transform()
 		
 	for i in range(0, availablePlaters.size(), 2):
 		if availablePlaters[i] == newPlater:
