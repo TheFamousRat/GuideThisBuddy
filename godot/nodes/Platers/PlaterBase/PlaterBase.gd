@@ -9,15 +9,16 @@ export (Material) var goodPlacementMaterial
 signal clickedPlater
 
 var initialRotation : Vector3
+var disabled : bool
 	
 func _ready():
+	setDisabledPlater(true)
 	set_process(get_tree().get_edited_scene_root() == null)
 	initialRotation = Vector3(0,0,0)
 	Global.registerPlater(self)
 	Global.restorePlaterMaterials(self)
 	
 func on_translationRequested():
-	pass
 	self.setGoodPlacementShaders()
 
 func on_rotationRequested():
@@ -60,6 +61,9 @@ func setGoodPlacementShaders():
 func restorePlacementShaders():
 	Global.restorePlaterMaterials(self)
 
+func setDisabledPlater(disabled_ : bool):
+	disabled = disabled_
+	
 func _on_PlaterPlacementDetection_input_event(camera, event, click_position, click_normal, shape_idx):
 	if Input.is_action_just_pressed("leftClick"):
 		emit_signal("clickedPlater", self)

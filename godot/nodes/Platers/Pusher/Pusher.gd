@@ -11,7 +11,7 @@ func _on_ExtendedTimer_timeout():
 	$Model/AnimationPlayer.play_backwards("default")
 
 func _on_BodyDetector_body_entered(body):
-	if body is RigidBody:
+	if body is RigidBody and !disabled:
 		body.set_linear_velocity(pushForce*(($Position3D.get_global_transform().origin - self.get_global_transform().origin).normalized()))
 		$Model/AnimationPlayer.play("default", -1, extensionSpeed)
 		$ExtendedTimer.start()

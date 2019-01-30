@@ -80,9 +80,17 @@ func set_running(isRunning : bool):
 	running = isRunning
 	if running:
 		clearCurrentPlater()
-
+	setPlatersChildsDisabled(self, !isRunning)
+	
 func isRunning():
 	return running
+	
+func setPlatersChildsDisabled(parent, disabled : bool):#Disabled all the children of a certain node (including the node itself) that are platers
+	if parent != null:
+		if parent.get_class() == "PlaterBase":
+			parent.setDisabledPlater(disabled)
+		for i in parent.get_children():
+			setPlatersChildsDisabled(i, disabled)
 	
 func clearCurrentPlater():
 	if currentPlater != null:
