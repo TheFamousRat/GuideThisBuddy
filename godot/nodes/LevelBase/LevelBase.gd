@@ -1,4 +1,4 @@
-extends Node
+extends Spatial
 
 export (Array) var availablePlaters setget availablePlaterArrayChecker
 
@@ -7,7 +7,7 @@ var lastClosestPoint : Vector3
 var lastClosestNormal : Vector3
 
 var currentPlater#Current Plater being placed
-var currentPotentialParrent : NodePath#When a plater is placed, it is added as a child of the curve it is placed on
+var currentPotentialParent : NodePath#When a plater is placed, it is added as a child of the curve it is placed on
 var maxCurvePlaterDistance : float = 1.0#Maximum distance at which the Plater is close enough to the curve to be placed on it
 
 var positionEvaluated : bool = false
@@ -95,7 +95,7 @@ func setPlatersChildsDisabled(parent, disabled : bool):#Disabled all the childre
 func clearCurrentPlater():
 	if currentPlater != null:
 		emit_signal("removedPlater", currentPlater.get_filename())
-		self.remove_child(currentPlater)
+		currentPlater.get_parent().remove_child(currentPlater)
 		currentPlater = null
 	
 func _input(event):
@@ -111,7 +111,6 @@ func _input(event):
 				
 				if get_viewport().get_camera().get_projection() == Camera.PROJECTION_ORTHOGONAL:
 					projectedMousePoint = get_viewport().get_camera().project_position(get_viewport().get_mouse_position())
-					curveShapePoint = findClosestCurveShapePoint(projectedMousePoint)
 				else:
 					var mousePos = get_viewport().get_mouse_position()
 					$CurveShapeDetector.set_translation(get_viewport().get_camera().project_ray_origin(mousePos))
@@ -123,11 +122,10 @@ func _input(event):
 					if $CurveShapeDetector.get_collider() != null:
 						print($CurveShapeDetector.get_collider().name)
 						projectedMousePoint = $CurveShapeDetector.get_collision_point()
-						curveShapePoint = findClosestCurveShapePoint(projectedMousePoint)
 					else:
 						projectedMousePoint = $CurveShapeDetector.get_translation() + $CurveShapeDetector.cast_to
-						curveShapePoint = findClosestCurveShapePoint(projectedMousePoint)
 					
+				curveShapePoint = findClosestCurveShapePoint(projectedMousePoint)
 				projectedMousePoint.z = curveShapePoint.z
 				
 				currentPlater.resetRotation()
@@ -154,9 +152,10 @@ func _input(event):
 				
 				Input.action_release("leftClick")
 				var nextPlater = currentPlater.duplicate()
-				self.add_child(nextPlater)
+				nextPlater.set_translation(get_node(currentPotentialParent).to_local(nextPlater.get_translation()))
+				get_node(currentPotentialParent).add_child(nextPlater)
 				nextPlater.connect("clickedPlater", self, "onClickedPlater")
-				self.remove_child(currentPlater)
+				currentPlater.get_parent().remove_child(currentPlater)
 				currentPlater = null
 
 func findClosestCurveShapePoint(point : Vector3):#Looks in all the curves of the LevelLayout for the point on a 3d curve closest to said point
@@ -168,15 +167,17 @@ func findClosestCurveShapePoint(point : Vector3):#Looks in all the curves of the
 	
 	for curves in $LevelLayout.get_children():
 		if curves.has_method("getCollisionBody"):
-			var tempPoint : Vector3 = point - curves.get_global_transform().origin
+			var tempPoint : Vector3 = curves.to_local(point)
 			curves.getCurvedMesh()
 			currentPoint = curves.get_curve().get_closest_point(tempPoint)
 			if (tempPoint - currentPoint).length() < (tempPoint - closestPoint).length():
-				closestPoint = currentPoint + curves.get_global_transform().origin
+				closestPoint = curves.to_global(currentPoint)#currentPoint + curves.get_global_transform().origin
 				closestOffset = curves.get_curve().get_closest_offset(tempPoint)
 				closestCurve = curves.get_curve()
 				closestPath = curves
-
+	
+	currentPotentialParent = closestPath.get_path()
+	
 	var pointVector : Vector3 = point - closestPoint
 	var usedUpVector : Vector3
 	if pointVector.normalized().dot(-closestCurve.interpolate_baked_up_vector(closestOffset)) > pointVector.normalized().dot(closestCurve.interpolate_baked_up_vector(closestOffset)):
@@ -212,7 +213,7 @@ func _on_PlayerArrival_body_entered(body):
 func placeNewPlater(newPlater : PackedScene):
 	if currentPlater != null:
 		self.add_child(currentPlater.duplicate())
-		self.remove_child(currentPlater)
+		currentPlater.get_parent().remove_child(currentPlater)
 		
 	currentPlater = newPlater.instance()
 	self.add_child(currentPlater)
@@ -236,6 +237,7 @@ func _on_PlaterPlacementPopup_translationRequested():
 	currentPlater = $PlaterPlacementPopup.getStalkedSpatial()
 	currentPlater.resetRotation()
 	$fixed3DPoint.set_transform(currentPlater.get_global_transform())
+	currentPlater.set_as_toplevel(true)
 	$PlaterPlacementPopup.setStalkedSpatial($fixed3DPoint)
 	$PlaterPlacementPopup.hide()
 
