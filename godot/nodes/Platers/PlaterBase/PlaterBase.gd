@@ -20,12 +20,13 @@ func _ready():
 	
 func on_translationRequested():
 	self.setGoodPlacementShaders()
+	self.setDisabledPlater(true)
 
 func on_rotationRequested():
-	pass
+	self.setDisabledPlater(true)
 	
 func on_deletionRequested():
-	pass
+	self.setDisabledPlater(true)
 
 func is_class(type): 
 	return type == "PlaterBase" or .is_type(type)
