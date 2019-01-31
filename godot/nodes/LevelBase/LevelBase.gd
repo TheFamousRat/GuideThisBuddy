@@ -7,7 +7,8 @@ var lastClosestPoint : Vector3
 var lastClosestNormal : Vector3
 
 var currentPlater#Current Plater being placed
-var maxCurvePlaterDistance : float = 2.0#Maximum distance at which the Plater is close enough to the curve to be placed on it
+var currentPotentialParrent : NodePath#When a plater is placed, it is added as a child of the curve it is placed on
+var maxCurvePlaterDistance : float = 1.0#Maximum distance at which the Plater is close enough to the curve to be placed on it
 
 var positionEvaluated : bool = false
 var positionSafe : bool = false#Means that a Plater is being placed 1/On something on which it can be placed 2/Where it doesn't intersects with the other platers
@@ -167,11 +168,12 @@ func findClosestCurveShapePoint(point : Vector3):#Looks in all the curves of the
 	
 	for curves in $LevelLayout.get_children():
 		if curves.has_method("getCollisionBody"):
+			var tempPoint : Vector3 = point - curves.get_global_transform().origin
 			curves.getCurvedMesh()
-			currentPoint = curves.get_curve().get_closest_point(point)
-			if (point - currentPoint).length() < (point - closestPoint).length():
-				closestPoint = currentPoint
-				closestOffset = curves.get_curve().get_closest_offset(point)
+			currentPoint = curves.get_curve().get_closest_point(tempPoint)
+			if (tempPoint - currentPoint).length() < (tempPoint - closestPoint).length():
+				closestPoint = currentPoint + curves.get_global_transform().origin
+				closestOffset = curves.get_curve().get_closest_offset(tempPoint)
 				closestCurve = curves.get_curve()
 				closestPath = curves
 
