@@ -9,6 +9,7 @@ var lastClosestNormal : Vector3
 var currentPlater#Current Plater being placed
 var currentPotentialParent : NodePath#When a plater is placed, it is added as a child of the curve it is placed on
 var maxCurvePlaterDistance : float = 1.0#Maximum distance at which the Plater is close enough to the curve to be placed on it
+var allMeshCurverPath : Array = Array()#Contains the path of all MeshCurver
 
 var positionEvaluated : bool = false
 var positionSafe : bool = false#Means that a Plater is being placed 1/On something on which it can be placed 2/Where it doesn't intersects with the other platers
@@ -22,6 +23,16 @@ func _ready():
 	lastClosestNormal = Vector3()
 	lastClosestPoint = Vector3()
 	$PlaterPlacementPopup.set_visible(false)
+	allMeshCurverPath = Array()
+	getAllCurves(self)
+	
+#Recursive function that finds all the MeshCurver in the tree
+func getAllCurves(node):
+	if node != null:
+		if node.has_method("getCollisionBody"):
+			allMeshCurverPath.append(node.get_path())
+		for i in node.get_children():
+			getAllCurves(i)
 	
 func _process(delta):
 	if currentPlater != null:
@@ -149,7 +160,7 @@ func _input(event):
 					positionSafe = false
 					
 			if event.is_action_pressed("leftClick") and positionEvaluated and positionSafe:
-				
+				#We release this action so that the Game doesn't consider the player clicked the Plater right away
 				Input.action_release("leftClick")
 				var nextPlater = currentPlater.duplicate()
 				
@@ -159,8 +170,8 @@ func _input(event):
 				nextPlater.rotate_x(parentCounterRotation.x)
 				nextPlater.rotate_y(parentCounterRotation.y)
 				nextPlater.rotate_z(parentCounterRotation.z)
-				print(parentCounterRotation.z)
 				
+				#We then add the Plater to its new parent
 				get_node(currentPotentialParent).add_child(nextPlater)
 				nextPlater.setDisabledPlater(true)
 				nextPlater.connect("clickedPlater", self, "onClickedPlater")
@@ -174,16 +185,16 @@ func findClosestCurveShapePoint(point : Vector3):#Looks in all the curves of the
 	var closestPath : Path
 	var closestOffset : float
 	
-	for curves in $LevelLayout.get_children():
-		if curves.has_method("getCollisionBody"):
-			var tempPoint : Vector3 = curves.to_local(point)
-			curves.getCurvedMesh()
-			currentPoint = curves.get_curve().get_closest_point(tempPoint)
-			if (tempPoint - currentPoint).length() < (tempPoint - closestPoint).length():
-				closestPoint = curves.to_global(currentPoint)#currentPoint + curves.get_global_transform().origin
-				closestOffset = curves.get_curve().get_closest_offset(tempPoint)
-				closestCurve = curves.get_curve()
-				closestPath = curves
+	for i in allMeshCurverPath:
+		var curves = get_node(i)
+		var tempPoint : Vector3 = curves.to_local(point)
+		curves.getCurvedMesh()
+		currentPoint = curves.get_curve().get_closest_point(tempPoint)
+		if (tempPoint - currentPoint).length() < (tempPoint - closestPoint).length():
+			closestPoint = curves.to_global(currentPoint)#currentPoint + curves.get_global_transform().origin
+			closestOffset = curves.get_curve().get_closest_offset(tempPoint)
+			closestCurve = curves.get_curve()
+			closestPath = curves
 	
 	currentPotentialParent = closestPath.get_path()
 	

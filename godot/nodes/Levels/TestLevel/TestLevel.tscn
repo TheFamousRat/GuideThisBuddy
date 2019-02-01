@@ -3,22 +3,9 @@
 [ext_resource path="res://nodes/LevelBase/LevelBase.tscn" type="PackedScene" id=1]
 [ext_resource path="res://nodes/Levels/TestLevel/TestLevel.gd" type="Script" id=2]
 [ext_resource path="res://nodes/Platers/Pusher/Pusher.tscn" type="PackedScene" id=3]
-[ext_resource path="res://nodes/MeshCurver/MeshCurver.gdns" type="Script" id=4]
-[ext_resource path="res://nodes/MeshCurver/RessourceSaver.gd" type="Script" id=5]
-
-[sub_resource type="PackedScene" id=11]
-
-_bundled = {
-"conn_count": 0,
-"conns": PoolIntArray(  ),
-"editable_instances": [  ],
-"names": PoolStringArray(  ),
-"node_count": 0,
-"node_paths": [  ],
-"nodes": PoolIntArray(  ),
-"variants": [  ],
-"version": 2
-}
+[ext_resource path="res://nodes/Platers/Cannon/Cannon.tscn" type="PackedScene" id=4]
+[ext_resource path="res://nodes/MeshCurver/MeshCurver.gdns" type="Script" id=5]
+[ext_resource path="res://nodes/MeshCurver/RessourceSaver.gd" type="Script" id=6]
 
 [sub_resource type="BoxShape" id=1]
 
@@ -81,7 +68,7 @@ surfaces/0 = {
 
 [node name="TestLevel" index="0" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
-availablePlaters = [ ExtResource( 3 ), 1, SubResource( 11 ), 1 ]
+availablePlaters = [ ExtResource( 3 ), 1, ExtResource( 4 ), 1 ]
 
 [node name="PlayerStart" parent="." index="0"]
 transform = Transform( 1, 0, 1.06581e-14, 0, 1, 0, -1.06581e-14, 0, 1, 0, -3.40259, 0.0630117 )
@@ -95,7 +82,7 @@ environment = SubResource( 3 )
 
 [node name="MeshCurver" type="Path" parent="LevelLayout" index="0"]
 curve = SubResource( 4 )
-script = ExtResource( 4 )
+script = ExtResource( 5 )
 meshRepetitonsNumber = 25
 generateBoundingBox = true
 xyzScale = Vector3( 0.5, 0.17, 1 )
@@ -105,22 +92,25 @@ mainMesh = SubResource( 12 )
 visible = false
 mesh = SubResource( 12 )
 material/0 = null
-script = ExtResource( 5 )
+script = ExtResource( 6 )
 
-[node name="MeshCurver2" type="Path" parent="LevelLayout" index="1"]
+[node name="Spatial" type="Spatial" parent="LevelLayout" index="1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.33142, 0, 0 )
+
+[node name="MeshCurver2" type="Path" parent="LevelLayout/Spatial" index="0"]
 transform = Transform( 0.981881, 0.189501, 0, -0.189501, 0.981881, 0, 0, 0, 1, 1, 2.01458, 0 )
 curve = SubResource( 6 )
-script = ExtResource( 4 )
+script = ExtResource( 5 )
 meshRepetitonsNumber = 6
 generateBoundingBox = true
 xyzScale = Vector3( 1, 0.29, 1 )
 mainMesh = SubResource( 13 )
 
-[node name="RessourceSaver" type="MeshInstance" parent="LevelLayout/MeshCurver2" index="1"]
+[node name="RessourceSaver" type="MeshInstance" parent="LevelLayout/Spatial/MeshCurver2" index="1"]
 visible = false
 mesh = SubResource( 13 )
 material/0 = null
-script = ExtResource( 5 )
+script = ExtResource( 6 )
 
 [node name="Pusher" parent="." index="4" instance=ExtResource( 3 )]
 editor/display_folded = true
