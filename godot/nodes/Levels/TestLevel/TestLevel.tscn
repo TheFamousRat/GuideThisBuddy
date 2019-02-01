@@ -1,10 +1,24 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://nodes/LevelBase/LevelBase.tscn" type="PackedScene" id=1]
 [ext_resource path="res://nodes/Levels/TestLevel/TestLevel.gd" type="Script" id=2]
 [ext_resource path="res://nodes/Platers/Pusher/Pusher.tscn" type="PackedScene" id=3]
 [ext_resource path="res://nodes/MeshCurver/MeshCurver.gdns" type="Script" id=4]
 [ext_resource path="res://nodes/MeshCurver/RessourceSaver.gd" type="Script" id=5]
+
+[sub_resource type="PackedScene" id=11]
+
+_bundled = {
+"conn_count": 0,
+"conns": PoolIntArray(  ),
+"editable_instances": [  ],
+"names": PoolStringArray(  ),
+"node_count": 0,
+"node_paths": [  ],
+"nodes": PoolIntArray(  ),
+"variants": [  ],
+"version": 2
+}
 
 [sub_resource type="BoxShape" id=1]
 
@@ -24,7 +38,7 @@ _data = {
 "tilts": PoolRealArray( 0, 0, 0, 0, 0, 0 )
 }
 
-[sub_resource type="ArrayMesh" id=7]
+[sub_resource type="ArrayMesh" id=12]
 
 surfaces/0 = {
 "aabb": AABB( -1, -1, -1, 2, 2.00001, 2.00001 ),
@@ -45,7 +59,12 @@ _data = {
 "tilts": PoolRealArray( 0, 0, 0 )
 }
 
-[sub_resource type="ArrayMesh" id=8]
+[sub_resource type="SpatialMaterial" id=9]
+
+flags_transparent = true
+albedo_color = Color( 1, 1, 1, 0.482353 )
+
+[sub_resource type="ArrayMesh" id=13]
 
 surfaces/0 = {
 "aabb": AABB( -1, -1, -1, 2, 2.00001, 2.00001 ),
@@ -54,6 +73,7 @@ surfaces/0 = {
 "blend_shape_data": [  ],
 "format": 97559,
 "index_count": 36,
+"material": SubResource( 9 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 24
@@ -61,7 +81,7 @@ surfaces/0 = {
 
 [node name="TestLevel" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
-availablePlaters = [ ExtResource( 3 ), 3 ]
+availablePlaters = [ ExtResource( 3 ), 1, SubResource( 11 ), 1 ]
 
 [node name="PlayerStart" parent="." index="0"]
 transform = Transform( 1, 0, 1.06581e-14, 0, 1, 0, -1.06581e-14, 0, 1, 0, -3.40259, 0.0630117 )
@@ -79,26 +99,26 @@ script = ExtResource( 4 )
 meshRepetitonsNumber = 25
 generateBoundingBox = true
 xyzScale = Vector3( 0.5, 0.17, 1 )
-mainMesh = SubResource( 7 )
+mainMesh = SubResource( 12 )
 
 [node name="RessourceSaver" type="MeshInstance" parent="LevelLayout/MeshCurver" index="0"]
 visible = false
-mesh = SubResource( 7 )
+mesh = SubResource( 12 )
 material/0 = null
 script = ExtResource( 5 )
 
 [node name="MeshCurver2" type="Path" parent="LevelLayout" index="1"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 2.01458, 0 )
+transform = Transform( 0.981881, 0.189501, 0, -0.189501, 0.981881, 0, 0, 0, 1, 1, 2.01458, 0 )
 curve = SubResource( 6 )
 script = ExtResource( 4 )
 meshRepetitonsNumber = 6
 generateBoundingBox = true
 xyzScale = Vector3( 1, 0.29, 1 )
-mainMesh = SubResource( 8 )
+mainMesh = SubResource( 13 )
 
 [node name="RessourceSaver" type="MeshInstance" parent="LevelLayout/MeshCurver2" index="1"]
 visible = false
-mesh = SubResource( 8 )
+mesh = SubResource( 13 )
 material/0 = null
 script = ExtResource( 5 )
 

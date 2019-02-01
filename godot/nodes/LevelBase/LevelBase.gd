@@ -153,7 +153,9 @@ func _input(event):
 				Input.action_release("leftClick")
 				var nextPlater = currentPlater.duplicate()
 				nextPlater.set_translation(get_node(currentPotentialParent).to_local(nextPlater.get_translation()))
+				nextPlater.rotate_z(10 * PI/180)
 				get_node(currentPotentialParent).add_child(nextPlater)
+				nextPlater.setDisabledPlater(true)
 				nextPlater.connect("clickedPlater", self, "onClickedPlater")
 				currentPlater.get_parent().remove_child(currentPlater)
 				currentPlater = null
@@ -185,6 +187,8 @@ func findClosestCurveShapePoint(point : Vector3):#Looks in all the curves of the
 	else:
 		usedUpVector = closestCurve.interpolate_baked_up_vector(closestOffset)
 	
+	usedUpVector = closestPath.get_global_transform().basis * usedUpVector
+	
 	$CurveShapeDetector.set_translation(closestPoint)
 	$CurveShapeDetector.set_cast_to(usedUpVector * 10.0)
 	$CurveShapeDetector.set_enabled(true)
@@ -212,7 +216,6 @@ func _on_PlayerArrival_body_entered(body):
 
 func placeNewPlater(newPlater : PackedScene):
 	if currentPlater != null:
-		self.add_child(currentPlater.duplicate())
 		currentPlater.get_parent().remove_child(currentPlater)
 		
 	currentPlater = newPlater.instance()
