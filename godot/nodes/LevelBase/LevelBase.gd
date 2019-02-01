@@ -166,10 +166,7 @@ func _input(event):
 				
 				#We move the plater so that its parent potential Transform doesn't affect the position at which the player desired to place it
 				nextPlater.set_translation(get_node(currentPotentialParent).to_local(nextPlater.get_translation()))
-				var parentCounterRotation : Vector3 = -get_node(currentPotentialParent).get_global_transform().basis.get_euler()
-				nextPlater.rotate_x(parentCounterRotation.x)
-				nextPlater.rotate_y(parentCounterRotation.y)
-				nextPlater.rotate_z(parentCounterRotation.z)
+				nextPlater.set_rotation(nextPlater.get_rotation() - get_node(currentPotentialParent).get_global_transform().basis.get_euler())
 				
 				#We then add the Plater to its new parent
 				get_node(currentPotentialParent).add_child(nextPlater)
