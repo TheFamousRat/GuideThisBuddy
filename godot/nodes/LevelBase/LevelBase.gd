@@ -152,8 +152,14 @@ func _input(event):
 				
 				Input.action_release("leftClick")
 				var nextPlater = currentPlater.duplicate()
+				
 				nextPlater.set_translation(get_node(currentPotentialParent).to_local(nextPlater.get_translation()))
-				nextPlater.rotate_z(10 * PI/180)
+				var parentCounterRotation : Vector3 = -get_node(currentPotentialParent).get_global_transform().basis.get_euler()
+				nextPlater.rotate_x(parentCounterRotation.x)
+				nextPlater.rotate_y(parentCounterRotation.y)
+				nextPlater.rotate_z(parentCounterRotation.z)
+				print(parentCounterRotation.z)
+				
 				get_node(currentPotentialParent).add_child(nextPlater)
 				nextPlater.setDisabledPlater(true)
 				nextPlater.connect("clickedPlater", self, "onClickedPlater")
