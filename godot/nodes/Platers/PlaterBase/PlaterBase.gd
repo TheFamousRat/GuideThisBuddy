@@ -1,8 +1,8 @@
 extends Spatial
 
 export (Texture) var GUI_Illustration
-export (bool) var enabledTranslation
-export (bool) var enabledRotation
+export (bool) var enabledTranslation = false
+export (bool) var enabledRotation = false
 export (Material) var wrongPlacementMaterial
 export (Material) var goodPlacementMaterial
 

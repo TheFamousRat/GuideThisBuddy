@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://nodes/Platers/PlaterBase/PlaterBase.tscn" type="PackedScene" id=1]
 [ext_resource path="res://nodes/Platers/Cannon/Cannon.gd" type="Script" id=2]
@@ -6,10 +6,17 @@
 [ext_resource path="res://assets/Models/Platers/Cannon/wick.tres" type="Material" id=4]
 [ext_resource path="res://assets/Models/Platers/Cannon/cannon_metal.tres" type="Material" id=5]
 
+[sub_resource type="Gradient" id=5]
+
+
+[sub_resource type="GradientTexture" id=6]
+
+gradient = SubResource( 5 )
+
 [sub_resource type="CylinderShape" id=1]
 
 radius = 0.569755
-height = 3.17224
+height = 2.16452
 
 [sub_resource type="ConcavePolygonShape" id=2]
 
@@ -26,17 +33,18 @@ height = 4.13058
 
 [node name="Cannon" index="0" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+GUI_Illustration = SubResource( 6 )
 enabledTranslation = true
-enabledRotation = false
+cannonForce = 50.0
 
 [node name="BodyDetector" type="Area" parent="." index="0"]
 
 [node name="CollisionShape" type="CollisionShape" parent="BodyDetector" index="0"]
-transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
+transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -1.2655, 0, 0 )
 shape = SubResource( 1 )
 
 [node name="Position3D" type="Position3D" parent="." index="1"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.70001, 0, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.35458, 0, 0 )
 
 [node name="StaticBody" type="StaticBody" parent="." index="2"]
 

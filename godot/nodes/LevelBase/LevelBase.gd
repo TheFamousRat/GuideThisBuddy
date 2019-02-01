@@ -34,7 +34,7 @@ func getAllCurves(node):
 		for i in node.get_children():
 			getAllCurves(i)
 	
-func _process(delta):
+func _physics_process(delta):
 	if currentPlater != null:
 		if positionEvaluated:
 			if positionSafe:
@@ -43,9 +43,13 @@ func _process(delta):
 				currentPlater.setWrongPlacementShaders()
 		else:
 			positionEvaluated = true
+			positionSafe = true
+			
 			for i in currentPlater.getPlaterPlacementDetectionArea().get_overlapping_areas():
 				if i.get_name() == "PlaterPlacementDetection":
 					positionSafe = false
+					break
+
 
 func getAvailablePlaters():
 	return availablePlaters
@@ -54,7 +58,7 @@ func reload():
 	print("Error : Using the base function to reload the level. Won't do anything")
 
 func availablePlaterArrayChecker(newArray : Array):
-	var platersArray : Array
+	var platersArray : Array = Array()
 
 	if newArray != null:
 		if newArray.size() % 2 == 1 && newArray.size() > availablePlaters.size():
@@ -113,7 +117,6 @@ func _input(event):
 	if !running:
 		if currentPlater != null:
 			if event.is_action_pressed("rightClick"):
-				
 				clearCurrentPlater()
 				
 			elif event is InputEventMouseMotion:
@@ -131,7 +134,6 @@ func _input(event):
 					$CurveShapeDetector.set_collision_mask_bit(0, false)
 					
 					if $CurveShapeDetector.get_collider() != null:
-						print($CurveShapeDetector.get_collider().name)
 						projectedMousePoint = $CurveShapeDetector.get_collision_point()
 					else:
 						projectedMousePoint = $CurveShapeDetector.get_translation() + $CurveShapeDetector.cast_to
@@ -158,7 +160,7 @@ func _input(event):
 					currentPlater.set_translation(projectedMousePoint)
 					positionEvaluated = true
 					positionSafe = false
-					
+			
 			if event.is_action_pressed("leftClick") and positionEvaluated and positionSafe:
 				#We release this action so that the Game doesn't consider the player clicked the Plater right away
 				Input.action_release("leftClick")
@@ -252,8 +254,10 @@ func _on_PlaterPlacementPopup_rotationRequested():
 
 func _on_PlaterPlacementPopup_translationRequested():
 	$PlaterPlacementPopup.getStalkedSpatial().on_translationRequested()
+	
 	currentPlater = $PlaterPlacementPopup.getStalkedSpatial()
 	currentPlater.resetRotation()
+	
 	$fixed3DPoint.set_transform(currentPlater.get_global_transform())
 	currentPlater.set_as_toplevel(true)
 	$PlaterPlacementPopup.setStalkedSpatial($fixed3DPoint)
