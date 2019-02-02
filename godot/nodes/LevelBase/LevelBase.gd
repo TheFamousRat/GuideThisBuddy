@@ -95,6 +95,7 @@ func set_running(isRunning : bool):
 	running = isRunning
 	if running:
 		clearCurrentPlater()
+		$PlaterPlacementPopup.set_visible(false)
 	setPlatersChildsDisabled(self, !isRunning)
 	
 func isRunning():
