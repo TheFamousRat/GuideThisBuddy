@@ -38,7 +38,7 @@ func setTargetDist(newDist : float):
 	targetDist = newDist
 	centerOn(self.getTarget(), targetDist, self.getDistVect())
 	
-func ():
+func getTargetDist():
 	return targetDist
 
 func _input(event):

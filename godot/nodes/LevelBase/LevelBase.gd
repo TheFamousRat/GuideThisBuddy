@@ -122,24 +122,14 @@ func _input(event):
 			elif event is InputEventMouseMotion:
 				var projectedMousePoint : Vector3
 				var curveShapePoint : Vector3
+				var multFact : float
 				
-				if get_viewport().get_camera().get_projection() == Camera.PROJECTION_ORTHOGONAL:
-					projectedMousePoint = get_viewport().get_camera().project_position(get_viewport().get_mouse_position())
+				if get_viewport().get_camera().has_method("getTargetDist"):
+					multFact = get_viewport().get_camera().getTargetDist()
 				else:
-					var mousePos = get_viewport().get_mouse_position()
-					$CurveShapeDetector.set_translation(get_viewport().get_camera().project_ray_origin(mousePos))
-					$CurveShapeDetector.cast_to = 10.0 * get_viewport().get_camera().project_ray_normal(mousePos)
-					$CurveShapeDetector.set_collision_mask_bit(0, true)
-					$CurveShapeDetector.force_raycast_update()
-					$CurveShapeDetector.set_collision_mask_bit(0, false)
+					multFact = 1.0
 					
-					if $CurveShapeDetector.get_collider() != null:
-						projectedMousePoint = $CurveShapeDetector.get_collision_point()
-					else:
-						projectedMousePoint = $CurveShapeDetector.get_translation() + $CurveShapeDetector.cast_to
-				
-				print(get_viewport().get_camera().get_fov())
-				projectedMousePoint = 3.0 * get_viewport().get_camera().project_ray_normal(get_viewport().get_mouse_position()) + get_viewport().get_camera().project_ray_origin(get_viewport().get_mouse_position())
+				projectedMousePoint = multFact * get_viewport().get_camera().project_ray_normal(get_viewport().get_mouse_position()) + get_viewport().get_camera().project_ray_origin(get_viewport().get_mouse_position())
 				curveShapePoint = findClosestCurveShapePoint(projectedMousePoint)
 				
 				projectedMousePoint.z = curveShapePoint.z
