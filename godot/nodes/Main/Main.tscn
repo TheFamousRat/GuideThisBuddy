@@ -36,6 +36,9 @@ current = true
 fov = 45.0
 size = 5.0
 script = ExtResource( 9 )
+distVect = null
+targetDist = 10.0
+cameraSpeed = null
 
 [node name="FreeFlyCamera" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8.5989 )

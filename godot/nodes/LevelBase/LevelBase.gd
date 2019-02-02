@@ -137,8 +137,11 @@ func _input(event):
 						projectedMousePoint = $CurveShapeDetector.get_collision_point()
 					else:
 						projectedMousePoint = $CurveShapeDetector.get_translation() + $CurveShapeDetector.cast_to
-					
+				
+				print(get_viewport().get_camera().get_fov())
+				projectedMousePoint = 3.0 * get_viewport().get_camera().project_ray_normal(get_viewport().get_mouse_position()) + get_viewport().get_camera().project_ray_origin(get_viewport().get_mouse_position())
 				curveShapePoint = findClosestCurveShapePoint(projectedMousePoint)
+				
 				projectedMousePoint.z = curveShapePoint.z
 				
 				currentPlater.resetRotation()

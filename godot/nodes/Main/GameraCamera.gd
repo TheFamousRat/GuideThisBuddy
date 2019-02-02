@@ -27,6 +27,20 @@ func _process(delta):
 			self.v_offset -= cameraSpeed * delta
 		self.set_size(100.0/zoomFactor)
 
+func setDistVect(newVect : Vector3):
+	distVect = newVect
+	centerOn(self.getTarget(), self.getTargetDist(), distVect)
+	
+func getDistVect():
+	return distVect
+
+func setTargetDist(newDist : float):
+	targetDist = newDist
+	centerOn(self.getTarget(), targetDist, self.getDistVect())
+	
+func ():
+	return targetDist
+
 func _input(event):
 	if event.is_action_pressed("ui_scroll_up"):
 		zoomFactor = min(maxZoomFactor, zoomFactor * 2.0)
@@ -36,6 +50,9 @@ func _input(event):
 func setTarget(newTarget : Spatial):
 	resetFreeCamMov()
 	target = newTarget
+	
+func getTarget():
+	return target
 	
 func centerOn(centeringTarget : Spatial, dist = targetDist, distDir = distVect):
 	#This function moves the camera so that a certain Spatial is at the center of the screen (given a certain direction/distance)
