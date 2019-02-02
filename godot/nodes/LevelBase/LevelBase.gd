@@ -129,11 +129,12 @@ func _input(event):
 				else:
 					multFact = 1.0
 					
-				projectedMousePoint = multFact * get_viewport().get_camera().project_ray_normal(get_viewport().get_mouse_position()) + get_viewport().get_camera().project_ray_origin(get_viewport().get_mouse_position())
+				var cameraRayNormal : Vector3 = get_viewport().get_camera().project_ray_normal(get_viewport().get_mouse_position())
+				var cameraRayOrigin : Vector3 = get_viewport().get_camera().project_ray_origin(get_viewport().get_mouse_position())
+				projectedMousePoint = multFact * cameraRayNormal + cameraRayOrigin
 				curveShapePoint = findClosestCurveShapePoint(projectedMousePoint)
 				
-				projectedMousePoint.z = curveShapePoint.z
-				
+				projectedMousePoint = ((curveShapePoint.z-cameraRayOrigin.z)/cameraRayNormal.z) * cameraRayNormal + cameraRayOrigin
 				currentPlater.resetRotation()
 	
 				if ((projectedMousePoint - curveShapePoint).length() <= maxCurvePlaterDistance) and curveOffsetHasMesh:

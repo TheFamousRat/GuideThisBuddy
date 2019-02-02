@@ -32,7 +32,7 @@ levelComplete = ExtResource( 7 )
 [node name="GameCamera" type="Camera" parent="."]
 transform = Transform( 1, 0, -1.06581e-14, 0, 1, 0, 1.06581e-14, 0, 1, 0, 0, 5 )
 current = true
-fov = 45.0
+fov = 25.0
 size = 5.0
 script = ExtResource( 9 )
 targetDist = 10.0
