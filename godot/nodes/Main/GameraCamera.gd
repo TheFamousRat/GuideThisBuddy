@@ -10,6 +10,9 @@ var zoomFactor = 16.0
 
 var target : Spatial setget setTarget
 
+var zoomArrayIndex : int
+var zoomArrayPerspective : Array = [2.0,3.0,5.0,8.0,13.0,21.0,34.0]
+
 func _ready():
 	pass
 
@@ -25,27 +28,34 @@ func _process(delta):
 			self.v_offset += cameraSpeed * delta
 		if Input.is_action_pressed("ui_down"):
 			self.v_offset -= cameraSpeed * delta
-		self.set_size(100.0/zoomFactor)
 
 func setDistVect(newVect : Vector3):
 	distVect = newVect
-	centerOn(self.getTarget(), self.getTargetDist(), distVect)
 	
 func getDistVect():
 	return distVect
 
 func setTargetDist(newDist : float):
+	self.set_translation(self.get_translation() + distVect * (newDist - targetDist))
 	targetDist = newDist
-	centerOn(self.getTarget(), targetDist, self.getDistVect())
 	
 func getTargetDist():
 	return targetDist
 
 func _input(event):
-	if event.is_action_pressed("ui_scroll_up"):
-		zoomFactor = min(maxZoomFactor, zoomFactor * 2.0)
-	if event.is_action_pressed("ui_scroll_down"):
-		zoomFactor = max(minZoomFactor, zoomFactor / 2.0)
+	if self.get_projection() == PROJECTION_ORTHOGONAL:
+		if event.is_action_pressed("ui_scroll_up"):
+			zoomFactor = min(maxZoomFactor, zoomFactor * 2.0)
+		if event.is_action_pressed("ui_scroll_down"):
+			zoomFactor = max(minZoomFactor, zoomFactor / 2.0)
+		self.set_size(100.0/zoomFactor)
+	else:
+		if event.is_action_pressed("ui_scroll_up"):
+			zoomArrayIndex = max(0, zoomArrayIndex - 1)
+		if event.is_action_pressed("ui_scroll_down"):
+			zoomArrayIndex = min(zoomArrayPerspective.size() - 1, zoomArrayIndex + 1)
+			
+		self.setTargetDist(zoomArrayPerspective[zoomArrayIndex])
 	
 func setTarget(newTarget : Spatial):
 	resetFreeCamMov()
@@ -54,7 +64,7 @@ func setTarget(newTarget : Spatial):
 func getTarget():
 	return target
 	
-func centerOn(centeringTarget : Spatial, dist = targetDist, distDir = distVect):
+func centerOn(centeringTarget : Spatial, dist = targetDist, distDir = distVect, resetCamMov : bool = true):
 	#This function moves the camera so that a certain Spatial is at the center of the screen (given a certain direction/distance)
 	target = null
 	resetFreeCamMov()
