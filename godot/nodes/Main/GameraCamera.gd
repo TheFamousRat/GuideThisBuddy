@@ -8,6 +8,7 @@ var maxZoomFactor = 128.0
 var minZoomFactor = 4.0
 var zoomFactor = 16.0
 
+var zoomAllowed : bool
 var target : Spatial setget setTarget
 
 var zoomArrayIndex : int
@@ -29,6 +30,9 @@ func _process(delta):
 		if Input.is_action_pressed("ui_down"):
 			self.v_offset -= cameraSpeed * delta
 
+func get_class():
+	return "GameCamera"
+
 func setDistVect(newVect : Vector3):
 	distVect = newVect
 	
@@ -42,20 +46,27 @@ func setTargetDist(newDist : float):
 func getTargetDist():
 	return targetDist
 
+func setZoomAllowed(allow : bool):
+	zoomAllowed = allow
+	
+func getZoomAllowed():
+	return zoomAllowed
+
 func _input(event):
-	if self.get_projection() == PROJECTION_ORTHOGONAL:
-		if event.is_action_pressed("ui_scroll_up"):
-			zoomFactor = min(maxZoomFactor, zoomFactor * 2.0)
-		if event.is_action_pressed("ui_scroll_down"):
-			zoomFactor = max(minZoomFactor, zoomFactor / 2.0)
-		self.set_size(100.0/zoomFactor)
-	else:
-		if event.is_action_pressed("ui_scroll_up"):
-			zoomArrayIndex = max(0, zoomArrayIndex - 1)
-		if event.is_action_pressed("ui_scroll_down"):
-			zoomArrayIndex = min(zoomArrayPerspective.size() - 1, zoomArrayIndex + 1)
-			
-		self.setTargetDist(zoomArrayPerspective[zoomArrayIndex])
+	if zoomAllowed:
+		if self.get_projection() == PROJECTION_ORTHOGONAL:
+			if event.is_action_pressed("ui_scroll_up"):
+				zoomFactor = min(maxZoomFactor, zoomFactor * 2.0)
+			if event.is_action_pressed("ui_scroll_down"):
+				zoomFactor = max(minZoomFactor, zoomFactor / 2.0)
+			self.set_size(100.0/zoomFactor)
+		else:
+			if event.is_action_pressed("ui_scroll_up"):
+				zoomArrayIndex = max(0, zoomArrayIndex - 1)
+			if event.is_action_pressed("ui_scroll_down"):
+				zoomArrayIndex = min(zoomArrayPerspective.size() - 1, zoomArrayIndex + 1)
+				
+			self.setTargetDist(zoomArrayPerspective[zoomArrayIndex])
 	
 func setTarget(newTarget : Spatial):
 	resetFreeCamMov()

@@ -96,6 +96,12 @@ func set_running(isRunning : bool):
 	if running:
 		clearCurrentPlater()
 		$PlaterPlacementPopup.set_visible(false)
+	
+	if get_viewport().get_camera().get_class() == "GameCamera":
+		get_viewport().get_camera().setZoomAllowed(!isRunning)
+		if running:
+			get_viewport().get_camera().setTargetDist(30)
+		
 	setPlatersChildsDisabled(self, !isRunning)
 	
 func isRunning():
