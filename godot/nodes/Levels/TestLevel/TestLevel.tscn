@@ -62,4 +62,6 @@ endMesh = SubResource( 6 )
 collision_mask = 524288
 
 
+[editable path="LevelLayout/MeshCurver"]
+
 [editable path="PlaterPlacementPopup"]
