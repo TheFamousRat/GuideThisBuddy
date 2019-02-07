@@ -1,10 +1,11 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://nodes/LevelBase/LevelBase.tscn" type="PackedScene" id=1]
 [ext_resource path="res://nodes/Levels/TestLevel/TestLevel.gd" type="Script" id=2]
 [ext_resource path="res://nodes/Platers/Pusher/Pusher.tscn" type="PackedScene" id=3]
 [ext_resource path="res://nodes/Platers/Cannon/Cannon.tscn" type="PackedScene" id=4]
-[ext_resource path="res://nodes/MeshCurver/MeshCurver/MeshCurver.tscn" type="PackedScene" id=5]
+[ext_resource path="res://nodes/Platers/Sucker/Sucker.tscn" type="PackedScene" id=5]
+[ext_resource path="res://nodes/MeshCurver/MeshCurver/MeshCurver.tscn" type="PackedScene" id=6]
 
 [sub_resource type="BoxShape" id=1]
 
@@ -125,9 +126,9 @@ surfaces/0 = {
 [sub_resource type="ArrayMesh" id=18]
 
 
-[node name="TestLevel" index="0" instance=ExtResource( 1 )]
+[node name="TestLevel" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
-availablePlaters = [ ExtResource( 3 ), 1, ExtResource( 4 ), 1 ]
+availablePlaters = [ ExtResource( 3 ), 1, ExtResource( 4 ), 1, ExtResource( 5 ), 1 ]
 
 [node name="PlayerStart" parent="." index="0"]
 transform = Transform( 1, 0, 1.06581e-14, 0, 1, 0, -1.06581e-14, 0, 1, 0, -3.40259, 0.0630117 )
@@ -139,7 +140,7 @@ shape = SubResource( 1 )
 [node name="WorldEnvironment" parent="." index="2"]
 environment = SubResource( 3 )
 
-[node name="MeshCurver" parent="LevelLayout" index="0" instance=ExtResource( 5 )]
+[node name="MeshCurver" parent="LevelLayout" index="0" instance=ExtResource( 6 )]
 curve = SubResource( 4 )
 meshRepetitonsNumber = 9
 xyzScale = Vector3( 1.04, 0.46, 1 )
@@ -147,7 +148,7 @@ beginMesh = SubResource( 6 )
 mainMesh = SubResource( 8 )
 endMesh = SubResource( 9 )
 
-[node name="MeshCurver2" parent="LevelLayout" index="1" instance=ExtResource( 5 )]
+[node name="MeshCurver2" parent="LevelLayout" index="1" instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.53674e-07, 0 )
 curve = SubResource( 10 )
 meshRepetitonsNumber = 16
@@ -156,7 +157,7 @@ beginMesh = SubResource( 11 )
 mainMesh = SubResource( 12 )
 endMesh = SubResource( 13 )
 
-[node name="MeshCurver3" parent="LevelLayout" index="2" instance=ExtResource( 5 )]
+[node name="MeshCurver3" parent="LevelLayout" index="2" instance=ExtResource( 6 )]
 curve = SubResource( 14 )
 meshRepetitonsNumber = 5
 xyzScale = Vector3( 1, 0.33, 1 )
