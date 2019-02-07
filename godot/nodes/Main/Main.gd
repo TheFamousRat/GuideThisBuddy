@@ -1,8 +1,11 @@
 extends Node
 
 #Main Node
+var boneTransform : Transform
 
 func _ready():
+	boneTransform = Transform($Model/Armature/Skeleton.get_bone_pose(1))
+	
 	$Slime.hide()
 	$Slime.set_sleeping(true)
 	
@@ -54,4 +57,8 @@ func getLevelAvailablePlaters():
 	return $CurrentLevel.get_child(0).getAvailablePlaters()
 	
 func _process(delta):
-	pass
+	boneTransform = boneTransform.rotated(Vector3(0,1,0),2.0*delta)
+	$Model/Armature/Skeleton.set_bone_custom_pose(1, boneTransform)
+	$Model/Armature/Skeleton.set_bone_custom_pose(2, boneTransform)
+	$Model/Armature/Skeleton.set_bone_custom_pose(3, boneTransform)
+
