@@ -250,27 +250,36 @@ func onClickedPlater(clickedPlater):
 		$PlaterPlacementPopup.setStalkedSpatial(clickedPlater)
 		$PlaterPlacementPopup.show()
 
+#The Placement GUI launches its hide animation, without moving
+func hidePlacementGuiStatically() -> void:
+	$fixed3DPoint.set_transform($PlaterPlacementPopup.getStalkedSpatial().get_global_transform())
+	$PlaterPlacementPopup.setStalkedSpatial($fixed3DPoint)
+	$PlaterPlacementPopup.hide()
+
+#When the player clicks on the "rotate" button
 func _on_PlaterPlacementPopup_rotationRequested():
 	$PlaterPlacementPopup.getStalkedSpatial().on_rotationRequested()
+	hidePlacementGuiStatically()
 
+#When the player clicks on the "translate" button
 func _on_PlaterPlacementPopup_translationRequested():
 	$PlaterPlacementPopup.getStalkedSpatial().on_translationRequested()
 	
 	currentPlater = $PlaterPlacementPopup.getStalkedSpatial()
 	currentPlater.resetRotation()
-	
-	$fixed3DPoint.set_transform(currentPlater.get_global_transform())
 	currentPlater.set_as_toplevel(true)
-	$PlaterPlacementPopup.setStalkedSpatial($fixed3DPoint)
-	$PlaterPlacementPopup.hide()
+	
+	hidePlacementGuiStatically()
 
+#When the player requests the deletion of the currentPlater
 func _on_PlaterPlacementPopup_deletionRequested():
 	$PlaterPlacementPopup.getStalkedSpatial().on_deletionRequested()
 	currentPlater = $PlaterPlacementPopup.getStalkedSpatial()
-	$fixed3DPoint.set_transform(currentPlater.get_global_transform())
-	$PlaterPlacementPopup.setStalkedSpatial($fixed3DPoint)
-	$PlaterPlacementPopup.hide()
+	hidePlacementGuiStatically()
 	clearCurrentPlater()
 
-func _on_PlaterPlacementPopup_suckerDirection():
-	pass # Replace with function body.
+#When the player requests to change the orientation of the Sucker (exclusive to that Plater)
+func _on_PlaterPlacementPopup_suckerOrientation():
+	$PlaterPlacementPopup.getStalkedSpatial().on_suckerOrientationRequested()
+	hidePlacementGuiStatically()
+

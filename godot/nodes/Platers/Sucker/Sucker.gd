@@ -12,3 +12,5 @@ func _process(delta):
 		if i.is_in_group("player"):
 			i.add_central_force(suckForce * delta * suckStrength)
 
+func on_suckerOrientationRequested():
+	print("yes")

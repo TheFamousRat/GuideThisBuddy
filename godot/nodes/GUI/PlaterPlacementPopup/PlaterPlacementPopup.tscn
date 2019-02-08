@@ -40,7 +40,7 @@ flags = 4
 atlas = ExtResource( 3 )
 region = Rect2( 195, 195, 194, 194 )
 
-[node name="PlaterPlacementPopup" index="0" instance=ExtResource( 1 )]
+[node name="PlaterPlacementPopup" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 
 [node name="Tweens" type="Node" parent="." index="0"]
@@ -62,7 +62,7 @@ rect_scale = Vector2( 0.2, 0.2 )
 texture_normal = SubResource( 5 )
 texture_pressed = SubResource( 6 )
 
-[node name="SuckerDirection" type="TextureButton" parent="OptionButtons" index="1"]
+[node name="SuckerOrientation" type="TextureButton" parent="OptionButtons" index="1"]
 margin_left = 522.213
 margin_top = 187.566
 margin_right = 717.213
@@ -93,6 +93,6 @@ text = "X"
 
 [connection signal="timeout" from="hidingTimer" to="." method="closingAnimDone"]
 [connection signal="pressed" from="OptionButtons/Translation" to="." method="_on_Translation_pressed"]
-[connection signal="pressed" from="OptionButtons/SuckerDirection" to="." method="_on_SuckerDirection_pressed"]
+[connection signal="pressed" from="OptionButtons/SuckerOrientation" to="." method="_on_SuckerOrientation_pressed"]
 [connection signal="pressed" from="OptionButtons/Rotation" to="." method="_on_Rotation_pressed"]
 [connection signal="pressed" from="Delete" to="." method="_on_Delete_pressed"]
