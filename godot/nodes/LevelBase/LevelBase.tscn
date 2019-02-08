@@ -28,6 +28,7 @@ maxAngle = 3.142
 [connection signal="body_entered" from="PlayerArrival" to="." method="_on_PlayerArrival_body_entered"]
 [connection signal="deletionRequested" from="PlaterPlacementPopup" to="." method="_on_PlaterPlacementPopup_deletionRequested"]
 [connection signal="rotationRequested" from="PlaterPlacementPopup" to="." method="_on_PlaterPlacementPopup_rotationRequested"]
+[connection signal="suckerDirection" from="PlaterPlacementPopup" to="." method="_on_PlaterPlacementPopup_suckerDirection"]
 [connection signal="translationRequested" from="PlaterPlacementPopup" to="." method="_on_PlaterPlacementPopup_translationRequested"]
 
 [editable path="PlaterPlacementPopup"]

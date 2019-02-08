@@ -29,7 +29,7 @@ _data = {
 
 albedo_color = Color( 1, 0, 0, 1 )
 
-[sub_resource type="ArrayMesh" id=6]
+[sub_resource type="ArrayMesh" id=17]
 
 surfaces/0 = {
 "aabb": AABB( -1, -1, -1, 2, 2.00001, 2.00001 ),
@@ -49,7 +49,7 @@ surfaces/0 = {
 albedo_color = Color( 0.290196, 1, 0, 1 )
 metallic = 1.0
 
-[sub_resource type="ArrayMesh" id=8]
+[sub_resource type="ArrayMesh" id=18]
 
 surfaces/0 = {
 "aabb": AABB( -1, -1, -1, 2, 2.00001, 2.00001 ),
@@ -64,7 +64,7 @@ surfaces/0 = {
 "vertex_count": 24
 }
 
-[sub_resource type="ArrayMesh" id=9]
+[sub_resource type="ArrayMesh" id=19]
 
 
 [sub_resource type="Curve3D" id=10]
@@ -74,10 +74,10 @@ _data = {
 "tilts": PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0 )
 }
 
-[sub_resource type="ArrayMesh" id=11]
+[sub_resource type="ArrayMesh" id=20]
 
 
-[sub_resource type="ArrayMesh" id=12]
+[sub_resource type="ArrayMesh" id=21]
 
 surfaces/0 = {
 "aabb": AABB( -1, -1, -1, 2, 2.00001, 2.00001 ),
@@ -91,7 +91,7 @@ surfaces/0 = {
 "vertex_count": 24
 }
 
-[sub_resource type="ArrayMesh" id=13]
+[sub_resource type="ArrayMesh" id=22]
 
 
 [sub_resource type="Curve3D" id=14]
@@ -101,14 +101,14 @@ _data = {
 "tilts": PoolRealArray( 0, 0, 0, 0 )
 }
 
-[sub_resource type="ArrayMesh" id=15]
+[sub_resource type="ArrayMesh" id=23]
 
 
 [sub_resource type="SpatialMaterial" id=16]
 
 albedo_color = Color( 1, 0, 0, 1 )
 
-[sub_resource type="ArrayMesh" id=17]
+[sub_resource type="ArrayMesh" id=24]
 
 surfaces/0 = {
 "aabb": AABB( -1, -1, -1, 2, 2.00001, 2.00001 ),
@@ -123,7 +123,7 @@ surfaces/0 = {
 "vertex_count": 24
 }
 
-[sub_resource type="ArrayMesh" id=18]
+[sub_resource type="ArrayMesh" id=25]
 
 
 [node name="TestLevel" instance=ExtResource( 1 )]
@@ -144,26 +144,26 @@ environment = SubResource( 3 )
 curve = SubResource( 4 )
 meshRepetitonsNumber = 9
 xyzScale = Vector3( 1.04, 0.46, 1 )
-beginMesh = SubResource( 6 )
-mainMesh = SubResource( 8 )
-endMesh = SubResource( 9 )
+beginMesh = SubResource( 17 )
+mainMesh = SubResource( 18 )
+endMesh = SubResource( 19 )
 
 [node name="MeshCurver2" parent="LevelLayout" index="1" instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.53674e-07, 0 )
 curve = SubResource( 10 )
 meshRepetitonsNumber = 16
 xyzScale = Vector3( 1, 0.19, 1 )
-beginMesh = SubResource( 11 )
-mainMesh = SubResource( 12 )
-endMesh = SubResource( 13 )
+beginMesh = SubResource( 20 )
+mainMesh = SubResource( 21 )
+endMesh = SubResource( 22 )
 
 [node name="MeshCurver3" parent="LevelLayout" index="2" instance=ExtResource( 6 )]
 curve = SubResource( 14 )
 meshRepetitonsNumber = 5
 xyzScale = Vector3( 1, 0.33, 1 )
-beginMesh = SubResource( 15 )
-mainMesh = SubResource( 17 )
-endMesh = SubResource( 18 )
+beginMesh = SubResource( 23 )
+mainMesh = SubResource( 24 )
+endMesh = SubResource( 25 )
 
 [node name="CurveShapeDetector" parent="." index="4"]
 collision_mask = 524288

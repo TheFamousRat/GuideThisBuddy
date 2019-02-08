@@ -271,3 +271,6 @@ func _on_PlaterPlacementPopup_deletionRequested():
 	$PlaterPlacementPopup.setStalkedSpatial($fixed3DPoint)
 	$PlaterPlacementPopup.hide()
 	clearCurrentPlater()
+
+func _on_PlaterPlacementPopup_suckerDirection():
+	pass # Replace with function body.
