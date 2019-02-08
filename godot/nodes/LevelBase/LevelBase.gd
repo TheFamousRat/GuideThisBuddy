@@ -17,7 +17,7 @@ var curveOffsetHasMesh : bool#False if the closest point on the curve has no mes
 
 signal removedPlater
 
-func _ready():
+func _ready() -> void:
 	set_process(get_tree().get_edited_scene_root() == null)
 	running = false
 	lastClosestNormal = Vector3()
@@ -27,14 +27,14 @@ func _ready():
 	getAllCurves(self)
 	
 #Recursive function that finds all the MeshCurver in the tree
-func getAllCurves(node):
+func getAllCurves(node) -> void:
 	if node != null:
 		if node.has_method("getCollisionBody"):
 			allMeshCurverPath.append(node.get_path())
 		for i in node.get_children():
 			getAllCurves(i)
 	
-func _physics_process(delta):
+func _physics_process(delta) -> void:
 	if currentPlater != null:
 		if positionEvaluated:
 			if positionSafe:
@@ -51,13 +51,13 @@ func _physics_process(delta):
 					break
 
 
-func getAvailablePlaters():
+func getAvailablePlaters() -> Array:
 	return availablePlaters
 
-func reload():
+func reload() -> void:
 	print("Error : Using the base function to reload the level. Won't do anything")
 
-func availablePlaterArrayChecker(newArray : Array):
+func availablePlaterArrayChecker(newArray : Array) -> void:
 	var platersArray : Array = Array()
 
 	if newArray != null:
@@ -91,7 +91,7 @@ func availablePlaterArrayChecker(newArray : Array):
 			else:
 				platersArray.append(availablePlaters[i])
 
-func set_running(isRunning : bool):
+func set_running(isRunning : bool) -> void:
 	running = isRunning
 	if running:
 		clearCurrentPlater()
@@ -104,23 +104,23 @@ func set_running(isRunning : bool):
 		
 	setPlatersChildsDisabled(self, !isRunning)
 	
-func isRunning():
+func isRunning() -> bool:
 	return running
 	
-func setPlatersChildsDisabled(parent, disabled : bool):#Disabled all the children of a certain node (including the node itself) that are platers
+func setPlatersChildsDisabled(parent, disabled : bool) -> void:#Disabled all the children of a certain node (including the node itself) that are platers
 	if parent != null:
 		if parent.get_class() == "PlaterBase":
 			parent.setDisabledPlater(disabled)
 		for i in parent.get_children():
 			setPlatersChildsDisabled(i, disabled)
 	
-func clearCurrentPlater():
+func clearCurrentPlater() -> void:
 	if currentPlater != null:
 		emit_signal("removedPlater", currentPlater.get_filename())
 		currentPlater.get_parent().remove_child(currentPlater)
 		currentPlater = null
 	
-func _input(event):
+func _input(event) -> void:
 	if !running:
 		if currentPlater != null:
 			if event.is_action_pressed("rightClick"):
@@ -178,7 +178,7 @@ func _input(event):
 				currentPlater.get_parent().remove_child(currentPlater)
 				currentPlater = null
 
-func findClosestCurveShapePoint(point : Vector3):#Looks in all the curves of the LevelLayout for the point on a 3d curve closest to said point
+func findClosestCurveShapePoint(point : Vector3) -> Vector3:#Looks in all the curves of the LevelLayout for the point on a 3d curve closest to said point
 	var closestPoint : Vector3 = Vector3(INF,INF,INF)
 	var currentPoint : Vector3 = Vector3(0,0,0)
 	var closestCurve : Curve3D
@@ -226,13 +226,13 @@ func findClosestCurveShapePoint(point : Vector3):#Looks in all the curves of the
 	
 	return lastClosestPoint
 
-func _on_PlayerArrival_body_entered(body):
+func _on_PlayerArrival_body_entered(body) -> void:
 	#Called when the player reached point of arrival
 	if body.is_in_group("player"):
 		Engine.time_scale = 0.01
 		get_node(Global.mainPath).levelComplete()
 
-func placeNewPlater(newPlater : PackedScene):
+func placeNewPlater(newPlater : PackedScene) -> void:
 	if currentPlater != null:
 		currentPlater.get_parent().remove_child(currentPlater)
 		
@@ -245,7 +245,7 @@ func placeNewPlater(newPlater : PackedScene):
 		if availablePlaters[i] == newPlater:
 			availablePlaters[i+1] -= 1
 			
-func onClickedPlater(clickedPlater):
+func onClickedPlater(clickedPlater) -> void:
 	if clickedPlater != currentPlater:
 		$PlaterPlacementPopup.setStalkedSpatial(clickedPlater)
 		$PlaterPlacementPopup.show()
@@ -257,12 +257,12 @@ func hidePlacementGuiStatically() -> void:
 	$PlaterPlacementPopup.hide()
 
 #When the player clicks on the "rotate" button
-func _on_PlaterPlacementPopup_rotationRequested():
+func _on_PlaterPlacementPopup_rotationRequested() -> void:
 	$PlaterPlacementPopup.getStalkedSpatial().on_rotationRequested()
 	hidePlacementGuiStatically()
 
 #When the player clicks on the "translate" button
-func _on_PlaterPlacementPopup_translationRequested():
+func _on_PlaterPlacementPopup_translationRequested() -> void:
 	$PlaterPlacementPopup.getStalkedSpatial().on_translationRequested()
 	
 	currentPlater = $PlaterPlacementPopup.getStalkedSpatial()
@@ -272,14 +272,14 @@ func _on_PlaterPlacementPopup_translationRequested():
 	hidePlacementGuiStatically()
 
 #When the player requests the deletion of the currentPlater
-func _on_PlaterPlacementPopup_deletionRequested():
+func _on_PlaterPlacementPopup_deletionRequested() -> void:
 	$PlaterPlacementPopup.getStalkedSpatial().on_deletionRequested()
 	currentPlater = $PlaterPlacementPopup.getStalkedSpatial()
 	hidePlacementGuiStatically()
 	clearCurrentPlater()
 
 #When the player requests to change the orientation of the Sucker (exclusive to that Plater)
-func _on_PlaterPlacementPopup_suckerOrientation():
+func _on_PlaterPlacementPopup_suckerOrientation() -> void:
 	var targetedSucker = $PlaterPlacementPopup.getStalkedSpatial()
 	targetedSucker.on_suckerOrientationRequested()
 	hidePlacementGuiStatically()
