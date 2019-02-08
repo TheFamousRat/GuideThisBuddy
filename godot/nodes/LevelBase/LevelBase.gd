@@ -280,6 +280,7 @@ func _on_PlaterPlacementPopup_deletionRequested():
 
 #When the player requests to change the orientation of the Sucker (exclusive to that Plater)
 func _on_PlaterPlacementPopup_suckerOrientation():
-	$PlaterPlacementPopup.getStalkedSpatial().on_suckerOrientationRequested()
+	var targetedSucker = $PlaterPlacementPopup.getStalkedSpatial()
+	targetedSucker.on_suckerOrientationRequested()
 	hidePlacementGuiStatically()
 
