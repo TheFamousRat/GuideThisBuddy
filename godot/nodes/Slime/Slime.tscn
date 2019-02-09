@@ -1,19 +1,15 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://nodes/Slime/Slime.gd" type="Script" id=1]
 [ext_resource path="res://assets/Models/Slime/Slime.dae" type="PackedScene" id=2]
 [ext_resource path="res://assets/Models/Slime/Slime enveloppe.material" type="Material" id=3]
 
-[sub_resource type="PhysicsMaterial" id=1]
-
-absorbent = true
-
-[sub_resource type="CapsuleShape" id=2]
+[sub_resource type="CapsuleShape" id=1]
 
 radius = 0.69
 height = 0.54
 
-[sub_resource type="ParticlesMaterial" id=3]
+[sub_resource type="ParticlesMaterial" id=2]
 
 emission_shape = 1
 emission_sphere_radius = 0.2
@@ -22,7 +18,7 @@ angular_velocity = 8.33773e-43
 scale = 0.3
 scale_random = 0.1
 
-[sub_resource type="SphereMesh" id=4]
+[sub_resource type="SphereMesh" id=3]
 
 material = ExtResource( 3 )
 radial_segments = 8
@@ -31,7 +27,6 @@ rings = 4
 [node name="Slime" type="RigidBody" groups=[
 "player",
 ]]
-physics_material_override = SubResource( 1 )
 contacts_reported = 1
 contact_monitor = true
 axis_lock_linear_z = true
@@ -44,15 +39,15 @@ transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( -2.18557e-08, 2.18557e-08, 0.5, 0.5, -2.18557e-08, 2.18557e-08, 2.18557e-08, 0.5, -2.18557e-08, 0, 0.168103, 0 )
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 
 [node name="Particles" type="Particles" parent="."]
 emitting = false
 one_shot = true
 explosiveness = 1.0
 randomness = 0.23
-process_material = SubResource( 3 )
-draw_pass_1 = SubResource( 4 )
+process_material = SubResource( 2 )
+draw_pass_1 = SubResource( 3 )
 
 [connection signal="body_entered" from="." to="." method="_on_Slime_body_entered"]
 [connection signal="animation_finished" from="Model/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

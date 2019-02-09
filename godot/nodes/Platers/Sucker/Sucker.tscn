@@ -10,6 +10,7 @@
 [sub_resource type="CylinderShape" id=1]
 
 radius = 0.847653
+height = 4.0
 
 [node name="Sucker" index="0" instance=ExtResource( 1 )]
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
@@ -30,10 +31,10 @@ transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0151, 0 )
 
 [node name="BodyDetector" type="Area" parent="SuckerMouth" index="0"]
-editor/display_folded = true
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0.929366, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="SuckerMouth/BodyDetector" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0238, 0 )
 shape = SubResource( 1 )
 
 [node name="Target" type="Position3D" parent="SuckerMouth" index="1"]

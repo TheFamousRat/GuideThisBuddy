@@ -1,19 +1,19 @@
 extends "res://nodes/Platers/PlaterBase/PlaterBase.gd"
 
-var suckForce : Vector3 = Vector3(0,0,0)
 var suckStrength : float = 500.0
 var changingOrientation : bool = false
-const ROTATION_INCREMENTS : float = 45.0 *(PI/180)
+var boneTipGlobalCoordinates : Vector3
+const ROTATION_INCREMENTS : float = 30.0 *(PI/180)
 
 signal orientationDone
 
 func _ready():
-	suckForce = ($Origin.get_global_transform().origin - $SuckerMouth/Target.get_global_transform().origin).normalized()
 	changingOrientation = false
 	rotateSuckerMouth(0.0)
 
 func _process(delta):
 	var bodies = $SuckerMouth/BodyDetector.get_overlapping_bodies()
+	var suckForce = (boneTipGlobalCoordinates - $SuckerMouth/Target.get_global_transform().origin).normalized()
 	for i in bodies:
 		if i.is_in_group("player"):
 			i.add_central_force(suckForce * delta * suckStrength)
@@ -47,6 +47,7 @@ func rotateSuckerMouth(targetAngle : float, angleScale : float = 1.0):
 	
 	$SuckerMouth.set_translation(boneTipTransform.orthonormalized().origin)
 	$SuckerMouth.set_rotation(Vector3(0,0,targetAngle/angleScale))
+	boneTipGlobalCoordinates = $SuckerMouth.get_global_transform().origin
 
 func on_suckerOrientationRequested():
 	changingOrientation = true
