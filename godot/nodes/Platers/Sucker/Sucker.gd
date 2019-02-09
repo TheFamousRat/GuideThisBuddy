@@ -3,8 +3,7 @@ extends "res://nodes/Platers/PlaterBase/PlaterBase.gd"
 var suckForce : Vector3 = Vector3(0,0,0)
 var suckStrength : float = 500.0
 var changingOrientation : bool = false
-const ROTATION_INCREMENTS : float = 1.0 *(PI/180)
-const BONE_TIP_SIZE : Vector3 = Vector3(0,1,0)
+const ROTATION_INCREMENTS : float = 45.0 *(PI/180)
 
 signal orientationDone
 
