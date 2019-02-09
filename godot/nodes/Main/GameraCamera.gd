@@ -11,11 +11,11 @@ var zoomFactor = 16.0
 var zoomAllowed : bool
 var target : Spatial setget setTarget
 
-var zoomArrayIndex : int
+var zoomArrayIndex : int = 3
 var zoomArrayPerspective : Array = [2.0,3.0,5.0,8.0,13.0,21.0,34.0]
 
 func _ready():
-	pass
+	zoomArrayIndex = 3
 
 func _process(delta):
 	if target != null:
