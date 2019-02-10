@@ -4,52 +4,58 @@
 [ext_resource path="res://nodes/GUI/PlaterPlacementPopup/PlaterPlacementPopup.gd" type="Script" id=2]
 [ext_resource path="res://assets/GUI/PlatrPlacmntGUIImg.png" type="Texture" id=3]
 
-[sub_resource type="AtlasTexture" id=5]
+[sub_resource type="AtlasTexture" id=1]
 
 flags = 4
 atlas = ExtResource( 3 )
 region = Rect2( 0, 0, 195, 195 )
 
-[sub_resource type="AtlasTexture" id=6]
+[sub_resource type="AtlasTexture" id=2]
 
 flags = 4
 atlas = ExtResource( 3 )
 region = Rect2( 195, 0, 195, 195 )
 
-[sub_resource type="AtlasTexture" id=1]
+[sub_resource type="AtlasTexture" id=3]
 
 flags = 4
 atlas = ExtResource( 3 )
 region = Rect2( 0, 390, 195, 195 )
 
-[sub_resource type="AtlasTexture" id=2]
+[sub_resource type="AtlasTexture" id=4]
 
 flags = 4
 atlas = ExtResource( 3 )
 region = Rect2( 195, 390, 194, 195 )
 
-[sub_resource type="AtlasTexture" id=3]
+[sub_resource type="AtlasTexture" id=5]
 
 flags = 4
 atlas = ExtResource( 3 )
 region = Rect2( 0, 195, 195, 194 )
 
-[sub_resource type="AtlasTexture" id=4]
+[sub_resource type="AtlasTexture" id=6]
 
 flags = 4
 atlas = ExtResource( 3 )
 region = Rect2( 195, 195, 194, 194 )
 
-[node name="PlaterPlacementPopup" instance=ExtResource( 1 )]
+[node name="PlaterPlacementPopup" index="0" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 
-[node name="Tweens" type="Node" parent="." index="0"]
+[node name="ColorRect" type="ColorRect" parent="." index="0"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 1, 1, 1, 0 )
 
-[node name="hidingTimer" type="Timer" parent="." index="1"]
+[node name="Tweens" type="Node" parent="." index="1"]
+
+[node name="hidingTimer" type="Timer" parent="." index="2"]
 wait_time = 0.1
 one_shot = true
 
-[node name="OptionButtons" type="Control" parent="." index="2"]
+[node name="OptionButtons" type="Control" parent="." index="3"]
+editor/display_folded = true
 margin_right = 40.0
 margin_bottom = 40.0
 
@@ -59,8 +65,8 @@ margin_top = 300.0
 margin_right = 642.0
 margin_bottom = 350.0
 rect_scale = Vector2( 0.2, 0.2 )
-texture_normal = SubResource( 5 )
-texture_pressed = SubResource( 6 )
+texture_normal = SubResource( 1 )
+texture_pressed = SubResource( 2 )
 
 [node name="SuckerOrientation" type="TextureButton" parent="OptionButtons" index="1"]
 margin_left = 522.213
@@ -68,8 +74,8 @@ margin_top = 187.566
 margin_right = 717.213
 margin_bottom = 382.566
 rect_scale = Vector2( 0.2, 0.2 )
-texture_normal = SubResource( 1 )
-texture_pressed = SubResource( 2 )
+texture_normal = SubResource( 3 )
+texture_pressed = SubResource( 4 )
 
 [node name="Rotation" type="TextureButton" parent="OptionButtons" index="2"]
 margin_left = 535.277
@@ -77,10 +83,10 @@ margin_top = 390.756
 margin_right = 730.277
 margin_bottom = 584.756
 rect_scale = Vector2( 0.2, 0.2 )
-texture_normal = SubResource( 3 )
-texture_pressed = SubResource( 4 )
+texture_normal = SubResource( 5 )
+texture_pressed = SubResource( 6 )
 
-[node name="Delete" type="Button" parent="." index="3"]
+[node name="Delete" type="Button" parent="." index="4"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -91,6 +97,7 @@ margin_right = 8.5
 margin_bottom = 9.0
 text = "X"
 
+[connection signal="gui_input" from="ColorRect" to="." method="_on_ColorRect_gui_input"]
 [connection signal="timeout" from="hidingTimer" to="." method="closingAnimDone"]
 [connection signal="pressed" from="OptionButtons/Translation" to="." method="_on_Translation_pressed"]
 [connection signal="pressed" from="OptionButtons/SuckerOrientation" to="." method="_on_SuckerOrientation_pressed"]

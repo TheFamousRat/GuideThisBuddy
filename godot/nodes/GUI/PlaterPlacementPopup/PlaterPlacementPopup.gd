@@ -100,3 +100,7 @@ func _on_Delete_pressed():
 
 func _on_SuckerOrientation_pressed():
 	emit_signal("suckerOrientation")
+
+func _on_ColorRect_gui_input(event):
+	if event.is_action_pressed("leftClick"):
+		self.hide()
