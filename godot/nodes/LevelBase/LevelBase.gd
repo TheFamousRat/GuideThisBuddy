@@ -233,8 +233,7 @@ func _on_PlayerArrival_body_entered(body) -> void:
 		get_node(Global.mainPath).levelComplete()
 
 func placeNewPlater(newPlater : PackedScene) -> void:
-	if currentPlater != null:
-		currentPlater.get_parent().remove_child(currentPlater)
+	clearCurrentPlater()
 		
 	currentPlater = newPlater.instance()
 	self.add_child(currentPlater)
@@ -283,4 +282,3 @@ func _on_PlaterPlacementPopup_suckerOrientation() -> void:
 	var targetedSucker = $PlaterPlacementPopup.getStalkedSpatial()
 	targetedSucker.on_suckerOrientationRequested()
 	hidePlacementGuiStatically()
-
