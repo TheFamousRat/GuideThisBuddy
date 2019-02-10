@@ -4,10 +4,10 @@
 [ext_resource path="res://nodes/Platers/Sucker/Sucker.gd" type="Script" id=2]
 [ext_resource path="res://assets/Models/Platers/Sucker/Sucker.dae" type="PackedScene" id=3]
 
-[sub_resource type="BoxShape" id=2]
+[sub_resource type="BoxShape" id=1]
 
 
-[sub_resource type="CylinderShape" id=1]
+[sub_resource type="CylinderShape" id=2]
 
 radius = 0.847653
 height = 4.0
@@ -22,12 +22,9 @@ editor/display_folded = true
 
 [node name="CollisionShape" type="CollisionShape" parent="PlaterPlacementDetection" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.996015, 0 )
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 
-[node name="Model" parent="." index="5" instance=ExtResource( 3 )]
-transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
-
-[node name="SuckerMouth" type="Spatial" parent="." index="6"]
+[node name="SuckerMouth" type="Spatial" parent="." index="4"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0151, 0 )
 
 [node name="BodyDetector" type="Area" parent="SuckerMouth" index="0"]
@@ -35,10 +32,14 @@ transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0.92
 
 [node name="CollisionShape" type="CollisionShape" parent="SuckerMouth/BodyDetector" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0238, 0 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="Target" type="Position3D" parent="SuckerMouth" index="1"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.32084, 0 )
+
+[node name="Model" parent="." index="5" instance=ExtResource( 3 )]
+editor/display_folded = true
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
 
 
 [editable path="Model"]
