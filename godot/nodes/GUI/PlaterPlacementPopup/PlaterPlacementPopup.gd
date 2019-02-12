@@ -51,7 +51,8 @@ func _process(delta):
 	if get_viewport().get_camera().get_projection() == Camera.PROJECTION_ORTHOGONAL:
 		self.set_scale(Vector2(1,1)*8.0/get_viewport().get_camera().get_size())
 	else:
-		self.set_scale(Vector2(1,1)*16.0/get_viewport().get_camera().getTargetDist())
+		if get_viewport().get_camera().has_method("getTargetDist"):
+			self.set_scale(Vector2(1,1)*16.0/get_viewport().get_camera().getTargetDist())
 
 func show():
 	self.set_visible(true)
