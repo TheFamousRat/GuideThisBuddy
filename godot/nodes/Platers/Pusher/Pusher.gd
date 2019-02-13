@@ -4,7 +4,22 @@ export (float) var extensionSpeed = 100.0 #Time it takes the bumper to fully ext
 export (float) var extendedStateDuration  = 0.5 #Time the bumper spends extended
 export (float) var pushForce = 20.0
 
+const ROTATION_INCREMENTS : float = 90.0 * (PI/180)
+
+enum ROTATION {
+	LEFT,
+	CENTER,
+	RIGHT
+}
+
+var rotationTransform : Transform = Transform.IDENTITY
+var changingOrientation : bool = false
+var rotationState : int = ROTATION.CENTER
+
 func _ready():
+	rotationState = ROTATION.CENTER
+	rotationTransform = Transform.IDENTITY
+	changingOrientation = false
 	$ExtendedTimer.wait_time = extendedStateDuration
 
 func _on_ExtendedTimer_timeout():
@@ -19,5 +34,47 @@ func _on_BodyDetector_body_entered(body):
 func _on_Collisions_input_event(camera, event, click_position, click_normal, shape_idx):
 	._on_PlaterPlacementDetection_input_event(camera, event, click_position, click_normal, shape_idx)
 
+func _input(event):
+	if changingOrientation:
+		if event is InputEventMouseMotion:
+			
+			self.addTransform(rotationTransform.inverse())
+			
+			var originOnScreen : Vector2 = get_viewport().get_camera().unproject_position($Origin.get_global_transform().origin)
+			var upOnScreen : Vector2 = get_viewport().get_camera().unproject_position($Up.get_global_transform().origin)
+			var mousePos : Vector2 = get_viewport().get_mouse_position()
+			var mouseAngle : float = (mousePos - originOnScreen).angle_to(upOnScreen - originOnScreen)
+			var angleScale : float = 1.4
+			mouseAngle *= angleScale
+			
+			mouseAngle = ROTATION_INCREMENTS*int(mouseAngle/ROTATION_INCREMENTS)
+			mouseAngle = max(-PI/2,min(PI/2,mouseAngle))
+			
+			rotationTransform = Transform.IDENTITY
+			rotationTransform = rotationTransform.rotated(Vector3(0,0,1), mouseAngle)
+			
+			if mouseAngle > 0.0:
+				rotationTransform = rotationTransform.translated(0.25*($LeftBase.get_translation() - $Base.get_translation()))
+				rotationState = ROTATION.LEFT
+			elif mouseAngle == 0.0:
+				rotationState = ROTATION.CENTER
+			elif mouseAngle < 0.0:
+				rotationTransform = rotationTransform.translated(0.25*($RightBase.get_translation() - $Base.get_translation()))
+				rotationState = ROTATION.RIGHT
+			
+			self.addTransform(rotationTransform)
+			
+		elif event.is_action_pressed("leftClick"):
+			changingOrientation = false
+
+func addTransform(transformToAdd : Transform) -> void:
+	self.set_transform(self.get_transform() * transformToAdd)
+	$Up.set_transform($Up.get_transform() * transformToAdd.inverse())
+	$Origin.set_transform($Origin.get_transform() * transformToAdd.inverse())
+	$Base.set_transform($Base.get_transform() * transformToAdd.inverse())
+
+func on_translationRequested():
+	addTransform(rotationTransform.inverse())
+
 func on_rotationRequested():
-	print("yup")
+	changingOrientation = true

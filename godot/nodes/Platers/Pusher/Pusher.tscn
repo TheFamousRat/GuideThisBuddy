@@ -72,10 +72,16 @@ material/0 = ExtResource( 4 )
 material/0 = ExtResource( 4 )
 material/1 = ExtResource( 5 )
 
-[node name="Base" parent="." index="5"]
+[node name="LeftBase" type="Position3D" parent="." index="5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.01422, -0.659062, 0 )
+
+[node name="Base" parent="." index="6"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.30275, 0 )
 
-[node name="Collisions" type="StaticBody" parent="." index="8"]
+[node name="RightBase" type="Position3D" parent="." index="7"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.014, -0.659, 0 )
+
+[node name="Collisions" type="StaticBody" parent="." index="10"]
 editor/display_folded = true
 
 [node name="CollisionShape" type="CollisionShape" parent="Collisions" index="0"]
