@@ -30,22 +30,21 @@ func _input(event):
 			mouseAngle = ROTATION_INCREMENTS*int(mouseAngle/ROTATION_INCREMENTS)
 			mouseAngle = max(-3*PI/4,min(3*PI/4,mouseAngle))
 			
-			rotateSuckerMouth(mouseAngle, angleScale)
+			rotateSuckerMouth(mouseAngle)
 			
 		elif event.is_action_pressed("leftClick"):
 			changingOrientation = false
 
-func rotateSuckerMouth(targetAngle : float, angleScale : float = 1.0):
+func rotateSuckerMouth(targetAngle : float):
 	var rotatedTransform : Transform = Transform.IDENTITY
 	rotatedTransform = rotatedTransform.rotated(Vector3(0,1,0), targetAngle/3)
 	for i in range(1,3):
 		$Model/Armature/Skeleton.set_bone_pose(i, rotatedTransform)
 	
 	var boneTipTransform : Transform = $Model.get_transform() * $Model/Armature/Skeleton.get_bone_global_pose(4)
-	var magicShit : float = 3.25 + angleScale * (0.5 * angleScale - 2.25)
 	
 	$SuckerMouth.set_translation(boneTipTransform.orthonormalized().origin)
-	$SuckerMouth.set_rotation(Vector3(0,0,targetAngle/(magicShit*angleScale)))
+	$SuckerMouth.set_rotation(Vector3(0,0,targetAngle/1.5))
 	boneTipGlobalCoordinates = $SuckerMouth.get_global_transform().origin
 
 func on_suckerOrientationRequested():
