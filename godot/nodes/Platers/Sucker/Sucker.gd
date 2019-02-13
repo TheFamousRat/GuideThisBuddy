@@ -5,8 +5,6 @@ var changingOrientation : bool = false
 var boneTipGlobalCoordinates : Vector3
 const ROTATION_INCREMENTS : float = 30.0 *(PI/180)
 
-signal orientationDone
-
 func _ready():
 	changingOrientation = false
 	rotateSuckerMouth(0.0)
@@ -35,7 +33,6 @@ func _input(event):
 			rotateSuckerMouth(mouseAngle, angleScale)
 			
 		elif event.is_action_pressed("leftClick"):
-			emit_signal("orientationDone")
 			changingOrientation = false
 
 func rotateSuckerMouth(targetAngle : float, angleScale : float = 1.0):
