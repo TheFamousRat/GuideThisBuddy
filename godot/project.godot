@@ -34,10 +34,6 @@ gdscript/warnings/return_value_discarded=false
 
 enabled=PoolStringArray( "codeandweb.texturepacker" )
 
-[gui]
-
-theme/custom_font="res://assets/fonts/Blockheads24.tres"
-
 [importer_defaults]
 
 texture={

@@ -13,11 +13,13 @@ enum ROTATION {
 }
 
 var rotationTransform : Transform = Transform.IDENTITY
+var addedTranslation : Vector3 = Vector3(0,0,0)
 var changingOrientation : bool = false
 var rotationState : int = ROTATION.CENTER
 
 func _ready():
 	rotationState = ROTATION.CENTER
+	addedTranslation = Vector3(0,0,0)
 	rotationTransform = Transform.IDENTITY
 	changingOrientation = false
 	$ExtendedTimer.wait_time = extendedStateDuration
@@ -37,11 +39,10 @@ func _on_Collisions_input_event(camera, event, click_position, click_normal, sha
 func _input(event):
 	if changingOrientation:
 		if event is InputEventMouseMotion:
-			
 			self.addTransform(rotationTransform.inverse())
 			
-			var originOnScreen : Vector2 = get_viewport().get_camera().unproject_position($Origin.get_global_transform().origin)
-			var upOnScreen : Vector2 = get_viewport().get_camera().unproject_position($Up.get_global_transform().origin)
+			var originOnScreen : Vector2 = get_viewport().get_camera().unproject_position(self.to_global(Vector3(0,0,0)))
+			var upOnScreen : Vector2 = get_viewport().get_camera().unproject_position(self.to_global(Vector3(0,1,0)))
 			var mousePos : Vector2 = get_viewport().get_mouse_position()
 			var mouseAngle : float = (mousePos - originOnScreen).angle_to(upOnScreen - originOnScreen)
 			var angleScale : float = 1.4
@@ -62,19 +63,16 @@ func _input(event):
 				rotationTransform = rotationTransform.translated(0.25*($RightBase.get_translation() - $Base.get_translation()))
 				rotationState = ROTATION.RIGHT
 			
+			addedTranslation = rotationTransform.origin
 			self.addTransform(rotationTransform)
 			
 		elif event.is_action_pressed("leftClick"):
 			changingOrientation = false
 
+#Method applying a new Transform on everything, but the Origin, Base and Up points
 func addTransform(transformToAdd : Transform) -> void:
 	self.set_transform(self.get_transform() * transformToAdd)
-	$Up.set_transform($Up.get_transform() * transformToAdd.inverse())
-	$Origin.set_transform($Origin.get_transform() * transformToAdd.inverse())
 	$Base.set_transform($Base.get_transform() * transformToAdd.inverse())
-
-func on_translationRequested():
-	addTransform(rotationTransform.inverse())
 
 func on_rotationRequested():
 	changingOrientation = true

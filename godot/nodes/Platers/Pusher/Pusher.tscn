@@ -13,15 +13,15 @@
 
 gradient = SubResource( 1 )
 
-[sub_resource type="BoxShape" id=4]
+[sub_resource type="BoxShape" id=3]
 
 extents = Vector3( 0.97, 0.87, 0.97 )
 
-[sub_resource type="BoxShape" id=5]
+[sub_resource type="BoxShape" id=4]
 
 extents = Vector3( 0.5, 0.233204, 0.5 )
 
-[sub_resource type="BoxShape" id=3]
+[sub_resource type="BoxShape" id=5]
 
 extents = Vector3( 1, 0.82, 1 )
 
@@ -37,7 +37,7 @@ editor/display_folded = true
 
 [node name="CollisionShape" type="CollisionShape" parent="PlaterPlacementDetection" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.42521, 0 )
-shape = SubResource( 4 )
+shape = SubResource( 3 )
 
 [node name="BodyDetector" type="Area" parent="." index="1"]
 editor/display_folded = true
@@ -46,7 +46,7 @@ collision_mask = 2
 
 [node name="CollisionShape" type="CollisionShape" parent="BodyDetector" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.08138, 0 )
-shape = SubResource( 5 )
+shape = SubResource( 4 )
 
 [node name="ExtendedTimer" type="Timer" parent="." index="2"]
 wait_time = 0.5
@@ -81,12 +81,12 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.30275, 0 )
 [node name="RightBase" type="Position3D" parent="." index="7"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.014, -0.659, 0 )
 
-[node name="Collisions" type="StaticBody" parent="." index="10"]
+[node name="Collisions" type="StaticBody" parent="." index="8"]
 editor/display_folded = true
 
 [node name="CollisionShape" type="CollisionShape" parent="Collisions" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.458146, 0 )
-shape = SubResource( 3 )
+shape = SubResource( 5 )
 
 [connection signal="body_entered" from="BodyDetector" to="." method="_on_BodyDetector_body_entered"]
 [connection signal="timeout" from="ExtendedTimer" to="." method="_on_ExtendedTimer_timeout"]

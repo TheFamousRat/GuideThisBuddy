@@ -35,14 +35,14 @@ func get_class() -> String:
 	return "PlaterBase"
 	
 func getBaseOffset() -> Vector3:
-	return $Base.get_translation() - $Origin.get_translation()
+	return $Base.get_translation()
 	
 func getUpVectorDirection() -> Vector3:
-	return ($Up.get_translation() - $Origin.get_translation()).normalized()
+	return (self.get_transform() * Vector3(0,1,0)).normalized()
 	
 func getRotatedUpVectorDirection() -> Vector3:
-	return ($Up.get_global_transform().origin - $Origin.get_global_transform().origin).normalized()
-	
+	return (to_global(Vector3(0,1,0)) - to_global(Vector3(0,0,0))).normalized()
+
 func resetRotation() -> void:
 	#Resets the rotation to what the plater had in the editor
 	self.set_rotation(initialRotation)
