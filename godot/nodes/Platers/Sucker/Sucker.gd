@@ -20,11 +20,11 @@ func _process(delta):
 func _input(event):
 	if changingOrientation:
 		if event is InputEventMouseMotion:
-			var originOnScreen : Vector2 = get_viewport().get_camera().unproject_position($Origin.get_global_transform().origin)
-			var upOnScreen : Vector2 = get_viewport().get_camera().unproject_position($Up.get_global_transform().origin)
+			var originOnScreen : Vector2 = get_viewport().get_camera().unproject_position(to_global(Vector3(0,0,0)))
+			var upOnScreen : Vector2 = get_viewport().get_camera().unproject_position(to_global(Vector3(0,1,0)))
 			var mousePos : Vector2 = get_viewport().get_mouse_position()
 			var mouseAngle : float = (mousePos - originOnScreen).angle_to(upOnScreen - originOnScreen)
-			var angleScale : float = 1.4
+			var angleScale : float = 2.0
 			mouseAngle *= angleScale
 			
 			mouseAngle = ROTATION_INCREMENTS*int(mouseAngle/ROTATION_INCREMENTS)
@@ -44,7 +44,7 @@ func rotateSuckerMouth(targetAngle : float, angleScale : float = 1.0):
 	var boneTipTransform : Transform = $Model.get_transform() * $Model/Armature/Skeleton.get_bone_global_pose(4)
 	
 	$SuckerMouth.set_translation(boneTipTransform.orthonormalized().origin)
-	$SuckerMouth.set_rotation(Vector3(0,0,targetAngle/angleScale))
+	$SuckerMouth.set_rotation(Vector3(0,0,targetAngle/(0.75*angleScale)))
 	boneTipGlobalCoordinates = $SuckerMouth.get_global_transform().origin
 
 func on_suckerOrientationRequested():

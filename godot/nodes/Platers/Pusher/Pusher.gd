@@ -53,17 +53,6 @@ func _input(event):
 			
 			rotationTransform = Transform.IDENTITY
 			rotationTransform = rotationTransform.rotated(Vector3(0,0,1), mouseAngle)
-			
-			if mouseAngle > 0.0:
-				rotationTransform = rotationTransform.translated(0.25*($LeftBase.get_translation() - $Base.get_translation()))
-				rotationState = ROTATION.LEFT
-			elif mouseAngle == 0.0:
-				rotationState = ROTATION.CENTER
-			elif mouseAngle < 0.0:
-				rotationTransform = rotationTransform.translated(0.25*($RightBase.get_translation() - $Base.get_translation()))
-				rotationState = ROTATION.RIGHT
-			
-			addedTranslation = rotationTransform.origin
 			self.addTransform(rotationTransform)
 			
 		elif event.is_action_pressed("leftClick"):
@@ -72,7 +61,6 @@ func _input(event):
 #Method applying a new Transform on everything, but the Origin, Base and Up points
 func addTransform(transformToAdd : Transform) -> void:
 	self.set_transform(self.get_transform() * transformToAdd)
-	$Base.set_transform($Base.get_transform() * transformToAdd.inverse())
 
 func on_rotationRequested():
 	changingOrientation = true
