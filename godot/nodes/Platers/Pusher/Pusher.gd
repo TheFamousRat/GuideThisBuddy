@@ -16,3 +16,8 @@ func _on_BodyDetector_body_entered(body):
 		$Model/AnimationPlayer.play("default", -1, extensionSpeed)
 		$ExtendedTimer.start()
 
+func _on_Collisions_input_event(camera, event, click_position, click_normal, shape_idx):
+	._on_PlaterPlacementDetection_input_event(camera, event, click_position, click_normal, shape_idx)
+
+func on_rotationRequested():
+	print("yup")
