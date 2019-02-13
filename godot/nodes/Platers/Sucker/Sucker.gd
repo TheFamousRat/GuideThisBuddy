@@ -42,9 +42,10 @@ func rotateSuckerMouth(targetAngle : float, angleScale : float = 1.0):
 		$Model/Armature/Skeleton.set_bone_pose(i, rotatedTransform)
 	
 	var boneTipTransform : Transform = $Model.get_transform() * $Model/Armature/Skeleton.get_bone_global_pose(4)
+	var magicShit : float = 3.25 + angleScale * (0.5 * angleScale - 2.25)
 	
 	$SuckerMouth.set_translation(boneTipTransform.orthonormalized().origin)
-	$SuckerMouth.set_rotation(Vector3(0,0,targetAngle/(0.75*angleScale)))
+	$SuckerMouth.set_rotation(Vector3(0,0,targetAngle/(magicShit*angleScale)))
 	boneTipGlobalCoordinates = $SuckerMouth.get_global_transform().origin
 
 func on_suckerOrientationRequested():
