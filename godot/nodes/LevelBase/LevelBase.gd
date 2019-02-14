@@ -165,12 +165,12 @@ func _input(event) -> void:
 			if event.is_action_pressed("leftClick") and positionEvaluated and positionSafe:
 				#We release this action so that the Game doesn't consider the player clicked the Plater right away
 				Input.action_release("leftClick")
-				var nextPlater = currentPlater.duplicate()
+				var nextPlater = currentPlater.clone()
 				
 				#We move the plater so that its parent potential Transform doesn't affect the position at which the player desired to place it
 				nextPlater.set_translation(get_node(currentPotentialParent).to_local(nextPlater.get_translation()))
 				nextPlater.set_rotation(nextPlater.get_rotation() - get_node(currentPotentialParent).get_global_transform().basis.get_euler())
-				
+
 				#We then add the Plater to its new parent
 				get_node(currentPotentialParent).add_child(nextPlater)
 				nextPlater.setDisabledPlater(true)
