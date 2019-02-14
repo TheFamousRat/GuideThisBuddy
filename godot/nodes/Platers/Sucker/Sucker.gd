@@ -43,7 +43,6 @@ func _input(event):
 			changingOrientation = false
 
 func rotateSuckerMouth(targetAngle : float):
-	print(targetAngle)
 	var rotatedTransform : Transform = Transform.IDENTITY
 	rotatedTransform = rotatedTransform.rotated(Vector3(0,1,0), targetAngle/3)
 	for i in range(1,3):
