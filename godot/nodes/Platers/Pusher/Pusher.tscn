@@ -1,29 +1,22 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://nodes/Platers/PlaterBase/PlaterBase.tscn" type="PackedScene" id=1]
 [ext_resource path="res://nodes/Platers/Pusher/Pusher.gd" type="Script" id=2]
 [ext_resource path="res://assets/Models/Platers/Pusher/Pusher.dae" type="PackedScene" id=3]
-[ext_resource path="res://assets/Models/Platers/Pusher/Pusher metal.material" type="Material" id=4]
-[ext_resource path="res://assets/Models/Platers/Pusher/Pusher wood.material" type="Material" id=5]
 
 [sub_resource type="Gradient" id=1]
 
-
 [sub_resource type="GradientTexture" id=2]
-
 gradient = SubResource( 1 )
 
 [sub_resource type="BoxShape" id=3]
-
-extents = Vector3( 0.97, 0.87, 0.97 )
+extents = Vector3( 1, 0.82, 1 )
 
 [sub_resource type="BoxShape" id=4]
-
-extents = Vector3( 0.5, 0.233204, 0.5 )
+extents = Vector3( 0.97, 0.87, 0.97 )
 
 [sub_resource type="BoxShape" id=5]
-
-extents = Vector3( 1, 0.82, 1 )
+extents = Vector3( 0.5, 0.233204, 0.5 )
 
 [node name="Pusher" index="0" instance=ExtResource( 1 )]
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
@@ -32,64 +25,52 @@ GUI_Illustration = SubResource( 2 )
 enabledTranslation = true
 enabledRotation = true
 
-[node name="PlaterPlacementDetection" parent="." index="0"]
+[node name="ExtendedTimer" type="Timer" parent="." index="1"]
+wait_time = 0.5
+one_shot = true
+
+[node name="RotatedPart" type="Spatial" parent="." index="2"]
+
+[node name="RightBase" type="Position3D" parent="RotatedPart" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.014, -0.659, 0 )
+
+[node name="Collisions" type="StaticBody" parent="RotatedPart" index="1"]
 editor/display_folded = true
 
-[node name="CollisionShape" type="CollisionShape" parent="PlaterPlacementDetection" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.42521, 0 )
+[node name="CollisionShape" type="CollisionShape" parent="RotatedPart/Collisions" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.458146, 0 )
 shape = SubResource( 3 )
 
-[node name="BodyDetector" type="Area" parent="." index="1"]
+[node name="LeftBase" type="Position3D" parent="RotatedPart" index="2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.01422, -0.659062, 0 )
+
+[node name="PlaterPlacementDetection" type="Area" parent="RotatedPart" index="3"]
+editor/display_folded = true
+input_ray_pickable = true
+
+[node name="CollisionShape" type="CollisionShape" parent="RotatedPart/PlaterPlacementDetection" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.42521, 0 )
+shape = SubResource( 4 )
+
+[node name="BodyDetector" type="Area" parent="RotatedPart" index="4"]
 editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.426206, 0 )
 collision_mask = 2
 
-[node name="CollisionShape" type="CollisionShape" parent="BodyDetector" index="0"]
+[node name="CollisionShape" type="CollisionShape" parent="RotatedPart/BodyDetector" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.08138, 0 )
-shape = SubResource( 4 )
-
-[node name="ExtendedTimer" type="Timer" parent="." index="2"]
-wait_time = 0.5
-one_shot = true
-
-[node name="Position3D" type="Position3D" parent="." index="3"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
-
-[node name="Model" parent="." index="4" instance=ExtResource( 3 )]
-editor/display_folded = true
-
-[node name="Pusher" parent="Model/Armature" index="0"]
-material/0 = ExtResource( 4 )
-material/1 = ExtResource( 5 )
-
-[node name="Slider001" parent="Model/Armature" index="1"]
-material/0 = ExtResource( 4 )
-
-[node name="Slider" parent="Model/Armature" index="2"]
-material/0 = ExtResource( 4 )
-
-[node name="Base" parent="Model/Armature" index="3"]
-material/0 = ExtResource( 4 )
-material/1 = ExtResource( 5 )
-
-[node name="LeftBase" type="Position3D" parent="." index="5"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.01422, -0.659062, 0 )
-
-[node name="Base" parent="." index="6"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.30275, 0 )
-
-[node name="RightBase" type="Position3D" parent="." index="7"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.014, -0.659, 0 )
-
-[node name="Collisions" type="StaticBody" parent="." index="8"]
-editor/display_folded = true
-
-[node name="CollisionShape" type="CollisionShape" parent="Collisions" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.458146, 0 )
 shape = SubResource( 5 )
 
-[connection signal="body_entered" from="BodyDetector" to="." method="_on_BodyDetector_body_entered"]
-[connection signal="timeout" from="ExtendedTimer" to="." method="_on_ExtendedTimer_timeout"]
-[connection signal="input_event" from="Collisions" to="." method="_on_Collisions_input_event"]
+[node name="Position3D" type="Position3D" parent="RotatedPart" index="5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 
-[editable path="Model"]
+[node name="Model" parent="RotatedPart" index="6" instance=ExtResource( 3 )]
+editor/display_folded = true
+
+[node name="Base" parent="." index="3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.30275, 0 )
+
+[connection signal="timeout" from="ExtendedTimer" to="." method="_on_ExtendedTimer_timeout"]
+[connection signal="input_event" from="RotatedPart/Collisions" to="." method="_on_Collisions_input_event"]
+[connection signal="input_event" from="RotatedPart/PlaterPlacementDetection" to="." method="_on_PlaterPlacementDetection_input_event"]
+[connection signal="body_entered" from="RotatedPart/BodyDetector" to="." method="_on_BodyDetector_body_entered"]

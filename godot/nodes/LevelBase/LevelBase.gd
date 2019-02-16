@@ -46,7 +46,7 @@ func _physics_process(delta) -> void:
 			positionSafe = true
 			
 			for i in currentPlater.getPlaterPlacementDetectionArea().get_overlapping_areas():
-				if i.get_name() == "PlaterPlacementDetection":
+				if i.get_name() == "PlaterPlacementDetection" and i.get_owner() != currentPlater:
 					positionSafe = false
 					break
 
