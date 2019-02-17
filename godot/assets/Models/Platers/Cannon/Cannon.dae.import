@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/Cannon_separated.dae-45640c3c176cc62c22bd67e16baf5406.scn"
+path="res://.import/Cannon.dae-3a913a53f4df6ac90324037c5d36965f.scn"
 
 [deps]
 
-source_file="res://assets/Models/Platers/Cannon/Cannon_separated.dae"
-dest_files=[ "res://.import/Cannon_separated.dae-45640c3c176cc62c22bd67e16baf5406.scn" ]
+source_file="res://assets/Models/Platers/Cannon/Cannon.dae"
+dest_files=[ "res://.import/Cannon.dae-3a913a53f4df6ac90324037c5d36965f.scn" ]
 
 [params]
 
