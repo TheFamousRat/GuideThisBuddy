@@ -26,7 +26,7 @@ func clone():
 	return copy
 
 func _on_ExtendedTimer_timeout():
-	$Model/AnimationPlayer.play_backwards("default")
+	$RotatedPart/Model/AnimationPlayer.play_backwards("default")
 
 func _on_BodyDetector_body_entered(body):
 	if body is RigidBody and !disabled:
