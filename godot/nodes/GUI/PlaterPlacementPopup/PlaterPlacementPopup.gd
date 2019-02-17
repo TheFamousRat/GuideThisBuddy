@@ -42,9 +42,9 @@ func setStalkedSpatial(newSpatial):
 	.setStalkedSpatial(newSpatial)
 	#Update the visibility parameters of the childs
 	if newSpatial.get_class() == "PlaterBase":
-		$OptionButtons/Translation.set_visible(newSpatial.enabledTranslation)
-		$OptionButtons/Rotation.set_visible(newSpatial.enabledRotation)
-		$OptionButtons/SuckerOrientation.set_visible(newSpatial.get_filename().to_upper().find("SUCKER") != -1)
+		$OptionButtons/Translation.set_visible(newSpatial.has_method("on_translationRequested"))
+		$OptionButtons/Rotation.set_visible(newSpatial.has_method("on_rotationRequested"))
+		$OptionButtons/SuckerOrientation.set_visible(newSpatial.has_method("on_suckerOrientationRequested"))
 	updateVisibleChildrenCount()
 	
 func _process(delta):

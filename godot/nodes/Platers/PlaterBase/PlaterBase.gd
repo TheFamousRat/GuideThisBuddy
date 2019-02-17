@@ -1,8 +1,6 @@
 extends Spatial
 
 export (Texture) var GUI_Illustration
-export (bool) var enabledTranslation = false
-export (bool) var enabledRotation = false
 export (Material) var wrongPlacementMaterial
 export (Material) var goodPlacementMaterial
 
@@ -20,9 +18,6 @@ func _ready() -> void:
 	
 func on_translationRequested() ->  void:
 	self.setGoodPlacementShaders()
-	self.setDisabledPlater(true)
-
-func on_rotationRequested() -> void:
 	self.setDisabledPlater(true)
 	
 func on_deletionRequested() -> void:
