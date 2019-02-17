@@ -27,10 +27,7 @@ func _process(delta):
 func _input(event):
 	if changingOrientation:
 		if event is InputEventMouseMotion:
-			var originOnScreen : Vector2 = get_viewport().get_camera().unproject_position(to_global(Vector3(0,0,0)))
-			var upOnScreen : Vector2 = get_viewport().get_camera().unproject_position(to_global(Vector3(0,1,0)))
-			var mousePos : Vector2 = get_viewport().get_mouse_position()
-			var mouseAngle : float = (mousePos - originOnScreen).angle_to(upOnScreen - originOnScreen)
+			var mouseAngle : float = Global.mouseOnScreenAngleWithSpatial(self, Vector3(0,0,0), Vector3(0,1,0))
 			
 			mouseAngle *= 2.0
 			mouseAngle = ROTATION_INCREMENTS*int(mouseAngle/ROTATION_INCREMENTS)

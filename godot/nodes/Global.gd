@@ -66,3 +66,11 @@ func setPlaterMaterial(plater, newMaterial : Material):#Sets all the materials o
 
 func restorePlaterMaterials(plater):
 	Global.setPlaterMaterial(plater, null)
+	
+#The angle between the Up Vector of a Spatial and the mouse (on-screen angle)
+func mouseOnScreenAngleWithSpatial(spat : Spatial, localOrigin : Vector3, localUp : Vector3) -> float:
+	var originOnScreen : Vector2 = get_viewport().get_camera().unproject_position(spat.to_global(localOrigin))
+	var upOnScreen : Vector2 = get_viewport().get_camera().unproject_position(spat.to_global(localUp))
+	var mousePos : Vector2 = get_viewport().get_mouse_position()
+	
+	return (mousePos - originOnScreen).angle_to(upOnScreen - originOnScreen)
