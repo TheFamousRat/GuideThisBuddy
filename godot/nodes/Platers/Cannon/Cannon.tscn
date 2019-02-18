@@ -61,10 +61,11 @@ editor/display_folded = true
 transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.575, 0, 0 )
 shape = SubResource( 4 )
 
-[node name="Position3D" type="Position3D" parent="RotatedPart" index="1"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.517, 0, 0 )
+[node name="CannonMouth" type="Position3D" parent="RotatedPart" index="1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.47099, 0, 0 )
 
 [node name="StaticBody" type="StaticBody" parent="RotatedPart" index="2"]
+editor/display_folded = true
 
 [node name="CollisionShape" type="CollisionShape" parent="RotatedPart/StaticBody" index="0"]
 transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
