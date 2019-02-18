@@ -4,6 +4,8 @@ export (float) var cannonForce = 100.0
 
 var rotatingCannon : bool = false
 const ROTATION_INCREMENTS : float  = 10.0 * (PI/180)
+var fixedCannonAngle : float
+var rotatingCannonAngle : float
 
 func clone():
 	var ret = self.duplicate()
@@ -23,11 +25,19 @@ func _input(event):
 			mouseAngle = ROTATION_INCREMENTS*int(mouseAngle/ROTATION_INCREMENTS)
 			mouseAngle = max(-3*PI/18,min(3*PI/18,mouseAngle))
 			
-			var rotationTransform : Transform = Transform.IDENTITY
-			$Model/Armature/Skeleton.set_bone_pose(1, rotationTransform.rotated(Vector3(1,0,0), mouseAngle))
-			$RotatedPart.set_rotation(rotationTransform.rotated(Vector3(0,0,1), mouseAngle).basis.get_euler())
+			rotateCannon(mouseAngle)
+			rotatingCannonAngle = mouseAngle
 		elif event.is_action_pressed("leftClick"):
 			rotatingCannon = false
+			fixedCannonAngle = rotatingCannonAngle
+		elif event.is_action_pressed("rightClick"):
+			rotatingCannon = false
+			rotateCannon(fixedCannonAngle)
 
-func on_rotationRequested():
+func on_rotationRequested() -> void:
 	rotatingCannon = true
+	
+func rotateCannon(angle : float) -> void:
+	var rotationTransform : Transform = Transform.IDENTITY
+	$Model/Armature/Skeleton.set_bone_pose(1, rotationTransform.rotated(Vector3(1,0,0), angle))
+	$RotatedPart.set_rotation(rotationTransform.rotated(Vector3(0,0,1), angle).basis.get_euler())
