@@ -4,11 +4,17 @@ export (float) var cannonForce = 100.0
 
 var rotatingCannon : bool = false
 const ROTATION_INCREMENTS : float  = 10.0 * (PI/180)
-var fixedCannonAngle : float
-var rotatingCannonAngle : float
+var fixedCannonAngle : float = 0.0
+var rotatingCannonAngle : float = 0.0
+
+func _ready():
+	rotatingCannon = false
+	rotateCannon(fixedCannonAngle)
 
 func clone():
 	var ret = self.duplicate()
+	ret.fixedCannonAngle = self.fixedCannonAngle
+	ret.rotatingCannon = false
 	return ret
 
 func _on_BodyDetector_body_entered(body):
