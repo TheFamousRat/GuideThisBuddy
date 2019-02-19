@@ -39,5 +39,5 @@ func on_rotationRequested() -> void:
 	
 func rotateCannon(angle : float) -> void:
 	var rotationTransform : Transform = Transform.IDENTITY
-	$Model/Armature/Skeleton.set_bone_pose(1, rotationTransform.rotated(Vector3(1,0,0), angle))
+	$Model/Armature.set_bone_pose(1, rotationTransform.rotated(Vector3(1,0,0), angle))
 	$RotatedPart.set_rotation(rotationTransform.rotated(Vector3(0,0,1), angle).basis.get_euler())
