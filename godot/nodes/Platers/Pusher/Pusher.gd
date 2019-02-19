@@ -12,10 +12,9 @@ enum ROTATION {
 	RIGHT
 }
 
-var rotationTransform : Transform = Transform.IDENTITY
-var addedTranslation : Vector3 = Vector3(0,0,0)
 var changingOrientation : bool = false
-var rotationState : int = ROTATION.CENTER
+var fixedRotationState : int = ROTATION.CENTER
+var rotatingRotationState : int = ROTATION.CENTER
 
 func _ready():
 	changingOrientation = false
@@ -49,12 +48,26 @@ func _input(event):
 			mouseAngle = ROTATION_INCREMENTS*int(mouseAngle/ROTATION_INCREMENTS)
 			mouseAngle = max(-PI/2,min(PI/2,mouseAngle))
 			
-			rotationTransform = Transform.IDENTITY
-			rotationTransform = rotationTransform.rotated(Vector3(0,0,1), mouseAngle)
-			$RotatedPart.set_transform(rotationTransform)
+			rotatingRotationState = (mouseAngle/(PI/2))+1.0
+			rotatePusher(rotatingRotationState)
 			
 		elif event.is_action_pressed("leftClick"):
 			changingOrientation = false
+			fixedRotationState = rotatingRotationState
+		elif event.is_action_pressed("rightClick"):
+			changingOrientation = false
+			rotatePusher(fixedRotationState)
 
 func on_rotationRequested():
 	changingOrientation = true
+
+func rotatePusher(newRotation : int):
+	match newRotation:
+		ROTATION.LEFT:
+			$RotatedPart.set_transform(Transform.IDENTITY.rotated(Vector3(0,0,1), -PI/2.0))
+		ROTATION.CENTER:
+			$RotatedPart.set_transform(Transform.IDENTITY.rotated(Vector3(0,0,1), 0.0))
+		ROTATION.RIGHT:
+			$RotatedPart.set_transform(Transform.IDENTITY.rotated(Vector3(0,0,1), PI/2.0))
+		_:
+			print("Error : unhandled rotation position in Sucker (received argument : " + str(newRotation) + ")")
