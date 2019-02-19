@@ -3,16 +3,17 @@ extends "res://nodes/Platers/PlaterBase/PlaterBase.gd"
 var suckStrength : float = 1000.0
 var changingOrientation : bool = false
 var boneTipGlobalCoordinates : Vector3
-var mouthAngle : float = 0.0
+var fixedMouthAngle : float = 0.0
+var rotatingMouthAngle : float = 0.0
 const ROTATION_INCREMENTS : float = 30.0 *(PI/180)
 
 func _ready():
 	changingOrientation = false
-	rotateSuckerMouth(mouthAngle)
+	rotateSuckerMouth(fixedMouthAngle)
 
 func clone():
 	var copy = self.duplicate()
-	copy.mouthAngle = self.mouthAngle
+	copy.fixedMouthAngle = self.fixedMouthAngle
 	copy.changingOrientation = false
 	return copy
 
@@ -32,12 +33,16 @@ func _input(event):
 			mouseAngle *= 2.0
 			mouseAngle = ROTATION_INCREMENTS*int(mouseAngle/ROTATION_INCREMENTS)
 			mouseAngle = max(-3*PI/4,min(3*PI/4,mouseAngle))
-			mouthAngle = mouseAngle
+			rotatingMouthAngle = mouseAngle
 			
-			rotateSuckerMouth(mouseAngle)
+			rotateSuckerMouth(rotatingMouthAngle)
 			
 		elif event.is_action_pressed("leftClick"):
 			changingOrientation = false
+			fixedMouthAngle = rotatingMouthAngle
+		elif event.is_action_pressed("rightClick"):
+			changingOrientation = false
+			rotateSuckerMouth(fixedMouthAngle)
 
 func rotateSuckerMouth(targetAngle : float):
 	var rotatedTransform : Transform = Transform.IDENTITY
