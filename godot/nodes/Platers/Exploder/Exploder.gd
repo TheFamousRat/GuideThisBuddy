@@ -1,6 +1,6 @@
 extends "res://nodes/Platers/PlaterBase/PlaterBase.gd"
 
-const EXPLOSION_STRENGTH : float = 50.0
+const EXPLOSION_STRENGTH : float = 40.0
 
 func clone():
 	var copy = self.duplicate()
