@@ -7,7 +7,6 @@ func clone():
 	return copy
 
 func _on_BodyDectector_body_entered(body):
-	print("yeah")
 	if body is RigidBody:
 		var explosionDirection : Vector3 = (body.get_global_transform().origin - self.get_global_transform().origin).normalized()
 		body.set_linear_velocity(explosionDirection * EXPLOSION_STRENGTH)

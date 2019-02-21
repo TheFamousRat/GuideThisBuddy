@@ -28,6 +28,7 @@ options = ExtResource( 6 )
 levelComplete = ExtResource( 7 )
 
 [node name="Slime" parent="." instance=ExtResource( 8 )]
+linear_damp = 0.1
 
 [node name="GameCamera" type="Camera" parent="."]
 transform = Transform( 1, 0, -1.06581e-14, 0, 1, 0, 1.06581e-14, 0, 1, 0, 0, 5 )
