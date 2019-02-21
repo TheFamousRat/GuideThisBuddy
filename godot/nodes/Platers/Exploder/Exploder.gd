@@ -1,13 +1,14 @@
 extends "res://nodes/Platers/PlaterBase/PlaterBase.gd"
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+const EXPLOSION_STRENGTH : float = 50.0
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+func clone():
+	var copy = self.duplicate()
+	return copy
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _on_BodyDectector_body_entered(body):
+	print("yeah")
+	if body is RigidBody:
+		var explosionDirection : Vector3 = (body.get_global_transform().origin - self.get_global_transform().origin).normalized()
+		body.set_linear_velocity(explosionDirection * EXPLOSION_STRENGTH)
+		self.queue_free()
