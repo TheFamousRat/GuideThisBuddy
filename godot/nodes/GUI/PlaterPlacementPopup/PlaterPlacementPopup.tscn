@@ -90,10 +90,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -8.5
-margin_top = -9.0
-margin_right = 8.5
-margin_bottom = 9.0
+margin_left = -10.0
+margin_top = -10.0
+margin_right = 10.0
+margin_bottom = 10.0
 text = "X"
 
 [connection signal="gui_input" from="ColorRect" to="." method="_on_ColorRect_gui_input"]

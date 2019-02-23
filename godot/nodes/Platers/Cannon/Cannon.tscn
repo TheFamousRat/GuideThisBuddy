@@ -29,7 +29,6 @@ GUI_Illustration = SubResource( 2 )
 cannonForce = 50.0
 
 [node name="Model" parent="." index="0" instance=ExtResource( 3 )]
-editor/display_folded = true
 
 [node name="PlaterPlacementDetection" parent="." index="1"]
 editor/display_folded = true
