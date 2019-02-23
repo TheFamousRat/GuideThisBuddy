@@ -4,6 +4,8 @@ export (float) var cannonForce = 100.0
 
 var rotatingCannon : bool = false
 const ROTATION_INCREMENTS : float  = 10.0 * (PI/180)
+const EXPLOSION_DIRECTION : Vector3 = Vector3(1,0,0)
+
 var fixedCannonAngle : float = 0.0
 var rotatingCannonAngle : float = 0.0
 
@@ -20,12 +22,12 @@ func clone():
 func _on_BodyDetector_body_entered(body):
 	if body is RigidBody and !disabled:
 		body.set_global_transform($RotatedPart/CannonMouth.get_global_transform())
-		body.set_linear_velocity(cannonForce*(($RotatedPart.to_global(Vector3(1,0,0)) - $RotatedPart.to_global(Vector3(0,0,0))).normalized()))
+		body.set_linear_velocity(cannonForce*(($RotatedPart.to_global(EXPLOSION_DIRECTION) - $RotatedPart.to_global(Vector3(0,0,0))).normalized()))
 
 func _input(event):
 	if rotatingCannon:
 		if event is InputEventMouseMotion:
-			var mouseAngle = Global.mouseOnScreenAngleWithSpatial(self, Vector3(0,0,0), Vector3(1,0,0))
+			var mouseAngle = Global.mouseOnScreenAngleWithSpatial(self, Vector3(0,0,0), EXPLOSION_DIRECTION)
 			
 			mouseAngle *= 1.0
 			mouseAngle = ROTATION_INCREMENTS*int(mouseAngle/ROTATION_INCREMENTS)
