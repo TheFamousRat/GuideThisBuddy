@@ -1,0 +1,18 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/ExploderHitbox.obj-188236cd469545026456f0f915283c75.mesh"
+
+[deps]
+
+files=[ "res://.import/ExploderHitbox.obj-188236cd469545026456f0f915283c75.mesh" ]
+
+source_file="res://assets/Models/Platers/Exploder/ExploderHitbox.obj"
+dest_files=[ "res://.import/ExploderHitbox.obj-188236cd469545026456f0f915283c75.mesh", "res://.import/ExploderHitbox.obj-188236cd469545026456f0f915283c75.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+optimize_mesh=true
