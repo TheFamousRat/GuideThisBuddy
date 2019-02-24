@@ -21,6 +21,7 @@ func clone():
 
 func _on_BodyDetector_body_entered(body):
 	if body is RigidBody and !disabled:
+		print(body.get_linear_velocity().normalized().dot((self.to_global(EXPLOSION_DIRECTION) - self.to_global(Vector3(0,0,0))).normalized()))
 		body.set_global_transform($RotatedPart/CannonMouth.get_global_transform())
 		body.set_linear_velocity(cannonForce*(($RotatedPart.to_global(EXPLOSION_DIRECTION) - $RotatedPart.to_global(Vector3(0,0,0))).normalized()))
 
