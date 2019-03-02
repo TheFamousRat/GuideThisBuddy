@@ -62,7 +62,7 @@ func _input(event):
 			self.set_size(100.0/zoomFactor)
 		else:
 			if event.is_action_pressed("ui_scroll_up"):
-				zoomArrayIndex = max(0, zoomArrayIndex - 1.0)
+				zoomArrayIndex = max(0.0, zoomArrayIndex - 1.0)
 			if event.is_action_pressed("ui_scroll_down"):
 				zoomArrayIndex = min(zoomArrayPerspective.size() - 1.0, zoomArrayIndex + 1.0)
 				

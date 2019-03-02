@@ -70,4 +70,4 @@ func rotatePusher(newRotation : int):
 		ROTATION.RIGHT:
 			$RotatedPart.set_transform(Transform.IDENTITY.rotated(Vector3(0,0,1), PI/2.0).translated(Vector3(-0.3,0,0)))
 		_:
-			print("Error : unhandled rotation position in Sucker (received argument : " + str(newRotation) + ")")
+			print("Error : unhandled rotation position in Pusher (received argument : " + str(newRotation) + ")")
