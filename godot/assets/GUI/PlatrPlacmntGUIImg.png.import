@@ -3,6 +3,9 @@
 importer="texture"
 type="StreamTexture"
 path="res://.import/PlatrPlacmntGUIImg.png-1c796def04852fb52b270c47a52af879.stex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
