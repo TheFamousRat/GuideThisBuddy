@@ -1,7 +1,7 @@
 extends Control
 
 func _on_Start_pressed():
-	get_node(Global.mainPath).loadLevel("res://nodes/Levels/TestLevel/TestLevel.tscn")
+	get_node(Global.mainPath).loadLevel("res://nodes/Levels/Level1/Level1.tscn")
 	self.queue_free()
 
 
