@@ -196,36 +196,39 @@ func findClosestCurveShapePoint(point : Vector3) -> Vector3:#Looks in all the cu
 			closestCurve = curves.get_curve()
 			closestPath = curves
 	
-	currentPotentialParent = closestPath.get_path()
-	
-	var pointVector : Vector3 = point - closestPoint
-	var usedUpVector : Vector3
-	if pointVector.normalized().dot(-closestCurve.interpolate_baked_up_vector(closestOffset)) > pointVector.normalized().dot(closestCurve.interpolate_baked_up_vector(closestOffset)):
-		usedUpVector = -closestCurve.interpolate_baked_up_vector(closestOffset)
+	if closestPath != null:
+		currentPotentialParent = closestPath.get_path()
+		
+		var pointVector : Vector3 = point - closestPoint
+		var usedUpVector : Vector3
+		if pointVector.normalized().dot(-closestCurve.interpolate_baked_up_vector(closestOffset)) > pointVector.normalized().dot(closestCurve.interpolate_baked_up_vector(closestOffset)):
+			usedUpVector = -closestCurve.interpolate_baked_up_vector(closestOffset)
+		else:
+			usedUpVector = closestCurve.interpolate_baked_up_vector(closestOffset)
+		
+		usedUpVector = closestPath.get_global_transform().basis * usedUpVector
+		
+		$CurveShapeDetector.set_translation(closestPoint)
+		$CurveShapeDetector.set_cast_to(usedUpVector * 10.0)
+		$CurveShapeDetector.set_enabled(true)
+		$CurveShapeDetector.set_exclude_parent_body(false)
+		$CurveShapeDetector.clear_exceptions()
+		
+		#This is made so that the raycast only intersects with the given body
+		closestPath.getCollisionBody().set_collision_layer_bit(19, true)
+		
+		$CurveShapeDetector.force_raycast_update()
+		lastClosestNormal = $CurveShapeDetector.get_collision_normal()
+		lastClosestPoint = $CurveShapeDetector.get_collision_point()
+		
+		closestPath.getCollisionBody().set_collision_layer_bit(19, false)
+		
+		curveOffsetHasMesh = ($CurveShapeDetector.get_collider() != null)
+		
+		return lastClosestPoint
 	else:
-		usedUpVector = closestCurve.interpolate_baked_up_vector(closestOffset)
+		return point
 	
-	usedUpVector = closestPath.get_global_transform().basis * usedUpVector
-	
-	$CurveShapeDetector.set_translation(closestPoint)
-	$CurveShapeDetector.set_cast_to(usedUpVector * 10.0)
-	$CurveShapeDetector.set_enabled(true)
-	$CurveShapeDetector.set_exclude_parent_body(false)
-	$CurveShapeDetector.clear_exceptions()
-	
-	#This is made so that the raycast only intersects with the given body
-	closestPath.getCollisionBody().set_collision_layer_bit(19, true)
-	
-	$CurveShapeDetector.force_raycast_update()
-	lastClosestNormal = $CurveShapeDetector.get_collision_normal()
-	lastClosestPoint = $CurveShapeDetector.get_collision_point()
-	
-	closestPath.getCollisionBody().set_collision_layer_bit(19, false)
-	
-	curveOffsetHasMesh = ($CurveShapeDetector.get_collider() != null)
-	
-	return lastClosestPoint
-
 func _on_PlayerArrival_body_entered(body) -> void:
 	#Called when the player reached point of arrival
 	if body.is_in_group("player"):
