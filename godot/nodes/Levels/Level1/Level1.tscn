@@ -37,6 +37,7 @@ script = ExtResource( 2 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.215755, -0.647266, 0 )
 
 [node name="PlayerArrival" parent="." index="1"]
+editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.62297, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="PlayerArrival" index="0"]
